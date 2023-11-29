@@ -1,7 +1,7 @@
 import { Accordion, AccordionItem, AccordionButton, Box, AccordionPanel } from "@chakra-ui/react";
 import { useContext, useEffect } from "react";
 import AppContext from "~/lib/utils/AppContext";
-import OneClass from "./class";
+import OneClass from "./OneClass";
 interface ClassListProps {
     term: string
 }

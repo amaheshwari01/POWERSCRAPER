@@ -1,6 +1,7 @@
 import { AccordionButton, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
 import { useContext } from "react";
 import AppContext from "~/lib/utils/AppContext"
+import Categories from "./Categories";
 
 
 interface OneClassProps {
@@ -34,6 +35,7 @@ const OneClass = (props: OneClassProps) => {
 
                     </AccordionButton>
                     <AccordionPanel pb={4}>
+                        <Categories termstart={new Date(current_term.start)} termend={new Date(current_term.end)} section_guid={props.section_guid} />
 
                     </AccordionPanel>
                 </AccordionItem>
