@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Stack, useColorModeValue } from '@chakra-ui/react';
 
 import ThemeToggle from './ThemeToggle';
+import Refresh from './refresh';
 
 const Header = () => {
   return (
@@ -12,7 +13,7 @@ const Header = () => {
           <Stack direction={'row'} spacing={7}>
             {/* <Box> */}
             {/* </Box> */}
-            <Button >Logout</Button>
+            <Refresh />
 
             <ThemeToggle />
 

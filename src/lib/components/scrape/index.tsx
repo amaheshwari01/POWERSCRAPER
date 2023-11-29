@@ -65,6 +65,7 @@ async function scrape(): Promise<any> {
                 profileuri: oauth2response.data.id_token,
             }
         };
+        console.log(oauth2response.data)
         const guidResponse = await axios.request(modifiedBasicOptions);
         const guid = guidResponse.data.data.students[0].guid;
         const modifiedGetGradesOptions = {

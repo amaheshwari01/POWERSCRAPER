@@ -1,22 +1,17 @@
 import { Button, Grid } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { scrape } from '~/lib/components/scrape';
-// import CTASection from './components/CTASection';
-// import SomeImage from './components/SomeImage';
-// import SomeText from './components/SomeText';
+import { useContext } from 'react';
+import FullRender from '~/lib/components/render/full';
+import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Home = () => {
-  const scrapeData = async () => {
-    scrape().then((data) => {
-      console.log(data);
+  const { data } = useContext(AppContext);
 
-    });
-  }
 
   return (
     <>
-      <Button onClick={scrapeData}>Scrape</Button>
 
+      {(Object.keys(data).length !== 0)
+        && <FullRender />}
     </>
   );
 };
