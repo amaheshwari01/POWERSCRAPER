@@ -7,6 +7,9 @@
       ]
     },
     "build": {
+      "dependsOn": [
+        "type-check"
+      ],
       "outputs": [
         "dist/**",
         "public/**"
@@ -16,6 +19,7 @@
     "lint": {
       "outputs": [],
       "inputs": [
+        ".eslintrc.*",
         "src/**"
       ]
     }
