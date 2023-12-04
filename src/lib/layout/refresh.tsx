@@ -1,85 +1,109 @@
-import { Button, Checkbox, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import {
+  Button,
+  Checkbox,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
+
 import { scrape } from '~/lib/components/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Refresh = () => {
-    const { setData, setDefault_data } = useContext(AppContext);
-    const [loading, setLoading] = useState(false)
-    const [refreshkey, setRefreshkey] = useState<string>("")
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [runfetch, setRunfetch] = useState(false)
+  const { setData, setDefault_data } = useContext(AppContext);
+  const [loading, setLoading] = useState(false);
+  const [refreshkey, setRefreshkey] = useState<string>('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [runfetch, setRunfetch] = useState(false);
 
-    const scrapeData = async (refkey: string) => {
-        setLoading(true)
+  const scrapeData = async (refkey: string) => {
+    setLoading(true);
 
-        if (refkey) {
-            scrape(refkey).then(async (data) => {
-                await setDefault_data(data);
-                await setData(data);
-                setLoading(false)
-                console.log(data)
-
-            }).catch((err) => {
-                alert("Invalid refresh token" + " " + err)
-                setLoading(false)
-                setRefreshkey("")
-            });
-        }
-
-
-
-
-
-
+    if (refkey) {
+      scrape(refkey)
+        .then(async (data) => {
+          await setDefault_data(data);
+          await setData(data);
+          setLoading(false);
+          console.log(data);
+        })
+        .catch((err) => {
+          alert(`Invalid refresh token` + ` ${err}`);
+          setLoading(false);
+          setRefreshkey('');
+        });
     }
-    const updatekey = () => {
-        localStorage.setItem("refreshkey", refreshkey)
-        setRunfetch(!runfetch)
-        onClose()
+  };
+  const updatekey = () => {
+    localStorage.setItem('refreshkey', refreshkey);
+    setRunfetch(!runfetch);
+    onClose();
+  };
+
+  useEffect(() => {
+    const refkey = localStorage.getItem('refreshkey');
+    console.log(refkey);
+    if (!refkey) {
+      onOpen();
+    } else {
+      setRefreshkey(refkey);
+      scrapeData(refkey);
+      onClose();
     }
+  }, [runfetch]);
 
-    useEffect(() => {
-        let refkey = localStorage.getItem("refreshkey")
-        console.log(refkey)
-        if (!refkey) {
-            onOpen()
-        }
-        else {
-            setRefreshkey(refkey)
-            scrapeData(refkey)
-            onClose()
-        }
+  const logout = () => {
+    localStorage.removeItem('refreshkey');
+    setRunfetch(!runfetch);
+  };
 
-    }
-        , [runfetch])
+  return (
+    <>
+      <Button onClick={logout}>Logout</Button>
+      <Button
+        isLoading={loading}
+        onClick={() => {
+          setRunfetch(!runfetch);
+        }}
+      >
+        Refresh
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>
+            Enter your refresh token from{' '}
+            <a href="https://github.com/amaheshwari01/Key-Finder/releases" />{' '}
+          </ModalHeader>
+          <ModalBody>
+            <Input
+              onChange={(e) => {
+                setRefreshkey(e.target.value.replaceAll('"', ''));
+              }}
+              placeholder="Enter your refresh token"
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              onClick={() => {
+                updatekey();
+              }}
+            >
+              Submit
+            </Button>
 
-    const logout = () => {
-        localStorage.removeItem("refreshkey")
-        setRunfetch(!runfetch)
-    }
-
-
-    return (
-        <>
-            <Button onClick={logout}>Logout</Button>
-            <Button isLoading={loading} onClick={() => { setRunfetch(!runfetch) }}>Refresh</Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Enter your refresh token from <a href="https://github.com/amaheshwari01/Key-Finder/releases"></a> </ModalHeader>
-                    <ModalBody>
-                        <Input onChange={(e) => { setRefreshkey(e.target.value.replaceAll("\"", "")) }} placeholder='Enter your refresh token'></Input>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button onClick={() => { updatekey() }} >Submit</Button>
-
-                        <Button onClick={onClose}>Close</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </>
-    );
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 };
 
 export default Refresh;

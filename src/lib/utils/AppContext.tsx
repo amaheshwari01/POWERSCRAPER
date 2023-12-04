@@ -11,9 +11,9 @@ interface IAppContext {
 // Create the context with the initial state
 const AppContext = createContext<IAppContext>({
   default_data: null,
-  setDefault_data: () => { },
+  setDefault_data: () => {},
   data: null,
-  setData: () => { },
+  setData: () => {},
 });
 
 export default AppContext;

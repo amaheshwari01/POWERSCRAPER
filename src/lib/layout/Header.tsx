@@ -1,22 +1,21 @@
 import { Box, Button, Flex, Stack, useColorModeValue } from '@chakra-ui/react';
 
-import ThemeToggle from './ThemeToggle';
 import Refresh from './refresh';
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
   return (
-    <Box boxShadow='md' bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
-      <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+    <Box boxShadow="md" bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Flex h={16} alignItems="center" justifyContent="space-between">
         <Box>POWERSCRAPER</Box>
 
-        <Flex alignItems={'center'}>
-          <Stack direction={'row'} spacing={7}>
+        <Flex alignItems="center">
+          <Stack direction="row" spacing={7}>
             {/* <Box> */}
             {/* </Box> */}
             <Refresh />
 
             <ThemeToggle />
-
           </Stack>
         </Flex>
       </Flex>
