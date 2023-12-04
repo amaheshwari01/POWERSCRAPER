@@ -2,16 +2,23 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "type-check": {
-      "outputs": ["*.tsbuildinfo"]
+      "outputs": [
+        "*.tsbuildinfo"
+      ]
     },
     "build": {
-      "dependsOn": ["type-check"],
-      "outputs": ["dist/**", "public/**"],
+      "outputs": [
+        "dist/**",
+        "public/**"
+      ],
       "env": []
     },
     "lint": {
       "outputs": [],
-      "inputs": [".eslintrc.*", "src/**"]
+      "inputs": [
+        ".eslintrc.*",
+        "src/**"
+      ]
     }
   }
 }
