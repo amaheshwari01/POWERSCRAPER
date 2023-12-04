@@ -12,7 +12,7 @@ const oauth2Options = {
     data: {
         grant_type: 'refresh_token',
         // @ts-ignore
-        refresh_token: import.meta.env.VITE_REFRESH_TOKEN,
+        refresh_token: "",
         client_id: '162669419438-v9j0hrtnbkifi68ncq6jcr3ngadp2o0o.apps.googleusercontent.com',//of the powerschool Mobile App
         scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid'
     }
@@ -53,10 +53,17 @@ const getGradesOptions = {
         variables: { guid: '' }
     }
 };
-async function scrape(): Promise<any> {
+async function scrape(refreshkey: String): Promise<any> {
 
     try {
-        const oauth2response = await axios.request(oauth2Options);// get tokens so then we can send them to the powershcool api
+        const modifiedOauth2Options = {
+            ...oauth2Options,
+            data: {
+                ...oauth2Options.data,
+                refresh_token: refreshkey
+            }
+        }
+        const oauth2response = await axios.request(modifiedOauth2Options);// get tokens so then we can send them to the powershcool api
         const modifiedBasicOptions = {
             ...getGUIDOptions,
             headers: {
@@ -65,7 +72,6 @@ async function scrape(): Promise<any> {
                 profileuri: oauth2response.data.id_token,
             }
         };
-        console.log(oauth2response.data)
         const guidResponse = await axios.request(modifiedBasicOptions);
         const guid = guidResponse.data.data.students[0].guid;
         const modifiedGetGradesOptions = {

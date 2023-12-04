@@ -12,9 +12,7 @@ const ClassList = (props: ClassListProps) => {
     const sections = data.data.student.sections.filter((section: any) => (
         section.terms.filter((t: any) => (t.label === term)).length !== 0)
     )
-    useEffect(() => {
-        console.log(sections)
-    }, [sections])
+
     return (
 
         <Accordion allowToggle >

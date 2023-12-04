@@ -23,10 +23,6 @@ const Categories = (props: CategoriesProps) => {
 
     const cats: string[] = [...new Set(current_assignments.map((a: any) => (a.category)))]
 
-    // console.log(current_assignments)
-    useEffect(() => {
-        console.log(typeof props.section_guid)
-    }, [cats])
     return (
 
         <>
@@ -34,7 +30,7 @@ const Categories = (props: CategoriesProps) => {
                 <Accordion allowToggle >
                     {cats.map((c, index) =>
 
-                        <OneCategory key={c + index} termstart={props.termstart} termend={props.termend} section_guid={props.section_guid} category={c} />
+                        <OneCategory key={index} termstart={props.termstart} termend={props.termend} section_guid={props.section_guid} category={c} />
                     )}
                 </Accordion>}
         </>

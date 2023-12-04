@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
+import { AccordionButton, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
 import { AssignmentType } from "global";
 import { useContext, useEffect, useState } from "react";
 import AppContext from "~/lib/utils/AppContext"
@@ -17,7 +17,7 @@ const Categories = (props: CategoriesProps) => {
     const section = data.data.student.sections.find((section: any) => (
         section.guid === props.section_guid
     ))
-    const current_assignments: AssignmentType[] = section.assignments.filter((t: any) => (new Date(t.dueDate) > props.termstart && new Date(t.dueDate) < props.termend && t.category === props.category))
+    const current_assignments: AssignmentType[] = section.assignments.filter((t: any) => (new Date(t.dueDate) > props.termstart && new Date(t.dueDate) < props.termend && t.category === props.category)).sort((a: any, b: any) => (new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1))
     const [catGrade, setCatGrade] = useState<number>();
     useEffect(() => {
         let total = 0;
@@ -27,10 +27,7 @@ const Categories = (props: CategoriesProps) => {
                 total += a.pointsPossible;
                 total_earned += a.pointsEarned;
             }
-            else {
-                console.log(a)
-            }
-            // console.log(a.pointsEarned)
+
         })
         setCatGrade((total_earned / total) * 100)
 
@@ -42,7 +39,7 @@ const Categories = (props: CategoriesProps) => {
 
         <>
 
-            <AccordionItem >
+            <AccordionItem key={props.section_guid + " " + props.category} >
 
 
                 <AccordionButton>
@@ -56,9 +53,11 @@ const Categories = (props: CategoriesProps) => {
 
                 </AccordionButton>
 
-                <AccordionPanel pb={4}>
-                    {current_assignments.map((a: any) => (
-                        <Assignment key={a.name} assignment={a} section_guid={props.section_guid} />
+                <AccordionPanel pb={4} key={props.section_guid + " " + props.category}>
+                    {current_assignments.map((a: any, index: number) => (
+                        <div key={a.name + " " + index}>
+                            <Assignment assignment={a} section_guid={props.section_guid} />
+                        </div>
                     ))}
 
                 </AccordionPanel>

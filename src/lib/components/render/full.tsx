@@ -8,9 +8,7 @@ const FullRender = () => {
     const { data } = useContext(AppContext);
     const terms = data.data.student.schools[0].schedulingTerms.map((term: any) => (
         term.abbreviation))
-    useEffect(() => {
-        console.log(terms)
-    }, [terms])
+
 
     return (
         <>
