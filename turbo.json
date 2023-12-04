@@ -16,7 +16,6 @@
     "lint": {
       "outputs": [],
       "inputs": [
-        ".eslintrc.*",
         "src/**"
       ]
     }
