@@ -9,6 +9,7 @@ import {
   Spacer,
   NumberInput,
   NumberInputField,
+  HStack,
 } from '@chakra-ui/react';
 
 import type { AssignmentType } from 'global';
@@ -16,6 +17,7 @@ import type { AssignmentType } from 'global';
 interface AssignmentProps {
   assignment: AssignmentType;
   section_guid: number;
+  CustomText: string;
 }
 
 const Assignment = (props: AssignmentProps) => {
@@ -66,8 +68,11 @@ const Assignment = (props: AssignmentProps) => {
 
 
         </Flex>
-        <Text textAlign={"right"} color={"gray"} px='10px' fontSize='xs'>{formatDate(assignment.dueDate)}</Text>
-
+        <HStack>
+          <Text textAlign={"left"} color={"gray"} px='10px' fontSize='xs'>{props.CustomText}</Text>
+          <Spacer />
+          <Text textAlign={"right"} color={"gray"} px='10px' fontSize='xs'>{formatDate(assignment.dueDate)}</Text>
+        </HStack>
 
         {/* </HStack> */}
       </Card>

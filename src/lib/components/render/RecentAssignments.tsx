@@ -3,12 +3,16 @@ import { useContext, useEffect, useState } from 'react';
 import AppContext from '~/lib/utils/AppContext';
 import type { AssignmentType } from 'global';
 import Assignment from "./Assignment";
+interface AssignmentArray {
+    assignment: AssignmentType;
+    ClassName: string;
+}
 const RecentAssignments = () => {
     const { data } = useContext(AppContext);
     const [RecentAssignment, setRecentAssignment] = useState([]);
     useEffect(() => {
         const sections = data.data.student.sections;
-        const RecentAssignment: AssignmentType[] = [];
+        const RecentAssignment: AssignmentArray[] = [];
         sections.forEach((section) => {
             section.assignments.forEach((assignment: AssignmentType) => {
                 // console.log(assignment);
@@ -16,10 +20,20 @@ const RecentAssignments = () => {
                 const date = new Date(assignment.dueDate);
                 const today = new Date();
                 if (today.getTime() - date.getTime() < 604800000) {
-                    RecentAssignment.push(assignment);
+                    RecentAssignment.push({
+                        assignment: assignment,
+                        ClassName: section.name
+
+                    });
                 }
 
             })
+        })
+        //sort by date
+        RecentAssignment.sort((a, b) => {
+            const dateA = new Date(a.assignment.dueDate);
+            const dateB = new Date(b.assignment.dueDate);
+            return dateB.getTime() - dateA.getTime();
         })
         setRecentAssignment(RecentAssignment);
     }, [data])
@@ -37,8 +51,8 @@ const RecentAssignments = () => {
                             </Heading>
                             <Box paddingLeft={5}>
                                 <Stack spacing={2}>
-                                    {RecentAssignment.map((assignment: AssignmentType) => (
-                                        <Assignment section_guid={0} assignment={assignment} />
+                                    {RecentAssignment.map((oneAssignment: AssignmentArray) => (
+                                        <Assignment section_guid={0} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName} />
                                     ))}
                                 </Stack>
 

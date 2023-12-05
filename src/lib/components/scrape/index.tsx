@@ -88,6 +88,7 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const gradesResponse = await axios.request(modifiedGetGradesOptions);
+    localStorage.setItem('dateUpdated', (new Date().toLocaleDateString() + " at" + new Date().toLocaleTimeString()))
     return gradesResponse.data;
   } catch (error) {
     // Handle error here

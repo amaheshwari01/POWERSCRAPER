@@ -1,4 +1,4 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 
 import AppContext from '~/lib/utils/AppContext';
@@ -14,6 +14,8 @@ const FullRender = () => {
 
   return (
     <>
+      <Text p={2} fontSize={"sm"}>Last Updated:{localStorage.getItem("dateUpdated")}</Text>
+
       <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
         <TabList>
           {terms.map((term: string) => (

@@ -60,7 +60,7 @@ const Categories = (props: CategoriesProps) => {
       <AccordionPanel pb={4} key={`${props.section_guid} ${props.category}`}>
         {current_assignments.map((a: any, index: number) => (
           <div key={`${a.name} ${index}`}>
-            <Assignment assignment={a} section_guid={props.section_guid} />
+            <Assignment CustomText="" assignment={a} section_guid={props.section_guid} />
           </div>
         ))}
       </AccordionPanel>
