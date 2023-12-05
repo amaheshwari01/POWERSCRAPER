@@ -19,11 +19,16 @@ interface AssignmentProps {
 }
 
 const Assignment = (props: AssignmentProps) => {
+  const formatDate = (date: string) => {
+    const dateObj = new Date(date);
+    return dateObj.toLocaleDateString();
+  }
+
   const { assignment } = props;
   return (
     <Box pl={4} pb={1}>
       <Card boxShadow="xl" variant="filled" maxW="xl">
-        <Flex p={3}>
+        <Flex px={3} pt={3}>
           {/* <Checkbox defaultChecked> */}
           <Text size="md">{assignment.title}</Text>
           {/* </Checkbox> */}
@@ -48,6 +53,7 @@ const Assignment = (props: AssignmentProps) => {
               <Tag size="sm" colorScheme="red" borderRadius="full">
                 <TagLabel>Late</TagLabel>
               </Tag>
+
             )}
           </>
           <Spacer />
@@ -56,7 +62,12 @@ const Assignment = (props: AssignmentProps) => {
                         </NumberInput> */}
           <Text>{assignment.pointsEarned}</Text>/
           <Text>{assignment.pointsPossible}</Text>
+          {/* <br></br> */}
+
+
         </Flex>
+        <Text textAlign={"right"} color={"gray"} px='10px' fontSize='xs'>{formatDate(assignment.dueDate)}</Text>
+
 
         {/* </HStack> */}
       </Card>

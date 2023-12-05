@@ -2,6 +2,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 
 import AppContext from '~/lib/utils/AppContext';
+import RecentAssignments from './RecentAssignments';
 
 import ClassList from './classlist';
 
@@ -12,20 +13,23 @@ const FullRender = () => {
   );
 
   return (
-    <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
-      <TabList>
-        {terms.map((term: string) => (
-          <Tab key={term}>{term}</Tab>
-        ))}
-      </TabList>
-      <TabPanels>
-        {terms.map((term: string) => (
-          <TabPanel key={`1${term}`}>
-            <ClassList term={term} />
-          </TabPanel>
-        ))}
-      </TabPanels>
-    </Tabs>
+    <>
+      <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
+        <TabList>
+          {terms.map((term: string) => (
+            <Tab key={term}>{term}</Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          {terms.map((term: string) => (
+            <TabPanel key={`1${term}`}>
+              <ClassList term={term} />
+            </TabPanel>
+          ))}
+        </TabPanels>
+      </Tabs>
+      <RecentAssignments />
+    </>
   );
 };
 
