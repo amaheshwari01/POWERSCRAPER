@@ -19,7 +19,7 @@ const RecentAssignments = () => {
                 //if entered in the last week
                 const date = new Date(assignment.dueDate);
                 const today = new Date();
-                if (today.getTime() - date.getTime() < 604800000) {
+                if (today.getTime() - date.getTime() < 604800000 && assignment.pointsEarned !== null) {
                     RecentAssignment.push({
                         assignment: assignment,
                         ClassName: section.name
