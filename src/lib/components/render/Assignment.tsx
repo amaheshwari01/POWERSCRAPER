@@ -62,6 +62,8 @@ const Assignment = (props: AssignmentProps) => {
           {/* <NumberInput maxW={"10"} size={'xs'} defaultValue={isNaN(assignment.pointsEarned) ? 0 : assignment.pointsEarned} >
                             <NumberInputField px={1} py={1} />
                         </NumberInput> */}
+          <Text>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(2)}%  </Text>
+          <Spacer></Spacer>
           <Text>{assignment.pointsEarned}</Text>/
           <Text>{assignment.pointsPossible}</Text>
           {/* <br></br> */}
