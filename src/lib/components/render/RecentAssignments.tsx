@@ -29,11 +29,12 @@ const RecentAssignments = () => {
 
             })
         })
-        //sort by date
+        //sort by nearest to todays date
+        const today = new Date();
         RecentAssignment.sort((a, b) => {
-            const dateA = new Date(a.assignment.dueDate);
-            const dateB = new Date(b.assignment.dueDate);
-            return dateB.getTime() - dateA.getTime();
+            const dateA = Math.abs(today.getTime() - new Date(a.assignment.dueDate).getTime());
+            const dateB = Math.abs(today.getTime() - new Date(b.assignment.dueDate).getTime());
+            return dateA - dateB;
         })
         setRecentAssignment(RecentAssignment);
     }, [data])
