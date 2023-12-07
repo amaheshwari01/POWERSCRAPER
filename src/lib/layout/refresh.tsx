@@ -1,5 +1,7 @@
 import {
+  Text,
   Button,
+  Card,
   Checkbox,
   Input,
   Modal,
@@ -16,7 +18,7 @@ import { scrape } from '~/lib/components/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Refresh = () => {
-  const { setData, setDefault_data } = useContext(AppContext);
+  const { setData, setDefault_data, data } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   const [refreshkey, setRefreshkey] = useState<string>('');
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,6 +67,11 @@ const Refresh = () => {
 
   return (
     <>
+      {Object.keys(data).length !== 0 &&
+        <Text p={2} fontSize={'sm'}>
+          GPA:{data.data.student.currentGPA}
+        </Text >
+      }
       <Button onClick={logout}>Logout</Button>
       <Button
         isLoading={loading}
