@@ -32,10 +32,8 @@ const ClassList = (props: ClassListProps) => {
       return 1;
     }
 
-    // If letters are equal, compare by number
     return parseInt(periodA[0]) - parseInt(periodB[0]);
 
-    // I have array of objects and object.period is a string like "1(A)" or "2(B)" or "3(A)" or "4(B)"  and I want ti sort it like 1(A) 2(A) 3(A) 4(A) 1(B) 2(B) 3(B) 4(B)
 
 
   });
