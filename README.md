@@ -10,11 +10,11 @@ Clone the repo and to install packages
 pnpm install
 ```
 
-Then make a copy of .env.example to .env an you can get ur refresh token from [Key-Finder](https://github.com/amaheshwari01/Key-Finder/)
 
 Then, run the development server:
 
 ```bash
 pnpm dev
 ```
+Then use [Key-Finder](https://github.com/amaheshwari01/Key-Finder/) to find your refresh token and paste it into the website
 
