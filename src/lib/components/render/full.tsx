@@ -1,5 +1,6 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Text, Card, Link } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
+import { useColorModeValue } from "@chakra-ui/react";
 
 import AppContext from '~/lib/utils/AppContext';
 import RecentAssignments from './RecentAssignments';

@@ -16,7 +16,7 @@ import type { AssignmentType } from 'global';
 
 interface AssignmentProps {
   assignment: AssignmentType;
-  section_guid: number;
+  section_guid: string;
   CustomText: string;
 }
 

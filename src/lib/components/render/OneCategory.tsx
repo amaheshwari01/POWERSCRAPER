@@ -14,7 +14,7 @@ import Assignment from './Assignment';
 interface CategoriesProps {
   termstart: Date;
   termend: Date;
-  section_guid: number;
+  section_guid: string;
   category: string;
 }
 

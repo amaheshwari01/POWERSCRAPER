@@ -53,7 +53,7 @@ const RecentAssignments = () => {
                             <Box paddingLeft={5}>
                                 <Stack spacing={2}>
                                     {RecentAssignment.map((oneAssignment: AssignmentArray) => (
-                                        <Assignment key={JSON.stringify(oneAssignment)} section_guid={0} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName} />
+                                        <Assignment key={JSON.stringify(oneAssignment)} section_guid={""} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName} />
                                     ))}
                                 </Stack>
 

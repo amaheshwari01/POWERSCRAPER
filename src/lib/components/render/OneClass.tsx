@@ -13,7 +13,7 @@ import { AssignmentType } from '~/global';
 
 interface OneClassProps {
   term: string;
-  section_guid: number;
+  section_guid: string;
 }
 const OneClass = (props: OneClassProps) => {
   const { data, default_data } = useContext(AppContext);
