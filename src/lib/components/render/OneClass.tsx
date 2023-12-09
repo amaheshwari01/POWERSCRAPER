@@ -12,7 +12,7 @@ import Categories from './Categories';
 
 interface OneClassProps {
   term: string;
-  section_guid: number;
+  section_guid: string;
 }
 const OneClass = (props: OneClassProps) => {
   const { data } = useContext(AppContext);

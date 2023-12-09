@@ -15,7 +15,7 @@ import OneCategory from './OneCategory';
 interface CategoriesProps {
   termstart: Date;
   termend: Date;
-  section_guid: number;
+  section_guid: string;
 }
 
 const Categories = (props: CategoriesProps) => {
