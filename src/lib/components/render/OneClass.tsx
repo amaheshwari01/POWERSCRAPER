@@ -55,7 +55,7 @@ const OneClass = (props: OneClassProps) => {
       };
     });
     current_assignments.forEach((a: AssignmentType) => {
-      if (a.pointsEarned !== null && !a.attributeExempt && a.includedInFinalGrade) {
+      if (a.pointsEarned !== null && !a.attributeExempt && a.includedInFinalGrade && !a.attributeDropped) {
         grades[a.category].total += a.pointsPossible;
         grades[a.category].earned += a.pointsEarned;
 
@@ -80,7 +80,7 @@ const OneClass = (props: OneClassProps) => {
 
 
 
-  }, [default_data]);
+  }, [data]);
 
   return (
     <>

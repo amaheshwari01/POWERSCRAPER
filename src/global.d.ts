@@ -15,4 +15,5 @@ export interface AssignmentType {
   attributeExempt: boolean;
   includedInFinalGrade: boolean;
   attributeIncomplete: boolean;
+  attributeDropped: boolean;
 }

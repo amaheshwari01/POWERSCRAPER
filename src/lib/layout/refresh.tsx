@@ -72,15 +72,16 @@ const Refresh = () => {
           GPA:{data.data.student.currentGPA}
         </Text >
       }
-      <Button onClick={logout}>Logout</Button>
       <Button
         isLoading={loading}
         onClick={() => {
           setRunfetch(!runfetch);
         }}
       >
-        Refresh
+        Refresh/Reset
       </Button>
+      <Button onClick={logout}>Logout</Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
