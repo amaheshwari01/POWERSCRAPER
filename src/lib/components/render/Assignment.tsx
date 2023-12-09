@@ -37,7 +37,7 @@ const Assignment = (props: AssignmentProps) => {
           <Text size="md">{assignment.title}</Text>
           {/* </Checkbox> */}
           <>
-            {assignment.pointsEarned === null && (
+            {(assignment.pointsEarned === null) && (
               <Tag size="sm" colorScheme="green" borderRadius="full">
                 <TagLabel>Not Entered</TagLabel>
               </Tag>
@@ -48,7 +48,7 @@ const Assignment = (props: AssignmentProps) => {
               </Tag>
             )}
 
-            {assignment.attributeExempt && (
+            {(assignment.attributeExempt || !assignment.includedInFinalGrade) && (
               <Tag size="sm" colorScheme="yellow" borderRadius="full">
                 <TagLabel>Exempt</TagLabel>
               </Tag>
