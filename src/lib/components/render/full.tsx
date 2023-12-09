@@ -1,4 +1,4 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Text } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text, Card, Link } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 
 import AppContext from '~/lib/utils/AppContext';
@@ -14,6 +14,11 @@ const FullRender = () => {
 
   return (
     <>
+      <Card p={2} maxW={"300px"} fontSize={'sm'}>
+        This is a beta version of the app. I do not have weights for all the classes, If you find any innacuracies or want me to add your class please send your syllabus to me at <Link color={"blue"} href="mailto:syllabus@aayanmaheshwari.com">syllabus@aayanmaheshwari.com</Link>
+
+
+      </Card>
       <Text p={2} fontSize={"sm"}>Last Updated:{localStorage.getItem("dateUpdated")}</Text>
 
       <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
