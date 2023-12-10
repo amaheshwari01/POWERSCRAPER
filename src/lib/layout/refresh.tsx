@@ -72,7 +72,6 @@ const Refresh = () => {
       >
         Refresh/Reset
       </Button>
-      <Button onClick={logout}>Logout</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
