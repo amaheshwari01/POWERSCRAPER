@@ -60,18 +60,10 @@ const Refresh = () => {
     }
   }, [runfetch]);
 
-  const logout = () => {
-    localStorage.removeItem('refreshkey');
-    setRunfetch(!runfetch);
-  };
+
 
   return (
     <>
-      {Object.keys(data).length !== 0 &&
-        <Text p={2} fontSize={'sm'}>
-          GPA:{data.data.student.currentGPA}
-        </Text >
-      }
       <Button
         isLoading={loading}
         onClick={() => {
