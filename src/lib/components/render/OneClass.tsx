@@ -28,6 +28,7 @@ const OneClass = (props: OneClassProps) => {
   const current_term = section.terms.filter(
     (t: any) => t.label === props.term
   )[0];
+  //Calculate weighted grade WILDLY INEFFICENT BUT WORKS!!
   useEffect(() => {
 
     const section = data.data.student.sections.find(
