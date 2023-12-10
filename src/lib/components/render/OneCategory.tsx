@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import DropAssignmentModal from './DropAssignmentModal';
 import type { AssignmentType } from 'global';
 import AppContext from '~/lib/utils/AppContext';
-
+import { updateData } from '../gradeCalcuator/calculate';
 import Assignment from './Assignment';
 
 interface CategoriesProps {
@@ -18,6 +18,7 @@ interface CategoriesProps {
   section_guid: string;
   category: string;
 }
+
 
 const Categories = (props: CategoriesProps) => {
   const { data, setData } = useContext(AppContext);
@@ -45,35 +46,7 @@ const Categories = (props: CategoriesProps) => {
     });
     setCatGrade((total_earned / total) * 100);
     setData(
-      {
-        ...data,
-        data: {
-          ...data.data,
-          student: {
-            ...data.data.student,
-            sections: data.data.student.sections.map((s: any) => {
-              if (s.guid === props.section_guid) {
-                return {
-                  ...s,
-                  assignments:
-                    s.assignments.map((a: any) => {
-                      if (a.category === props.category) {
-                        return (current_assignments.find((c) => c.guid === a.guid))
-
-                      }
-                      else {
-                        return a;
-                      }
-                    })
-                }
-              }
-              else {
-                return s;
-              }
-            })
-          }
-        }
-      }
+      updateData(data, props.section_guid, props.category, current_assignments)
     )
   }, [current_assignments]);
 

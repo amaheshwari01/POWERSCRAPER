@@ -7,7 +7,7 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import weights from '~/weights.json';
 import AppContext from '~/lib/utils/AppContext';
-
+import { calculatePercent } from '../gradeCalcuator/calculate';
 import Categories from './Categories';
 import { AssignmentType } from '~/global';
 
@@ -28,57 +28,14 @@ const OneClass = (props: OneClassProps) => {
   const current_term = section.terms.filter(
     (t: any) => t.label === props.term
   )[0];
-  //Calculate weighted grade WILDLY INEFFICENT BUT WORKS!!
+  const termstart = new Date(current_term.start)
+  const termend = new Date(current_term.end)
+  const curWeight = weights[section.name]
+
   useEffect(() => {
 
-    const section = data.data.student.sections.find(
-      (section: any) => section.guid === props.section_guid
-    );
-    const curWeight = weights[section.name]
-    const current_term = section.terms.filter(
-      (t: any) => t.label === props.term
-    )[0];
-    const termstart = new Date(current_term.start)
-    const termend = new Date(current_term.end)
-    const current_assignments: AssignmentType[] = section.assignments.filter(
-      (t: any) =>
-        new Date(t.dueDate) > termstart &&
-        new Date(t.dueDate) < termend
-    );
-    const cats: string[] = [
-      ...new Set(current_assignments.map((a: any) => a.category)),
-    ];
-    let grades = {}
-    cats.forEach((cat) => {
-      grades[cat] = {
-        total: 0,
-        earned: 0,
-      };
-    });
-    current_assignments.forEach((a: AssignmentType) => {
-      if (a.pointsEarned !== null && !a.attributeExempt && a.includedInFinalGrade && !a.attributeDropped) {
-        grades[a.category].total += a.pointsPossible;
-        grades[a.category].earned += a.pointsEarned;
 
-      }
-    });
-    console.log(section.name, grades)
-    // console.log(grades)
-    let toatlweight = 0
-    let curpercent = 0
-    Object.keys(grades).forEach((grade) => {
-
-
-      toatlweight += curWeight[grade]
-      curpercent += (grades[grade].earned / grades[grade].total) * curWeight[grade]
-
-    })
-    curpercent *= (1 / toatlweight)
-    setCalculatedGrade(curpercent * 100)
-
-
-    // toatlweight += weights[grade]
-
+    setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
 
 
   }, [data]);

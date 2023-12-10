@@ -1,3 +1,5 @@
+import { Interface } from "readline";
+
 export interface AssignmentType {
   __typename: string;
   guid: string;
@@ -17,3 +19,4 @@ export interface AssignmentType {
   attributeIncomplete: boolean;
   attributeDropped: boolean;
 }
+

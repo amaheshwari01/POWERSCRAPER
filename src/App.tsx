@@ -15,13 +15,14 @@ import { inject } from '@vercel/analytics';
 const App = () => {
   const [data, setData] = useState<any>({});
   const [default_data, setDefault_data] = useState<any>({});
+  const [consiceData, setConsiceData] = useState<any>({});
   useEffect(() => {
     inject();
   }, []);
   return (
     <ChakraProvider theme={theme}>
       <AppContext.Provider
-        value={{ default_data, setDefault_data, data, setData }}
+        value={{ default_data, setDefault_data, data, setData, consiceData, setConsiceData }}
       >
         <Router>
           <Layout>
