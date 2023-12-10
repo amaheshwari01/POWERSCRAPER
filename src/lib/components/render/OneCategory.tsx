@@ -26,8 +26,8 @@ const Categories = (props: CategoriesProps) => {
   const current_assignments: AssignmentType[] = section.assignments
     .filter(
       (t: any) =>
-        new Date(t.dueDate) > props.termstart &&
-        new Date(t.dueDate) < props.termend &&
+        new Date(t.dueDate) >= props.termstart &&
+        new Date(t.dueDate) <= props.termend &&
         t.category === props.category
     )
     .sort((a: any, b: any) =>
