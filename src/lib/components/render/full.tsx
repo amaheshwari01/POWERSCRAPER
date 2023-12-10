@@ -15,13 +15,13 @@ const FullRender = () => {
 
   return (
     <>
-      {/* Make color of carde change based on colormode */}
-      <Card p={2} maxW={"300px"} fontSize={'sm'}>
-        There Is a beta version of this app that is testing grade calcualtions. If you would like to try it out, please visit <Link color={"blue"} href="https://powerdev.aayanmaheshwari.com/">powerdev.aayanmaheshwari.com</Link>
+
+      <Text p={2} fontSize={"sm"}>Last Updated:{localStorage.getItem("dateUpdated")}</Text>
+      <Card p={2} fontSize={'sm'}>
+        This is a beta version of the app. I do not have weights for all the classes, If you find any innacuracies or want me to add your class please send your syllabus to me at <Link color={"blue"} href="mailto:syllabus@aayanmaheshwari.com">syllabus@aayanmaheshwari.com</Link>
+
 
       </Card>
-      <Text p={2} fontSize={"sm"}>Last Updated:{localStorage.getItem("dateUpdated")}</Text>
-
       <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
         <TabList>
           {terms.map((term: string) => (

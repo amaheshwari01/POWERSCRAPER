@@ -70,8 +70,9 @@ const Refresh = () => {
           setRunfetch(!runfetch);
         }}
       >
-        Refresh
+        Refresh/Reset
       </Button>
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 
 import type { AssignmentType } from 'global';
+import { useEffect } from 'react';
 
 interface AssignmentProps {
   assignment: AssignmentType;
@@ -25,6 +26,7 @@ const Assignment = (props: AssignmentProps) => {
     const dateObj = new Date(date);
     return dateObj.toLocaleDateString();
   }
+
 
   const { assignment } = props;
   return (
@@ -56,6 +58,11 @@ const Assignment = (props: AssignmentProps) => {
                 <TagLabel>Late</TagLabel>
               </Tag>
 
+            )}
+            {assignment.attributeDropped && (
+              <Tag size="sm" colorScheme="purple" borderRadius="full">
+                <TagLabel>Dropped</TagLabel>
+              </Tag>
             )}
           </>
           <Spacer />
