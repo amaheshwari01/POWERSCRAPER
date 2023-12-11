@@ -11,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  Link,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 
@@ -78,7 +79,7 @@ const Refresh = () => {
         <ModalContent>
           <ModalHeader>
             Enter your refresh token from{' '}
-            <a href="https://github.com/amaheshwari01/Key-Finder/releases" />{' '}
+            <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/releases" >Keyfinder </Link>{' '}
           </ModalHeader>
           <ModalBody>
             <Input
