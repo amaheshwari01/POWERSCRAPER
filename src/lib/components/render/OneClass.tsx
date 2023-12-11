@@ -75,12 +75,18 @@ const OneClass = (props: OneClassProps) => {
                 )}
               </Box>
 
-            </AccordionButton><GradeCalculator
+            </AccordionButton>
+            {calualtedGrade && <GradeCalculator
               section={section}
               termstart={termstart}
               termend={termend}
               curWeight={curWeight}
-            /></HStack >
+            />
+            }
+            {!calualtedGrade && <Box as="span" width="60px" >
+            </Box>}
+
+          </HStack >
           <AccordionPanel pb={4}>
             <Categories
               termstart={new Date(current_term.start)}
