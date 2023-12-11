@@ -425,6 +425,12 @@
         "Final Exam": 0.2,
         "Excuse passes": 0
     },
+    "Multi-Variable Calculus (H)": {
+        "Classwork/Homework": 0.25,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.15,
+        "Final Exam": 0.20
+    },
     "Chapel": {},
     "Service Learning:  Mentoring": {
         "Classwork/Homework": 0.35,
