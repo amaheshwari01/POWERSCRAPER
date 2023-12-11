@@ -14,7 +14,7 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
     const [numdropped, setNumDropped] = useState<number>(0);
     const dropAssignments = () => {
         //drop lowest numdropped assignments
-        console.log(numdropped);
+        // console.log(numdropped);
         let numtodrop = numdropped;
         const new_assignments = props.current_assignments.sort((a, b) => (a.pointsEarned / a.pointsPossible) - (b.pointsEarned / b.pointsPossible)).map((a, index) => {
             if (a.pointsEarned === null || a.attributeExempt || !a.includedInFinalGrade) {
@@ -39,7 +39,7 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
         }
         ).sort((a, b) => new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1);
 
-        console.log(new_assignments);
+        // console.log(new_assignments);
 
         props.SetCurrentAssignments([...new_assignments]);
         onClose();

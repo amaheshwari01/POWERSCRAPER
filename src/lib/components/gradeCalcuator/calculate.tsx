@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import { AssignmentType } from "~/global";
 export const sumCategories = (section: any, termstart: Date, termend: Date) => {
 
@@ -28,8 +29,14 @@ export const sumCategories = (section: any, termstart: Date, termend: Date) => {
 }
 export const calculatePercent = (section: any, termstart: Date, termend: Date, curWeight: any) => {
     try {
-        const grades = sumCategories(section, termstart, termend)
 
+        if (!curWeight) {
+            console.log("No weights.json found")
+            return 0
+
+        }
+        const grades = sumCategories(section, termstart, termend)
+        // console.log(grades)
         // console.log(grades)
         let toatlweight = 0
         let curpercent = 0

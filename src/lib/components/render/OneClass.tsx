@@ -3,13 +3,14 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  HStack,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import weights from '~/weights.json';
 import AppContext from '~/lib/utils/AppContext';
 import { calculatePercent } from '../gradeCalcuator/calculate';
 import Categories from './Categories';
-import { AssignmentType } from '~/global';
+import GradeCalculator from '../gradeCalcuator/gradeCalculator';
 
 interface OneClassProps {
   term: string;
@@ -34,9 +35,9 @@ const OneClass = (props: OneClassProps) => {
 
   useEffect(() => {
 
-
-    setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
-
+    if (current_term.finalGrade) {
+      setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
+    }
 
   }, [data]);
 
@@ -44,35 +45,42 @@ const OneClass = (props: OneClassProps) => {
     <>
       {current_term.finalGrade && (
         <AccordionItem key={section.name}>
-          <AccordionButton>
-            <Box as="span" flex="1" textAlign="left">
-              {section.name}
-            </Box>
+          <HStack>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                {section.name}
+              </Box>
 
-            <Box as="span" flex="1">
-              Grade :{' '}
-              {current_term.finalGrade && calualtedGrade ? (
-                <>
-                  {current_term.finalGrade.grade}{' '}
-                  {/* {current_term.finalGrade.percent}{' '} */}
+              <Box as="span" flex="1">
+                Grade :{' '}
+                {current_term.finalGrade && calualtedGrade ? (
+                  <>
+                    {current_term.finalGrade.grade}{' '}
+                    {/* {current_term.finalGrade.percent}{' '} */}
 
 
-                  {calualtedGrade.toFixed(2)}%
-                </>
-              ) : (
-                <>
-                  {current_term.finalGrade ? (
-                    <>
-                      {current_term.finalGrade.grade}{' '}
-                      {current_term.finalGrade.percent}{' '}
-                    </>
-                  ) : (
-                    <>N/A</>
-                  )}
-                </>
-              )}
-            </Box>
-          </AccordionButton>
+                    {calualtedGrade.toFixed(2)}%
+                  </>
+                ) : (
+                  <>
+                    {current_term.finalGrade ? (
+                      <>
+                        {current_term.finalGrade.grade}{' '}
+                        {current_term.finalGrade.percent}{' '}
+                      </>
+                    ) : (
+                      <>N/A</>
+                    )}
+                  </>
+                )}
+              </Box>
+
+            </AccordionButton><GradeCalculator
+              section={section}
+              termstart={termstart}
+              termend={termend}
+              curWeight={curWeight}
+            /></HStack >
           <AccordionPanel pb={4}>
             <Categories
               termstart={new Date(current_term.start)}
@@ -80,7 +88,7 @@ const OneClass = (props: OneClassProps) => {
               section_guid={props.section_guid}
             />
           </AccordionPanel>
-        </AccordionItem>
+        </AccordionItem >
       )}
     </>
   );

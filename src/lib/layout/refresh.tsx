@@ -39,13 +39,13 @@ const Refresh = () => {
           alert(`Invalid refresh token` + ` ${err}`);
           setLoading(false);
           setRefreshkey('');
+          // onOpen();
         });
     }
   };
   const updatekey = () => {
     localStorage.setItem('refreshkey', refreshkey);
     setRunfetch(!runfetch);
-    onClose();
   };
 
   useEffect(() => {
@@ -91,8 +91,9 @@ const Refresh = () => {
           <ModalFooter>
             <Button
               onClick={() => {
-                updatekey();
                 onClose();
+
+                updatekey();
               }}
             >
               Submit
