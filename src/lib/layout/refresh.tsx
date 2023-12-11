@@ -92,6 +92,7 @@ const Refresh = () => {
             <Button
               onClick={() => {
                 updatekey();
+                onClose();
               }}
             >
               Submit

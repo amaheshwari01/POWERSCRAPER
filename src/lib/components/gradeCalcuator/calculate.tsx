@@ -27,24 +27,30 @@ export const sumCategories = (section: any, termstart: Date, termend: Date) => {
 
 }
 export const calculatePercent = (section: any, termstart: Date, termend: Date, curWeight: any) => {
-    const grades = sumCategories(section, termstart, termend)
+    try {
+        const grades = sumCategories(section, termstart, termend)
 
-    // console.log(grades)
-    let toatlweight = 0
-    let curpercent = 0
-    Object.keys(grades).forEach((grade) => {
-
-
-        toatlweight += curWeight[grade]
-        const weightedGrade = (grades[grade].earned / grades[grade].total) * curWeight[grade]
-        if (!isNaN(weightedGrade)) {
-            curpercent += weightedGrade
-        }
+        // console.log(grades)
+        let toatlweight = 0
+        let curpercent = 0
+        Object.keys(grades).forEach((grade) => {
 
 
-    })
-    curpercent *= (1 / toatlweight)
-    return curpercent * 100
+            toatlweight += curWeight[grade]
+            const weightedGrade = (grades[grade].earned / grades[grade].total) * curWeight[grade]
+            if (!isNaN(weightedGrade)) {
+                curpercent += weightedGrade
+            }
+
+
+        })
+        curpercent *= (1 / toatlweight)
+        return curpercent * 100
+    }
+    catch (err) {
+        console.log(err)
+        return 0
+    }
 }
 export const updateData = (data: any, section_guid: string, category: string, new_assignments: AssignmentType[]) => {
     return {
