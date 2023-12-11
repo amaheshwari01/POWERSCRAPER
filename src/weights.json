@@ -95,7 +95,12 @@
         "Classwork/Homework": 0.1,
         "Lab Investigations": 0.15,
         "Mastery Assessments": 0.4,
-        "Progress Assessments": 0.15
+        "Progress Assessments": 0.15,
+        "Progress Assessment": 0.15,
+        "Homework/classwork": 0.1,
+        "Mastery Assessment": 0.4,
+        "Lab Activity": 0.15,
+        "Excuse passes": 0
     },
     "English 10 (H)": {
         "Final Exam": 0.15,
