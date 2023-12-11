@@ -294,7 +294,9 @@
         "Final Exam": 0.15,
         "Classwork/Homework": 0.2,
         "Mastery Assessments": 0.4,
-        "Progress Assessments": 0.25
+        "Progress Assessments": 0.25,
+        "Mastery Assessment": 0.4,
+        "Progress Assessment": 0.25
     },
     "Anatomy/Physiology": {
         "Lab": 0.25,
