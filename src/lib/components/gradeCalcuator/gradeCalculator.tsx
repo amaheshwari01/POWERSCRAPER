@@ -17,10 +17,13 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
             new Date(t.dueDate) >= termstart &&
             new Date(t.dueDate) <= termend
     );
-    const gradecats: string[] = [
-        ...new Set(current_assignments.map((a: any) => a.category)),
-    ]
-    const cats = [...gradecats, "Final Exam"].filter(cat => curWeight[cat] !== undefined)
+    const removeDuplicates = (arr: any[]) => {
+        return arr.filter((v, i, a) => a.indexOf(v) === i);
+    }
+
+    const gradecats: string[] = removeDuplicates(current_assignments.map((a: any) => a.category))
+
+    const cats = removeDuplicates([...gradecats, "Final Exam"].filter((cat, index) => (curWeight[cat] !== undefined)))
     const [selectedCat, setSelectedCat] = useState<string>("")
     const [pointspossible, setPointspossible] = useState<number>(0)
     const [pointsearned, setPointsearned] = useState<number>(0)
