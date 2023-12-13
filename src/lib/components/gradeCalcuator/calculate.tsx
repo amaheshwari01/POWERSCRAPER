@@ -1,4 +1,3 @@
-import { useToast } from "@chakra-ui/react";
 import { AssignmentType } from "~/global";
 export const sumCategories = (section: any, termstart: Date, termend: Date) => {
 
@@ -43,9 +42,11 @@ export const calculatePercent = (section: any, termstart: Date, termend: Date, c
         Object.keys(grades).forEach((grade) => {
 
 
-            toatlweight += curWeight[grade]
             const weightedGrade = (grades[grade].earned / grades[grade].total) * curWeight[grade]
+            console.log(weightedGrade)
             if (!isNaN(weightedGrade)) {
+                toatlweight += curWeight[grade]
+
                 curpercent += weightedGrade
             }
 
