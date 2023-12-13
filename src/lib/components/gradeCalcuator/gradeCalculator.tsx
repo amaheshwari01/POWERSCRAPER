@@ -100,10 +100,10 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        <Button variant='ghost' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button variant='ghost' onClick={calculateGrade}>Calculate!</Button>
+                        <Button colorScheme='blue' onClick={calculateGrade}>Calculate!</Button>
                     </ModalFooter>
                 </ModalContent>a
             </Modal>
