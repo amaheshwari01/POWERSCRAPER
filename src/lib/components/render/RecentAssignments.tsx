@@ -1,4 +1,4 @@
-import { Card, CardBody, Stack, StackDivider, Heading, Button, Box, EditableTextareaProps, As } from "@chakra-ui/react"
+import { Card, CardBody, Stack, StackDivider, Heading, Button, Box, EditableTextareaProps, As, useColorMode, useColorModeValue } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '~/lib/utils/AppContext';
 import type { AssignmentType } from 'global';
@@ -39,8 +39,9 @@ const RecentAssignments = () => {
     }, [data])
 
     return (
-        <div>
-            <Card maxW={"500px"}>
+        <Box p={2} >
+
+            <Card bg={useColorModeValue('white', 'gray.800')} border={"1px"} borderColor={useColorModeValue("gray.100", "gray.600")} maxW={"500px"}>
 
 
                 <CardBody>
@@ -49,6 +50,7 @@ const RecentAssignments = () => {
                             <Heading size='xs' textTransform='uppercase'>
                                 Recently Added Assignments
                             </Heading>
+                            <br></br>
                             <Box paddingLeft={5}>
                                 <Stack spacing={2}>
                                     {RecentAssignment.map((oneAssignment: AssignmentArray) => (
@@ -64,7 +66,7 @@ const RecentAssignments = () => {
                     </Stack>
                 </CardBody>
             </Card>
-        </div>
+        </Box>
     )
 }
 export default RecentAssignments;
