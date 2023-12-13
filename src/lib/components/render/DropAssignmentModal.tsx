@@ -72,10 +72,10 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                        <Button variant='ghost' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button variant='ghost' onClick={dropAssignments}>Drop</Button>
+                        <Button colorScheme='blue' onClick={dropAssignments}>Drop</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
