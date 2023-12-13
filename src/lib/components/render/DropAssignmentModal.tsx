@@ -61,7 +61,7 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
                     </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <NumberInput onChange={(valueAsString) => { setNumDropped(parseInt(valueAsString)) }}>
+                        <NumberInput min={0} onChange={(valueAsString) => { setNumDropped(parseInt(valueAsString)) }}>
                             <NumberInputField />
                             <NumberInputStepper>
                                 <NumberIncrementStepper />

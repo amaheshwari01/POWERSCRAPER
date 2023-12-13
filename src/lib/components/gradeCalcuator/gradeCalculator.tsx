@@ -93,7 +93,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 </NumberInput>
                             </HStack>
                         </Center>
-                        Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(2) : "N/A"}
+                        Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(2) : "N/A"}%
 
 
 

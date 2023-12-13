@@ -1,4 +1,4 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Text, Card, Link } from '@chakra-ui/react';
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Text, Card, Link, Button } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import { useColorModeValue } from "@chakra-ui/react";
 
@@ -17,11 +17,7 @@ const FullRender = () => {
     <>
 
       <Text p={2} fontSize={"sm"}>Last Updated:{localStorage.getItem("dateUpdated")}</Text>
-      <Card p={2} fontSize={'sm'}>
-        This is a beta version of the app. I do not have weights for all the classes, If you find any innacuracies or want me to add your class please send your syllabus to me at <Link color={"blue"} href="mailto:syllabus@aayanmaheshwari.com">syllabus@aayanmaheshwari.com</Link>
-
-
-      </Card>
+      <Button as='a' href='https://github.com/amaheshwari01/Power-Assist/blob/main/UsageGuide.md' colorScheme="blue" variant="outline" size="sm" m={2}>Issues/Usage Guide CLICK HERE!!</Button>
       <Tabs pt={2} variant="enclosed" defaultIndex={1} isLazy>
         <TabList>
           {terms.map((term: string) => (

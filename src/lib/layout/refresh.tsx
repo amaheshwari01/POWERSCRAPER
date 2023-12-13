@@ -78,8 +78,11 @@ const Refresh = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Enter your refresh token from{' '}
+            Enter your token from{' '}
             <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/releases" >Keyfinder </Link>{' '}
+            <br></br>
+            <Text fontSize={"sm"}>(it is that long funny string i sent you)</Text>
+
           </ModalHeader>
           <ModalBody>
             <Input
