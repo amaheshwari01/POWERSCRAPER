@@ -246,6 +246,19 @@
         "Mastery Assessments": 0.3,
         "Progress Assessments": 0.25
     },
+    "AP Physics C: Mechanics": {
+        "Progress Assessments": 0.15,
+        "Classwork/Homework": 0.15,
+        "Labs & Projects": 0.15,
+        "Mastery Assessments": 0.4,
+        "Final Exam": 0.15
+    },
+    "Linear Algebra (H)": {
+        "Classwork/Homework": 0.25,
+        "Progress Assessments": 0.15,
+        "Mastery Assessments": 0.4,
+        "Final Exam": 0.2
+    },
     "AP Physics 1": {
         "Final Exam": 0.15,
         "Classwork/Homework": 0.15,
