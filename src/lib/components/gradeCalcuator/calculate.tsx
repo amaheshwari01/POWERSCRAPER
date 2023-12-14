@@ -43,7 +43,7 @@ export const calculatePercent = (section: any, termstart: Date, termend: Date, c
 
 
             const weightedGrade = (grades[grade].earned / grades[grade].total) * curWeight[grade]
-            console.log(weightedGrade)
+            // console.log(weightedGrade)
             if (!isNaN(weightedGrade)) {
                 toatlweight += curWeight[grade]
 

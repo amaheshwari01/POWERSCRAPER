@@ -2,15 +2,19 @@ import {
   Button,
 
 } from '@chakra-ui/react';
-import { useContext, useEffect, useState } from 'react';
-
-import { scrape } from '~/lib/components/scrape';
-import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Logout = () => {
 
   const logout = () => {
     localStorage.removeItem('refreshkey');
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      if (key.startsWith('drop:')) {
+        localStorage.removeItem(key);
+      }
+    }
+
+    // localStorage.clear()
     window.location.reload();
   };
 

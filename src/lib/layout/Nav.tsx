@@ -26,6 +26,7 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons'
+import Reset from "./reset";
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
@@ -141,6 +142,10 @@ const NAV_ITEMS: Array<NavItem> = [
         Thing: <Gpa />
     },
     {
+        label: 'Reset',
+        Thing: <Reset />
+    },
+    {
         label: 'Refresh',
         Thing: <Refresh />
     },
@@ -148,6 +153,7 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Logout',
         Thing: <Logout />
     },
+
 
 
 
