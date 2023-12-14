@@ -253,6 +253,18 @@
         "Mastery Assessments": 0.4,
         "Final Exam": 0.15
     },
+    "Pre-Calculus": {
+        "Classwork/Homework": 0.2,
+        "Progress Assessments": 0.15,
+        "Mastery Assessments": 0.5,
+        "Final Exam": 0.15
+    },
+    "Fundamentals of Cyber Security (CodeHS)": {
+        "Classwork/Homework": 0.4,
+        "Mastery Assessments": 0.3,
+        "Final Exam": 0.1,
+        "Major Assignments": 0.2
+    },
     "Linear Algebra (H)": {
         "Classwork/Homework": 0.25,
         "Progress Assessments": 0.15,
