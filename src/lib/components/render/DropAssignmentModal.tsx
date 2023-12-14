@@ -1,8 +1,8 @@
 import { MinusIcon } from "@chakra-ui/icons";
 import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Center, NumberInput, NumberDecrementStepper, NumberIncrementStepper, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AssignmentType } from "~/global";
-
+import AppContext from "~/lib/utils/AppContext";
 interface DropAssignmentModalProps {
     current_assignments: AssignmentType[];
     section_guid: string;
@@ -10,9 +10,9 @@ interface DropAssignmentModalProps {
     SetCurrentAssignments: (assignments: AssignmentType[]) => void;
 }
 const DropAssignmentModal = (props: DropAssignmentModalProps) => {
+    const { default_data } = useContext(AppContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [numdropped, setNumDropped] = useState<number>(0);
-    const [hasrun, setHasrun] = useState<boolean>(false);
 
     const dropAssignments = (numtodrop: number) => {
         //drop lowest numdropped assignments
@@ -58,26 +58,26 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
 
     }
     useEffect(() => {
-        if (!hasrun) {
-            const num = localStorage.getItem('drop:' + props.section_guid + ',' + props.category);
-            if (num && parseInt(num) > 0) {
+
+        const num = localStorage.getItem('drop:' + props.section_guid + ',' + props.category);
+        if (num && parseInt(num) > 0) {
 
 
-                // console.log("Found in storage dropping" + num);
-                const intnum = parseInt(num)
+            // console.log("Found in storage dropping" + num);
+            const intnum = parseInt(num)
 
-                console.log("ME DORPPING NOW")
-                dropAssignments(intnum)
-                setNumDropped(parseInt(num))
-
-
+            console.log("ME DORPPING NOW")
+            dropAssignments(intnum)
+            setNumDropped(parseInt(num))
 
 
-            }
+
+
         }
-        setHasrun(true);
 
-    }, [])
+        // setHasrun(true);
+
+    }, [default_data])
     return (
         <div>
             <Button onClick={onOpen}><MinusIcon /></Button>
@@ -111,7 +111,6 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
                         <Button colorScheme='blue' onClick={() => {
                             console.log("droppping" + " " + numdropped)
                             dropAssignments(numdropped)
-                            setHasrun(true);
 
                         }}>Drop</Button>
                     </ModalFooter>
