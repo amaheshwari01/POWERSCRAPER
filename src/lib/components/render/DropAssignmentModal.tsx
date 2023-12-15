@@ -80,7 +80,7 @@ const DropAssignmentModal = (props: DropAssignmentModalProps) => {
                             Close
                         </Button>
                         <Button colorScheme='blue' onClick={() => {
-                            console.log("droppping" + " " + numdropped)
+                            // console.log("droppping" + " " + numdropped)
                             dropAssignments(numdropped)
 
                         }}>Drop</Button>

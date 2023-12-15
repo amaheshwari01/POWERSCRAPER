@@ -116,7 +116,7 @@ export const drop = (numb: number, current_assignments: AssignmentType[], sectio
     ).sort((a, b) => new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1);
 
 
-    console.log("Dropping " + numtodrop + " assignments from " + category + " ")
+    // console.log("Dropping " + numtodrop + " assignments from " + category + " ")
 
     localStorage.setItem('drop:' + section_guid + '|' + category + '|' + curTerm, numtodrop.toString());
 
@@ -131,7 +131,7 @@ export const dropfromRefresh = (section_guid: string, category: string, data: an
         const section = data.data.student.sections.find(
             (section: any) => section.guid === section_guid
         );
-        console.log(section)
+        // console.log(section)
         const current_term = section.terms.filter(
             (t: any) => t.label === term
         )[0];

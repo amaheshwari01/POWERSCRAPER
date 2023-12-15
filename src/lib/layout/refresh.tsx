@@ -48,15 +48,15 @@ const Refresh = () => {
             }
           }
           let newData = data;
-          console.log(gradesToDrop)
+          // console.log(gradesToDrop)
           gradesToDrop.forEach(
             (value) => {
-              console.log(value)
+              // console.log(value)
               const section_guid = value["key"].split(":")[1].split("|")[0]
-              console.log(section_guid)
+              // console.log(section_guid)
               const category = value["key"].split("|")[1]
               const term = value["key"].split("|")[2]
-              console.log(term)
+              // console.log(term)
               const numtodrop = parseInt(value["value"])
               if (numtodrop > 0) {
                 newData = dropfromRefresh(section_guid, category, newData, numtodrop, term);
@@ -90,7 +90,7 @@ const Refresh = () => {
 
   useEffect(() => {
     const refkey = localStorage.getItem('refreshkey');
-    console.log(refkey);
+    // console.log(refkey);
     if (!refkey) {
       onOpen();
     } else {
