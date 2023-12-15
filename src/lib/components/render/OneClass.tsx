@@ -77,6 +77,7 @@ const OneClass = (props: OneClassProps) => {
 
             </AccordionButton>
             {calualtedGrade && <GradeCalculator
+              curGrade={calualtedGrade}
               section={section}
               termstart={termstart}
               termend={termend}

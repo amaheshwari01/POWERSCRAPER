@@ -41,13 +41,12 @@ export const calculatePercent = (section: any, termstart: Date, termend: Date, c
         let curpercent = 0
         Object.keys(grades).forEach((grade) => {
 
-
-            const weightedGrade = (grades[grade].earned / grades[grade].total) * curWeight[grade]
+            const weightedGrade = (grades[grade].earned / grades[grade].total)
             // console.log(weightedGrade)
             if (!isNaN(weightedGrade)) {
                 toatlweight += curWeight[grade]
 
-                curpercent += weightedGrade
+                curpercent += weightedGrade * curWeight[grade]
             }
 
 

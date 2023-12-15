@@ -7,6 +7,7 @@ interface GradeCalculatorProps {
     termstart: Date;
     termend: Date;
     curWeight: any;
+    curGrade: number;
 }
 
 const GradeCalculator = (props: GradeCalculatorProps) => {
@@ -31,16 +32,16 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
     const calculateGrade = () => {
         const new_assignments: AssignmentType[] = [...current_assignments,
         {
-            __typename: "",
-            guid: "",
+            __typename: "GRADE CALCULATOR??",
+            guid: "None CUZ WE CALCULATE DIS BOI",
             title: "TEST",
             category: selectedCat,
             description: "Calculated",
             dueDate: termstart.toISOString(),
-            scoreLabel: "",
+            scoreLabel: "URMOM",
             pointsEarned: pointsearned,
             pointsPossible: pointspossible,
-            teacherComment: "",
+            teacherComment: "UR MOM",
             attributeMissing: false,
             attributeLate: false,
             attributeCollected: true,
@@ -72,7 +73,9 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
             <Modal size={"md"} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Grade Calcualtor</ModalHeader>
+                    <ModalHeader>Grade Calcualtor
+                        <Text fontSize={"md"}>for {props.section.name}</Text>
+                    </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
@@ -93,7 +96,9 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 </NumberInput>
                             </HStack>
                         </Center>
-                        Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(2) : "N/A"}%
+                        <br></br>
+                        <Text>Current Grade: {props.curGrade.toFixed(3)}%</Text>
+                        <Text>Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(3) + "%" : "N/A"}</Text>
 
 
 
