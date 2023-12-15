@@ -89,6 +89,7 @@ const OneClass = (props: OneClassProps) => {
           </HStack >
           <AccordionPanel pb={4}>
             <Categories
+              curTerm={props.term}
               termstart={new Date(current_term.start)}
               termend={new Date(current_term.end)}
               section_guid={props.section_guid}

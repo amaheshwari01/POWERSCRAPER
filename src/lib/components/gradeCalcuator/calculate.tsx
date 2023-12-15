@@ -91,3 +91,69 @@ export const updateData = (data: any, section_guid: string, category: string, ne
         }
     }
 }
+export const drop = (numb: number, current_assignments: AssignmentType[], section_guid: string, category: string, curTerm: string) => {
+    let numtodrop = numb;
+    const new_assignments = current_assignments.sort((a, b) => (a.pointsEarned / a.pointsPossible) - (b.pointsEarned / b.pointsPossible)).map((a, index) => {
+        if (a.pointsEarned === null || a.attributeExempt || !a.includedInFinalGrade) {
+            numtodrop++;
+            return {
+                ...a,
+                attributeDropped: false,
+            }
+        }
+        else if (index < numtodrop) {
+            return {
+                ...a,
+                attributeDropped: true,
+            }
+        }
+        else {
+            return {
+                ...a,
+                attributeDropped: false,
+            }
+        }
+    }
+    ).sort((a, b) => new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1);
+
+
+    console.log("Dropping " + numtodrop + " assignments from " + category + " ")
+
+    localStorage.setItem('drop:' + section_guid + '|' + category + '|' + curTerm, numtodrop.toString());
+
+    return new_assignments;
+
+
+
+}
+export const dropfromRefresh = (section_guid: string, category: string, data: any, numtodrop: number, term: string) => {
+    try {
+        let updatedData = data
+        const section = data.data.student.sections.find(
+            (section: any) => section.guid === section_guid
+        );
+        console.log(section)
+        const current_term = section.terms.filter(
+            (t: any) => t.label === term
+        )[0];
+        const termstart = new Date(current_term.start)
+        const termend = new Date(current_term.end)
+        let current_assignments = section.assignments
+            .filter(
+                (t: any) =>
+                    new Date(t.dueDate) >= termstart &&
+                    new Date(t.dueDate) <= termend &&
+                    t.category === category
+            ).sort((a: any, b: any) =>
+                new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1
+            )
+        current_assignments = drop(numtodrop, current_assignments, section_guid, category, term)
+        updatedData = updateData(data, section_guid, category, current_assignments)
+
+        return updatedData
+    }
+    catch (err) {
+        console.log(err)
+        return data
+    }
+}

@@ -17,8 +17,12 @@ const Reset = () => {
         onClick={() => {
           for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
+            console.log(key)
             if (key.startsWith('drop:')) {
+              console.log(key)
+
               localStorage.removeItem(key);
+              i--;
             }
           }
 

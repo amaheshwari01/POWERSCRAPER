@@ -6,19 +6,22 @@ import {
   Input,
   Modal,
   ModalBody,
+  Toast,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
   Link,
+  useToast,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-
+import { dropfromRefresh } from '../components/gradeCalcuator/calculate';
 import { scrape } from '~/lib/components/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Refresh = () => {
+  const toast = useToast()
   const { setData, setDefault_data, data } = useContext(AppContext);
   const [loading, setLoading] = useState(false);
   const [refreshkey, setRefreshkey] = useState<string>('');
@@ -32,15 +35,51 @@ const Refresh = () => {
       scrape(refkey)
         .then(async (data) => {
           await setDefault_data(data);
-          await setData(data);
+          let gradesToDrop = []
+          for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+
+            if (key.startsWith('drop:')) {
+
+              gradesToDrop.push({
+                "key": key,
+                "value": localStorage.getItem(key)
+              })
+            }
+          }
+          let newData = data;
+          console.log(gradesToDrop)
+          gradesToDrop.forEach(
+            (value) => {
+              console.log(value)
+              const section_guid = value["key"].split(":")[1].split("|")[0]
+              console.log(section_guid)
+              const category = value["key"].split("|")[1]
+              const term = value["key"].split("|")[2]
+              console.log(term)
+              const numtodrop = parseInt(value["value"])
+              if (numtodrop > 0) {
+                newData = dropfromRefresh(section_guid, category, newData, numtodrop, term);
+              }
+            }
+          )
+
+          await setData(newData);
+
           setLoading(false);
           console.log(data);
         })
         .catch((err) => {
-          alert(`Invalid refresh token` + ` ${err}`);
+          // alert(`Invalid refresh token` + ` ${err}`);
+          toast({
+            title: 'Error Getting Grades',
+            description: err,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+          })
           setLoading(false);
           setRefreshkey('');
-          // onOpen();
         });
     }
   };

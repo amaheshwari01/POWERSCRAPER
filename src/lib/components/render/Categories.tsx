@@ -16,6 +16,7 @@ interface CategoriesProps {
   termstart: Date;
   termend: Date;
   section_guid: string;
+  curTerm: string;
 }
 
 const Categories = (props: CategoriesProps) => {
@@ -40,6 +41,7 @@ const Categories = (props: CategoriesProps) => {
           {cats.map((c, index) => (
             <OneCategory
               key={index}
+              curterm={props.curTerm}
               termstart={props.termstart}
               termend={props.termend}
               section_guid={props.section_guid}

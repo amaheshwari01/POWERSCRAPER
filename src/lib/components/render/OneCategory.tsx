@@ -13,6 +13,7 @@ import { updateData } from '../gradeCalcuator/calculate';
 import Assignment from './Assignment';
 
 interface CategoriesProps {
+  curterm: string;
   termstart: Date;
   termend: Date;
   section_guid: string;
@@ -21,7 +22,7 @@ interface CategoriesProps {
 
 
 const Categories = (props: CategoriesProps) => {
-  const { data, setData } = useContext(AppContext);
+  const { data, setData, default_data } = useContext(AppContext);
   const section = data.data.student.sections.find(
     (section: any) => section.guid === props.section_guid
   );
@@ -45,9 +46,10 @@ const Categories = (props: CategoriesProps) => {
       }
     });
     setCatGrade((total_earned / total) * 100);
-    setData(
-      updateData(data, props.section_guid, props.category, current_assignments)
-    )
+    const new_data = updateData(data, props.section_guid, props.category, current_assignments)
+    setData(new_data)
+    // console.log(section.name, new_data["data"]["student"]["sections"])
+
   }, [current_assignments]);
 
   return (
@@ -62,7 +64,7 @@ const Categories = (props: CategoriesProps) => {
           </Box>
 
         </AccordionButton>
-        <DropAssignmentModal current_assignments={current_assignments} section_guid={props.section_guid} category={props.category} SetCurrentAssignments={setCurrentAssignmets} />
+        <DropAssignmentModal curTerm={props.curterm} current_assignments={current_assignments} section_guid={props.section_guid} category={props.category} SetCurrentAssignments={setCurrentAssignmets} />
       </HStack>
       <AccordionPanel pb={4} key={`${props.section_guid} ${props.category}`}>
         {current_assignments.map((a: any, index: number) => (
