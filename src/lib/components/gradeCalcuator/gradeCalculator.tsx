@@ -99,6 +99,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                         <br></br>
                         <Text>Current Grade: {props.curGrade.toFixed(3)}%</Text>
                         <Text>Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(3) + "%" : "N/A"}</Text>
+                        <Text>Calulated Grade in Powerschool: {calculatedGrade ? calculatedGrade.toFixed(0) + "%" : "N/A"} </Text>
 
 
 
