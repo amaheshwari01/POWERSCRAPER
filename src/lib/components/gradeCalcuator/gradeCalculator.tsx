@@ -1,7 +1,7 @@
 import { Button, Text, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, useDisclosure, Center } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { AssignmentType } from "~/global";
-import { calculatePercent } from "./calculate";
+import { calculatePercent } from "../utils/HelperFunctions";
 interface GradeCalculatorProps {
     section: any;
     termstart: Date;

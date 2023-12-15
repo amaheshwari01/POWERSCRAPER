@@ -8,7 +8,7 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import weights from '~/weights.json';
 import AppContext from '~/lib/utils/AppContext';
-import { calculatePercent } from '../gradeCalcuator/calculate';
+import { calculatePercent } from '../utils/HelperFunctions';
 import Categories from './Categories';
 import GradeCalculator from '../gradeCalcuator/gradeCalculator';
 

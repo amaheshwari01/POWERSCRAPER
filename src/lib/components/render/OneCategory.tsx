@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from 'react';
 import DropAssignmentModal from './DropAssignmentModal';
 import type { AssignmentType } from 'global';
 import AppContext from '~/lib/utils/AppContext';
-import { updateData } from '../gradeCalcuator/calculate';
+import { updateData } from '../utils/HelperFunctions';
 import Assignment from './Assignment';
 
 interface CategoriesProps {

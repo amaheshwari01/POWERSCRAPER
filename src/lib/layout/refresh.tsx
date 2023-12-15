@@ -16,8 +16,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import { dropfromRefresh } from '../components/gradeCalcuator/calculate';
-import { scrape } from '~/lib/components/scrape';
+import { dropfromRefresh } from '../components/utils/HelperFunctions';
+import { scrape } from '~/lib/components/utils/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
 const Refresh = () => {

@@ -1,4 +1,4 @@
-import { drop } from "../gradeCalcuator/calculate";
+import { drop } from "../utils/HelperFunctions";
 import { MinusIcon } from "@chakra-ui/icons";
 import { Button, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, Center, NumberInput, NumberDecrementStepper, NumberIncrementStepper, NumberInputField, NumberInputStepper } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
