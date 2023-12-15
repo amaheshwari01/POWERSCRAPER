@@ -7,7 +7,8 @@
 
 If your grades are showing incorrectly (lower than what they should be), this is because PowerSchool does not show which quizzes are dropped. Don't worry, you can drop them here.
 
- **NOTE: When your Refresh the drops go away**
+ ~~**NOTE: When your Refresh the drops go away**~~
+ **Now Drops stay until you click Reset Drops or logout**
 - Click on a class
 - Then click on the little minus sign to drop any quizzes
 
