@@ -330,10 +330,10 @@
         "Mastery/Progress Assessments": 0.4
     },
     "Spanish III (H)": {
-        "Progress": 0.2,
+        "Progress Assessments": 0.2,
         "Final Exam": 0.15,
-        "Presentational": 0.2,
-        "Classwork/Homework": 0.15,
+        "Presentational Assessment": 0.2,
+        "Classwork/Assignments": 0.15,
         "Mastery Assessments": 0.3
     },
     "Physics": {
