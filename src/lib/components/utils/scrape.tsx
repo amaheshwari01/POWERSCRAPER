@@ -1,3 +1,4 @@
+import { Toast } from '@chakra-ui/react';
 import axios from 'axios';
 
 const oauth2Options = {
@@ -92,8 +93,17 @@ async function scrape(refreshkey: string): Promise<any> {
     return gradesResponse.data;
   } catch (error) {
     // Handle error here
-    console.error('Error:', error);
-    throw error;
+    // console.error('Error:', error);
+    alert('An error occured while fetching your grades. Please try again later.(powerschool seems to be down)')
+    // Toast({
+    //   title: 'Error',
+    //   description: 'An error occured while fetching your grades.',
+    //   status: 'error',
+    //   duration: 9000,
+    //   isClosable: true,
+    // });
+
+    // throw error;
   }
 }
 export { scrape };
