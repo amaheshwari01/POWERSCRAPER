@@ -110,6 +110,12 @@
         "Mastery Assessment": 0.4,
         "Progress Assessment": 0.25
     },
+    "PLTW Principles of Engineering (H)": {
+        "Classwork/Homework": 0.3,
+        "Major Assignments": 0.3,
+        "Final Exam": 0.1,
+        "Mastery Assessments": 0.3
+    },
     "AP Comp Sci Principles (CodeHS)": {
         "Final Exam": 0.15,
         "Major Assignments": 0.2,
