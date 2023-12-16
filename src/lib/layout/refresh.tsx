@@ -118,7 +118,7 @@ const Refresh = () => {
         <ModalContent>
           <ModalHeader>
             Enter your token from{' '}
-            <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/releases" >Keyfinder </Link>{' '}
+            <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/blob/main/Setup%20Instructions.md" >Token Instructions </Link>{' '}
             <br></br>
             <Text fontSize={"sm"}>(it is that long funny string i sent you)</Text>
 

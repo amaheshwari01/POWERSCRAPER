@@ -334,7 +334,10 @@
         "Final Exam": 0.15,
         "Presentational Assessment": 0.2,
         "Classwork/Assignments": 0.15,
-        "Mastery Assessments": 0.3
+        "Mastery Assessments": 0.3,
+        "Classwork/Homework": 0.15,
+        "Progress": 0.2,
+        "Presentational": 0.2
     },
     "Physics": {
         "Final Exam": 0.15,
