@@ -225,6 +225,13 @@
         "Classwork/Homework": 0.2,
         "Mastery Assessment": 0.4
     },
+    "AP Biology": {
+        "Distance Learning": 0,
+        "Classwork/Homework": 0.15,
+        "Lab Investigations": 0.3,
+        "Mastery Assessments": 0.45,
+        "Final Exam": 0.1
+    },
     "Biology (H)": {
         "Final Exam": 0.2,
         "Lab Investigation": 0.2,
