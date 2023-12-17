@@ -1,7 +1,8 @@
-import { Button, Text, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, useDisclosure, Center } from "@chakra-ui/react"
+import { Button, Text, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Select, useDisclosure, Center, VStack, IconButton, Spacer } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { AssignmentType } from "~/global";
-import { calculatePercent } from "../utils/HelperFunctions";
+import { calculatePercent, calculateNeccasaryGrade } from "../utils/HelperFunctions";
+import { RepeatIcon } from "@chakra-ui/icons";
 interface GradeCalculatorProps {
     section: any;
     termstart: Date;
@@ -28,7 +29,10 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
     const [selectedCat, setSelectedCat] = useState<string>("")
     const [pointspossible, setPointspossible] = useState<number>(0)
     const [pointsearned, setPointsearned] = useState<number>(0)
+    const [desiredGrade, setDesiredGrade] = useState<number>(0)
     const [calculatedGrade, setCalculatedGrade] = useState<number>(null)
+    const [calculatedPoints, setCalculatedPoints] = useState<number>(null)
+    const [reverse, setReverse] = useState<boolean>(true)
     const calculateGrade = () => {
         const new_assignments: AssignmentType[] = [...current_assignments,
         {
@@ -60,6 +64,15 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
         const grade = calculatePercent(updatedSection, termstart, termend, curWeight)
         setCalculatedGrade(grade)
     }
+    useEffect(() => {
+        setCalculatedGrade(null)
+        setCalculatedPoints(null)
+    }, [selectedCat])
+    const reverseCalc = () => {
+
+        const calculated = calculateNeccasaryGrade(section, termstart, termend, curWeight, desiredGrade, selectedCat, pointspossible)
+        setCalculatedPoints(calculated)
+    }
 
 
     return (
@@ -74,10 +87,26 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Grade Calcualtor
-                        <Text fontSize={"md"}>for {props.section.name}</Text>
+                        <HStack>
+                            <Text fontSize={"md"}>for {props.section.name}
+                                <Text fontSize={"sm"}>Current Grade: {props.curGrade.toFixed(3)}%</Text>
+                            </Text>
+                            <Spacer />
+                            <IconButton
+                                isRound={true}
+                                variant='solid'
+                                // colorScheme='teal'
+                                aria-label='Done'
+                                fontSize='20px'
+                                icon={<RepeatIcon />}
+                                onClick={() => { setReverse(!reverse) }}
+
+                            />
+
+                        </HStack>
                     </ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody>
+                    {reverse ? <ModalBody>
                         <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
                             {cats.map((cat) => (<option key={cat} value={cat}>{cat}</option>))
 
@@ -85,31 +114,54 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                         </Select>
                         {/* Number to take in points possible and points earned */}
                         <Center>
-                            <HStack maxW={"80%"}>
-                                <NumberInput onChange={(valueAsString) => { setPointsearned(parseInt(valueAsString)) }}>
-                                    <NumberInputField placeholder="earned" />
-
-                                </NumberInput><Text>/</Text>
-                                <NumberInput onChange={(valueAsString) => { setPointspossible(parseInt(valueAsString)) }}>
-                                    <NumberInputField placeholder="possible" />
+                            <VStack maxW={"80%"}>
+                                <NumberInput onChange={(valueAsString) => { setDesiredGrade(parseFloat(valueAsString)) }}>
+                                    <NumberInputField placeholder="Desired %" />
 
                                 </NumberInput>
-                            </HStack>
+                                <NumberInput onChange={(valueAsString) => { setPointspossible(parseFloat(valueAsString)) }}>
+                                    <NumberInputField placeholder="possible points" />
+
+                                </NumberInput>
+                            </VStack>
                         </Center>
-                        <br></br>
-                        <Text>Current Grade: {props.curGrade.toFixed(3)}%</Text>
-                        <Text>Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(3) + "%" : "N/A"}</Text>
-                        <Text>Calulated Grade in Powerschool: {calculatedGrade ? calculatedGrade.toFixed(0) + "%" : "N/A"} </Text>
+                        <Text>Points Needed: {calculatedPoints ? calculatedPoints.toFixed(2) : "N/A"}</Text>
+                    </ModalBody> :
+                        <ModalBody>
+                            <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
+                                {cats.map((cat) => (<option key={cat} value={cat}>{cat}</option>))
+
+                                }
+                            </Select>
+                            {/* Number to take in points possible and points earned */}
+                            <Center>
+                                <HStack maxW={"80%"}>
+                                    <NumberInput onChange={(valueAsString) => { setPointsearned(parseFloat(valueAsString)) }}>
+                                        <NumberInputField placeholder="earned" />
+
+                                    </NumberInput><Text>/</Text>
+                                    <NumberInput onChange={(valueAsString) => { setPointspossible(parseFloat(valueAsString)) }}>
+                                        <NumberInputField placeholder="possible" />
+
+                                    </NumberInput>
+                                </HStack>
+                            </Center>
+                            <br></br>
+                            <Text>Calculated Grade: {calculatedGrade ? calculatedGrade.toFixed(3) + "%" : "N/A"}</Text>
+                            <Text>Calulated Grade in Powerschool: {calculatedGrade ? calculatedGrade.toFixed(0) + "%" : "N/A"} </Text>
 
 
 
-                    </ModalBody>
+                        </ModalBody>
+                    }
 
                     <ModalFooter>
                         <Button variant='ghost' mr={3} onClick={onClose}>
                             Close
                         </Button>
-                        <Button colorScheme='blue' onClick={calculateGrade}>Calculate!</Button>
+                        {reverse ? <Button colorScheme='blue' onClick={reverseCalc}>Calculate!</Button> :
+                            <Button colorScheme='blue' onClick={calculateGrade}>Calculate!</Button>
+                        }
                     </ModalFooter>
                 </ModalContent>a
             </Modal>

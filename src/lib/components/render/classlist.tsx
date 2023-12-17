@@ -10,6 +10,7 @@ import { useContext, useEffect } from 'react';
 import AppContext from '~/lib/utils/AppContext';
 
 import OneClass from './OneClass';
+import RecentAssignments from './RecentAssignments';
 
 interface ClassListProps {
   term: string;
@@ -39,15 +40,18 @@ const ClassList = (props: ClassListProps) => {
   });
 
   return (
-    <Accordion allowToggle>
-      {sections.map((section: any, index: any) => (
-        <OneClass
-          key={JSON.stringify(section)}
-          term={term}
-          section_guid={section.guid}
-        />
-      ))}
-    </Accordion>
+    <>
+      <Accordion allowToggle>
+        {sections.map((section: any, index: any) => (
+          <OneClass
+            key={JSON.stringify(section)}
+            term={term}
+            section_guid={section.guid}
+          />
+        ))}
+      </Accordion>
+
+    </>
   );
 };
 

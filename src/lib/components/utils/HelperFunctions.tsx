@@ -26,6 +26,47 @@ export const sumCategories = (section: any, termstart: Date, termend: Date) => {
     return grades;
 
 }
+export const calculateNeccasaryGrade = (section: any, termstart: Date, termend: Date, curWeight: any, desiredGrade: number, category: string, pointstotal: number) => {
+    if (!curWeight) {
+        console.log("No weights.json found")
+        return 0
+
+    }
+    const grades = sumCategories(section, termstart, termend)
+    console.log(grades)
+    let computed = desiredGrade / 100
+    let totalweight = 0;
+    let allexceptcat = 0;
+    Object.keys(grades).forEach((grade) => {
+
+        const weightedGrade = (grades[grade].earned / grades[grade].total)
+        // console.log(weightedGrade)
+        if (!isNaN(weightedGrade)) {
+            totalweight += curWeight[grade]
+            if (grade !== category) {
+                allexceptcat += weightedGrade * curWeight[grade]
+            }
+
+        }
+    })
+    if (category === "Final Exam") {
+        totalweight += curWeight[category]
+        computed *= totalweight
+        computed -= allexceptcat
+        computed /= curWeight[category]
+        computed *= pointstotal
+    }
+    else {
+        computed *= totalweight
+        computed -= allexceptcat
+        computed /= curWeight[category]
+        computed *= pointstotal + grades[category].earned
+        computed -= grades[category].earned
+    }
+    return computed
+
+}
+
 export const calculatePercent = (section: any, termstart: Date, termend: Date, curWeight: any) => {
     try {
 
