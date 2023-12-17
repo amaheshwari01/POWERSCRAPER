@@ -19,6 +19,7 @@ import { useContext, useEffect, useState } from 'react';
 import { dropfromRefresh } from '../components/utils/HelperFunctions';
 import { scrape } from '~/lib/components/utils/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
+import axios from 'axios';
 
 const Refresh = () => {
   const toast = useToast()
@@ -70,16 +71,37 @@ const Refresh = () => {
           console.log(data);
         })
         .catch((err) => {
-          // alert(`Invalid refresh token` + ` ${err}`);
+          let errorMessage = 'An error occurred';
+          if (axios.isAxiosError(err)) {
+            if (err.response) {
+              // The request was made and the server responded with a status code that falls out of the range of 2xx
+              const statusCode = err.response.status;
+              if (statusCode === 404) {
+                errorMessage = 'The requested resource does not exist or has been deleted';
+              } else if (statusCode === 401) {
+                errorMessage = 'Please login to access this resource';
+              }
+            } else if (err.request) {
+              // The request was made but no response was received
+              errorMessage = 'No response received';
+            }
+          } else {
+            // Anything else
+            errorMessage = `Error: ${err.message}`;
+          }
+
+          // alert(`Invalid refresh token` + ` ${errorMessage}`);
+          setRefreshkey('');
+
+          onOpen();
           toast({
             title: 'Error Getting Grades',
-            description: err,
+            description: errorMessage,
             status: 'error',
             duration: 9000,
             isClosable: true,
-          })
+          });
           setLoading(false);
-          setRefreshkey('');
         });
     }
   };

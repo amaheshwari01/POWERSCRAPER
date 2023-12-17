@@ -92,18 +92,28 @@ async function scrape(refreshkey: string): Promise<any> {
     localStorage.setItem('dateUpdated', (new Date().toLocaleDateString() + " at" + new Date().toLocaleTimeString()))
     return gradesResponse.data;
   } catch (error) {
-    // Handle error here
-    // console.error('Error:', error);
-    alert('An error occured while fetching your grades. Please try again later.(powerschool seems to be down)')
-    // Toast({
-    //   title: 'Error',
-    //   description: 'An error occured while fetching your grades.',
-    //   status: 'error',
-    //   duration: 9000,
-    //   isClosable: true,
-    // });
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        // The request was made and the server responded with a status code that falls out of the range of 2xx
+        const statusCode = error.response.status;
+        if (statusCode === 404) {
+          console.log('The requested resource does not exist or has been deleted');
+        } else if (statusCode === 401) {
+          console.log('Please login to access this resource');
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log('No response received');
+      }
+    } else {
+      // Anything else
+      console.log('Error', error.message);
+    }
 
-    // throw error;
+    // Display a toast notification with the error message
+    // alert
+
+    throw error;
   }
 }
 export { scrape };
