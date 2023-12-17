@@ -84,14 +84,15 @@ const Refresh = () => {
             } else if (err.request) {
               // The request was made but no response was received
               errorMessage = 'No response received';
+
             }
           } else {
             // Anything else
-            errorMessage = `Error: ${err.message}`;
+            errorMessage = `Error: (powerschool seems to be down) ${err.message}`;
           }
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);
-          setRefreshkey('');
+
 
           onOpen();
           toast({
@@ -143,7 +144,8 @@ const Refresh = () => {
             <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/blob/main/Setup%20Instructions.md" >Token Instructions </Link>{' '}
             <br></br>
             <Text fontSize={"sm"}>(it is that long funny string i sent you)</Text>
-
+            <br></br>
+            <Text fontSize={"sm"} color={"red"}>Note:DO NOT LOG OUT OF THE POWERSCHOOL MOBILE APP, that will make your login token expire</Text>
           </ModalHeader>
           <ModalBody>
             <Input
