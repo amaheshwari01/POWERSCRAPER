@@ -92,7 +92,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 <Text fontSize={"sm"}>Current Grade: {props.curGrade.toFixed(3)}%</Text>
                             </Text>
                             <Spacer />
-                            {/* <IconButton
+                            <IconButton
                                 isRound={true}
                                 variant='solid'
                                 // colorScheme='teal'
@@ -101,7 +101,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 icon={<RepeatIcon />}
                                 onClick={() => { setReverse(!reverse) }}
 
-                            /> */}
+                            />
 
                         </HStack>
                     </ModalHeader>

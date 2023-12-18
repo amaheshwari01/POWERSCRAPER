@@ -60,7 +60,7 @@ export const calculateNeccasaryGrade = (section: any, termstart: Date, termend: 
         computed *= totalweight
         computed -= allexceptcat
         computed /= curWeight[category]
-        computed *= pointstotal + grades[category].earned
+        computed *= pointstotal + grades[category].total
         computed -= grades[category].earned
     }
     return computed
