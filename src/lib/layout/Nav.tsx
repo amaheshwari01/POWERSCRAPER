@@ -19,6 +19,7 @@ import {
     Image,
     useBreakpointValue,
     useDisclosure,
+    Spacer,
 } from '@chakra-ui/react'
 import {
     HamburgerIcon,
@@ -54,13 +55,14 @@ export default function WithSubnavigation() {
                         aria-label={'Toggle Navigation'}
                     />
                 </Flex>
+
                 <a href="/">
                     POWERSCRAPER
                 </a>
-                <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+                <Spacer></Spacer>
+                <Flex display={{ base: 'none', md: 'flex' }} flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
 
-
-                    <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                    <Flex ml={10}>
                         <DesktopNav />
                     </Flex>
                 </Flex>
