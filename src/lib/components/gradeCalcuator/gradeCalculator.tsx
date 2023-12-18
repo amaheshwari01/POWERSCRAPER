@@ -32,7 +32,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
     const [desiredGrade, setDesiredGrade] = useState<number>(0)
     const [calculatedGrade, setCalculatedGrade] = useState<number>(null)
     const [calculatedPoints, setCalculatedPoints] = useState<number>(null)
-    const [reverse, setReverse] = useState<boolean>(true)
+    const [reverse, setReverse] = useState<boolean>(false)
     const calculateGrade = () => {
         const new_assignments: AssignmentType[] = [...current_assignments,
         {
@@ -92,7 +92,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 <Text fontSize={"sm"}>Current Grade: {props.curGrade.toFixed(3)}%</Text>
                             </Text>
                             <Spacer />
-                            <IconButton
+                            {/* <IconButton
                                 isRound={true}
                                 variant='solid'
                                 // colorScheme='teal'
@@ -101,7 +101,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 icon={<RepeatIcon />}
                                 onClick={() => { setReverse(!reverse) }}
 
-                            />
+                            /> */}
 
                         </HStack>
                     </ModalHeader>
