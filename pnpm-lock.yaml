@@ -36,8 +36,8 @@ dependencies:
     specifier: ^1.6.2
     version: 1.6.2
   capacitor-webview-controller:
-    specifier: https://github.com/amaheshwari01/capacitor-webview-controller/tarball/main
-    version: '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main(@capacitor/core@5.6.0)'
+    specifier: github:amaheshwari01/capacitor-webview-controller
+    version: github.com/amaheshwari01/capacitor-webview-controller/b0974e9a95d2f1ea40bfb80c96d1fff050c54819(@capacitor/core@5.6.0)
   framer-motion:
     specifier: ^10.16.5
     version: 10.16.5(react-dom@18.2.0)(react@18.2.0)
@@ -9053,9 +9053,9 @@ packages:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: true
 
-  '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main(@capacitor/core@5.6.0)':
-    resolution: {tarball: https://github.com/amaheshwari01/capacitor-webview-controller/tarball/main}
-    id: '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main'
+  github.com/amaheshwari01/capacitor-webview-controller/b0974e9a95d2f1ea40bfb80c96d1fff050c54819(@capacitor/core@5.6.0):
+    resolution: {tarball: https://codeload.github.com/amaheshwari01/capacitor-webview-controller/tar.gz/b0974e9a95d2f1ea40bfb80c96d1fff050c54819}
+    id: github.com/amaheshwari01/capacitor-webview-controller/b0974e9a95d2f1ea40bfb80c96d1fff050c54819
     name: capacitor-webview-controller
     version: 0.0.13
     peerDependencies:
