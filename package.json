@@ -32,7 +32,7 @@
     "@fontsource/plus-jakarta-sans": "^5.0.17",
     "@vercel/analytics": "^1.1.1",
     "axios": "^1.6.2",
-    "capacitor-webview-controller": "github:amaheshwari01/capacitor-webview-controller",
+    "capacitor-webview-controller": "^0.0.13",
     "framer-motion": "^10.16.5",
     "million": "2.6.4",
     "react": "^18.2.0",
@@ -67,5 +67,10 @@
   "engines": {
     "node": ">=16.x.x",
     "pnpm": ">=8"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "capacitor-webview-controller@0.0.13": "patches/capacitor-webview-controller@0.0.13.patch"
+    }
   }
 }

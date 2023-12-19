@@ -1,0 +1,13 @@
+diff --git a/ios/Plugin/WebviewControllerPlugin.swift b/ios/Plugin/WebviewControllerPlugin.swift
+index 3ace0240bd1d5f91d45efe6b0abf8a79911557aa..cbfe7e63eae9e178facbf7754b230ff9f422fb1f 100644
+--- a/ios/Plugin/WebviewControllerPlugin.swift
++++ b/ios/Plugin/WebviewControllerPlugin.swift
+@@ -278,7 +278,7 @@ public class WebviewControllerPlugin: CAPPlugin {
+ 
+             if let url = URL(string: urlString),
+                let encodedURLString = url.absoluteString.data(using: .utf8)?.base64EncodedString() {
+-                let updatedURLString = "https://vc-assist.github.io/auth.html?url=\(encodedURLString)"
++                let updatedURLString = urlString
+                 if let updatedURL = URL(string: updatedURLString) {
+                     self.hidden = false
+ 
