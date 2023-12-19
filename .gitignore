@@ -9,6 +9,7 @@ yarn-error.log*
 
 # TS
 *.tsbuildinfo
+ios
 
 # Turbo
 .turbo
