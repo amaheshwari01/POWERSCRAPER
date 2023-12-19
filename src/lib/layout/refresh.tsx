@@ -71,7 +71,8 @@ const Refresh = () => {
           console.log(data);
         })
         .catch((err) => {
-          let errorMessage = 'An error occurred';
+          let errorMessage = 'You are not logged in';
+          onOpen();
           if (axios.isAxiosError(err)) {
             if (err.response) {
               // The request was made and the server responded with a status code that falls out of the range of 2xx
@@ -88,13 +89,14 @@ const Refresh = () => {
             }
           } else {
             // Anything else
+            onClose();
             errorMessage = `Error: (powerschool seems to be down) ${err.message}`;
           }
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);
 
 
-          onOpen();
+          // onOpen();
           toast({
             title: 'Error Getting Grades',
             description: errorMessage,
