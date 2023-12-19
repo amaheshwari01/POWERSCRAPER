@@ -2,7 +2,7 @@ import { Button, Center, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import type { PageEvent } from 'capacitor-webview-controller';
 import { WebviewController } from 'capacitor-webview-controller';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import AppContext from '~/lib/utils/AppContext';
 // const fs = window.require('fs')
@@ -60,6 +60,11 @@ export const Login = () => {
     });
     console.log('loaded');
   };
+  useEffect(() => {
+    localStorage.getItem('refresh_token')
+      ? setRefreshToken(localStorage.getItem('refresh_token'))
+      : null;
+  }, []);
   return (
     <Center pt="20%">
       <Button onClick={openBrowser} colorScheme="purple">
