@@ -36,8 +36,8 @@ dependencies:
     specifier: ^1.6.2
     version: 1.6.2
   capacitor-webview-controller:
-    specifier: ^0.0.13
-    version: 0.0.13(@capacitor/core@5.6.0)
+    specifier: https://github.com/amaheshwari01/capacitor-webview-controller/tarball/main
+    version: '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main(@capacitor/core@5.6.0)'
   framer-motion:
     specifier: ^10.16.5
     version: 10.16.5(react-dom@18.2.0)(react@18.2.0)
@@ -3589,17 +3589,6 @@ packages:
 
   /caniuse-lite@1.0.30001547:
     resolution: {integrity: sha512-W7CrtIModMAxobGhz8iXmDfuJiiKg1WADMO/9x7/CLNin5cpSbuBjooyoIUVB5eyCc36QuTVlkVa1iB2S5+/eA==}
-
-  /capacitor-webview-controller@0.0.13(@capacitor/core@5.6.0):
-    resolution: {integrity: sha512-Wk3crnPcuQttMgLSjO9cZ8OiluW8TTVxTINM8wB9lGXkn0175BCY/Z8q5o+wWXIIcDrefn6MZfEsp93xmCUAzQ==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.6.0
-      electron: 27.1.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -9063,3 +9052,17 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
     dev: true
+
+  '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main(@capacitor/core@5.6.0)':
+    resolution: {tarball: https://github.com/amaheshwari01/capacitor-webview-controller/tarball/main}
+    id: '@github.com/amaheshwari01/capacitor-webview-controller/tarball/main'
+    name: capacitor-webview-controller
+    version: 0.0.13
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.6.0
+      electron: 27.1.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false

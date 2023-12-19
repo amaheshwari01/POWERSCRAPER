@@ -32,7 +32,7 @@
     "@fontsource/plus-jakarta-sans": "^5.0.17",
     "@vercel/analytics": "^1.1.1",
     "axios": "^1.6.2",
-    "capacitor-webview-controller": "^0.0.13",
+    "capacitor-webview-controller": "https://github.com/amaheshwari01/capacitor-webview-controller/tarball/main",
     "framer-motion": "^10.16.5",
     "million": "2.6.4",
     "react": "^18.2.0",
