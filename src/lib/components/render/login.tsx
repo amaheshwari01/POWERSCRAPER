@@ -53,25 +53,17 @@ export const Login = () => {
     }
   };
   const openBrowser = () => {
-    const token = localStorage.getItem('refresh_token')
-    if (token) {
-      setRefreshToken(token)
-      return
-    }
-    else {
-      WebviewController.addListener('navigation', handleCallback);
+    WebviewController.addListener('navigation', handleCallback);
 
-      WebviewController.loadURL({
-        url: 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&redirect_uri=com.powerschool.portal%3A%2F%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20openid&response_type=code&client_id=162669419438-v9j0hrtnbkifi68ncq6jcr3ngadp2o0o.apps.googleusercontent.com',
-      });
-      console.log('loaded');
-    }
+    WebviewController.loadURL({
+      url: 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&redirect_uri=com.powerschool.portal%3A%2F%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20openid&response_type=code&client_id=162669419438-v9j0hrtnbkifi68ncq6jcr3ngadp2o0o.apps.googleusercontent.com',
+    });
+    console.log('loaded');
   };
   useEffect(() => {
-
-    if (localStorage.getItem('refresh_token'))
-      setRefreshToken(localStorage.getItem('refresh_token'))
-
+    localStorage.getItem('refresh_token')
+      ? setRefreshToken(localStorage.getItem('refresh_token'))
+      : null;
   }, []);
   return (
     <Center pt="20%">

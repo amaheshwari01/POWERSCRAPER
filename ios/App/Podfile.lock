@@ -11,7 +11,7 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios`)"
   - "CapacitorClipboard (from `../../node_modules/.pnpm/@capacitor+clipboard@5.0.6_@capacitor+core@5.6.0/node_modules/@capacitor/clipboard`)"
   - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios`)"
-  - "CapacitorWebviewController (from `../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller`)"
+  - "CapacitorWebviewController (from `../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_patch_hash=kezqc6vtyloxm4cu3kknlr5epq_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller`)"
 
 EXTERNAL SOURCES:
   Capacitor:
@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
   CapacitorCordova:
     :path: "../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios"
   CapacitorWebviewController:
-    :path: "../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller"
+    :path: "../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_patch_hash=kezqc6vtyloxm4cu3kknlr5epq_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller"
 
 SPEC CHECKSUMS:
   Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
   CapacitorWebviewController: 1b3154bee89c5fbd243b9bed0ac9b2443c3e438b
 
-PODFILE CHECKSUM: f6ae1a206647cb6774ea90325b1307a54d78af35
+PODFILE CHECKSUM: 224a81dc2860edc5987df464cc6f8ee4751e2625
 
 COCOAPODS: 1.14.3
