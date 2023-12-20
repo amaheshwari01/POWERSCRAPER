@@ -157,9 +157,9 @@ export const drop = (numb: number, current_assignments: AssignmentType[], sectio
     ).sort((a, b) => new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1);
 
 
-    // console.log("Dropping " + numtodrop + " assignments from " + category + " ")
+    // console.log("Dropping " + numb + " assignments from " + category + " ")
 
-    localStorage.setItem('drop:' + section_guid + '|' + category + '|' + curTerm, numtodrop.toString());
+    localStorage.setItem('drop:' + section_guid + '|' + category + '|' + curTerm, numb.toString());
 
     return new_assignments;
 
