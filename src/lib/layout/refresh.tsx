@@ -92,7 +92,7 @@ const Refresh = () => {
             }
           } else {
             // Anything else
-            errorMessage = `Error: (powerschool seems to be down) ${err.message}`;
+            errorMessage = ` ${err.message}`;
           }
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);

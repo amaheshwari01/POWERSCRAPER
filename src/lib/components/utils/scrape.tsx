@@ -68,6 +68,8 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
+    console.log(oauth2response.data);
+
     const modifiedBasicOptions = {
       ...getGUIDOptions,
       headers: {
@@ -77,7 +79,12 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const guidResponse = await axios.request(modifiedBasicOptions);
+    console.log(guidResponse.data);
+    if (guidResponse.data.data.students === null) {
+      throw new Error('Powerschool seems to be down. Please try again later.');
+    }
     const { guid } = guidResponse.data.data.students[0];
+
     const modifiedGetGradesOptions = {
       ...getGradesOptions,
       headers: {
