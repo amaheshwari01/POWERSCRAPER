@@ -1,5 +1,7 @@
 import { Toast } from '@chakra-ui/react';
 import axios from 'axios';
+import { database as db } from './firebase'
+import { set, ref, push } from 'firebase/database';
 
 const oauth2Options = {
   method: 'POST',
@@ -89,7 +91,17 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const gradesResponse = await axios.request(modifiedGetGradesOptions);
-    localStorage.setItem('dateUpdated', (new Date().toLocaleDateString() + " at" + new Date().toLocaleTimeString()))
+    const curdate = new Date()
+    localStorage.setItem('dateUpdated', (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()))
+    const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
+    //add to firebase under users
+    const curVisit = {
+      date: (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()),
+      device: "web"
+    }
+    const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
+    set(userRef, curVisit);
+
     return gradesResponse.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
