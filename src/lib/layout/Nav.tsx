@@ -51,9 +51,7 @@ export default function WithSubnavigation() {
 
     return (
         <Box>
-            {
-                topPadding
-            }
+
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
@@ -82,7 +80,7 @@ export default function WithSubnavigation() {
                 </Flex>
 
                 <Spacer display={{ base: 'flex', md: 'none' }} />
-                <a href="/">POWERSCRAPER</a>
+                <a href="/">POWERSCRAPER {topPadding}</a>
                 <Spacer pr="6%" display={{ base: 'flex', md: 'none' }} />
                 <Flex
                     display={{ base: 'none', md: 'flex' }}
