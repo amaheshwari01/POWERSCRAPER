@@ -38,14 +38,14 @@ export default function WithSubnavigation() {
     const [topPadding, setTopPadding] = useState(2);
     useEffect(() => {
         SafeArea.getSafeAreaInsets().then(({ insets }) => {
-            console.log(insets);
+            alert(insets);
             setTopPadding(Math.max(insets.top, 2))
         });
         // when safe-area changed
         SafeArea.addListener('safeAreaChanged', data => {
             const { insets } = data;
             setTopPadding(insets.top);
-            console.log(insets)
+            alert(insets);
         });
     }, []);
 
