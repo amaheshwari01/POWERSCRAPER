@@ -51,6 +51,9 @@ export default function WithSubnavigation() {
 
     return (
         <Box>
+            {
+                topPadding
+            }
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
