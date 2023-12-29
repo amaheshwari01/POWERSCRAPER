@@ -40,6 +40,9 @@ dependencies:
   axios:
     specifier: ^1.6.2
     version: 1.6.2
+  capacitor-plugin-safe-area:
+    specifier: ^2.0.6
+    version: 2.0.6(@capacitor/core@5.6.0)
   capacitor-webview-controller:
     specifier: ^0.0.13
     version: 0.0.13(patch_hash=kezqc6vtyloxm4cu3kknlr5epq)(@capacitor/core@5.6.0)
@@ -4105,6 +4108,14 @@ packages:
 
   /caniuse-lite@1.0.30001547:
     resolution: {integrity: sha512-W7CrtIModMAxobGhz8iXmDfuJiiKg1WADMO/9x7/CLNin5cpSbuBjooyoIUVB5eyCc36QuTVlkVa1iB2S5+/eA==}
+
+  /capacitor-plugin-safe-area@2.0.6(@capacitor/core@5.6.0):
+    resolution: {integrity: sha512-7arNdX72Zbx5GtP9XlJFOne13QM8/FibTuBqG2EPdqBMGdYNiMk4G8ivD/Ovt2/w9VGWahOBCWwo2S99UgT1VQ==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.6.0
+    dev: false
 
   /capacitor-webview-controller@0.0.13(patch_hash=kezqc6vtyloxm4cu3kknlr5epq)(@capacitor/core@5.6.0):
     resolution: {integrity: sha512-Wk3crnPcuQttMgLSjO9cZ8OiluW8TTVxTINM8wB9lGXkn0175BCY/Z8q5o+wWXIIcDrefn6MZfEsp93xmCUAzQ==}

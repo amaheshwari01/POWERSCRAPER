@@ -29,9 +29,25 @@ import Logout from './logout';
 import Refresh from './refresh';
 import Reset from './reset';
 import ThemeToggle from './ThemeToggle';
+import { SafeArea } from 'capacitor-plugin-safe-area';
+
+import { useEffect, useState } from 'react';
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
+    const [topPadding, setTopPadding] = useState(2);
+    useEffect(() => {
+        SafeArea.getSafeAreaInsets().then(({ insets }) => {
+            console.log(insets);
+            setTopPadding(Math.max(insets.top, 2))
+        });
+        // when safe-area changed
+        SafeArea.addListener('safeAreaChanged', data => {
+            const { insets } = data;
+            setTopPadding(insets.top);
+            console.log(insets)
+        });
+    }, []);
 
     return (
         <Box>
@@ -39,7 +55,7 @@ export default function WithSubnavigation() {
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
                 minH="60px"
-                pt={{ base: 10 }}
+                pt={topPadding}
                 pb={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}

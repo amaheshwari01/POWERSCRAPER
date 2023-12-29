@@ -13,6 +13,7 @@ export const Login = () => {
     console.log(args.url);
     const code = args.url.split('code=')[1].split('&')[0];
     WebviewController.closeWindow();
+    WebviewController.hide();
     if (code) {
       const options = {
         method: 'POST',
