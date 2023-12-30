@@ -38,14 +38,14 @@ export default function WithSubnavigation() {
     const [topPadding, setTopPadding] = useState(2);
     useEffect(() => {
         SafeArea.getSafeAreaInsets().then(({ insets }) => {
-            alert(JSON.stringify(insets));
+            // alert(JSON.stringify(insets));
             setTopPadding(Math.max(insets.top, 2))
         });
         // when safe-area changed
         SafeArea.addListener('safeAreaChanged', data => {
             const { insets } = data;
             setTopPadding(insets.top);
-            alert(JSON.stringify(insets));
+            // alert(JSON.stringify(insets));
         });
     }, []);
 
@@ -80,7 +80,7 @@ export default function WithSubnavigation() {
                 </Flex>
 
                 <Spacer display={{ base: 'flex', md: 'none' }} />
-                <a href="/">POWERSCRAPER {topPadding}</a>
+                <a href="/">POWERSCRAPER</a>
                 <Spacer pr="6%" display={{ base: 'flex', md: 'none' }} />
                 <Flex
                     display={{ base: 'none', md: 'flex' }}
