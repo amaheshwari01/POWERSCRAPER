@@ -97,6 +97,10 @@ const Refresh = () => {
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);
 
+
+          // onOpen();
+          toast.closeAll()
+
           toast({
             title: 'Error Getting Grades',
             description: errorMessage,

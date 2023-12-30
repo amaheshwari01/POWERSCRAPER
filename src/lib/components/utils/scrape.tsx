@@ -1,4 +1,3 @@
-import { Toast } from '@chakra-ui/react';
 import axios from 'axios';
 import { database as db } from './firebase'
 import { set, ref, push } from 'firebase/database';
@@ -68,7 +67,6 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
-    console.log(oauth2response.data);
 
     const modifiedBasicOptions = {
       ...getGUIDOptions,
@@ -79,7 +77,7 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const guidResponse = await axios.request(modifiedBasicOptions);
-    console.log(guidResponse.data);
+    //console.log(guidResponse.data);
     if (guidResponse.data.data.students === null) {
       throw new Error('Powerschool seems to be down. Please try again later.');
     }
@@ -98,6 +96,10 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const gradesResponse = await axios.request(modifiedGetGradesOptions);
+    if (gradesResponse.data.errors && gradesResponse.data.errors.length > 0) {
+      throw new Error(gradesResponse.data.errors[0].message)
+    }
+    console.log(JSON.stringify(gradesResponse.data))
     const curdate = new Date()
     localStorage.setItem('dateUpdated', (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()))
     const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
@@ -108,7 +110,7 @@ async function scrape(refreshkey: string): Promise<any> {
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
     set(userRef, curVisit);
-
+    console.log(gradesResponse.data)
     return gradesResponse.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
