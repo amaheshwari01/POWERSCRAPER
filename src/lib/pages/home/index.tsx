@@ -1,6 +1,6 @@
 import { Button, Grid, Skeleton } from '@chakra-ui/react';
 import { useContext } from 'react';
-
+import Loading from '~/lib/components/render/Loader';
 import FullRender from '~/lib/components/render/full';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 
@@ -9,7 +9,7 @@ const Home = () => {
 
   return <>
 
-    {Object.keys(data).length === 0 && <Skeleton height={"90vh"}></Skeleton>}
+    {Object.keys(data).length === 0 && <Loading />}
     {Object.keys(data).length !== 0 && <FullRender />}
 
   </>;

@@ -97,6 +97,8 @@ const Refresh = () => {
 
 
           // onOpen();
+          toast.closeAll()
+
           toast({
             title: 'Error Getting Grades',
             description: errorMessage,
@@ -120,8 +122,9 @@ const Refresh = () => {
       onOpen();
     } else {
       setRefreshkey(refkey);
-      scrapeData(refkey);
       onClose();
+
+      scrapeData(refkey);
     }
   }, [runfetch]);
 
