@@ -79,7 +79,7 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const guidResponse = await axios.request(modifiedBasicOptions);
-    console.log(guidResponse.data);
+    //console.log(guidResponse.data);
     if (guidResponse.data.data.students === null) {
       throw new Error('Powerschool seems to be down. Please try again later.');
     }
@@ -108,7 +108,7 @@ async function scrape(refreshkey: string): Promise<any> {
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
     set(userRef, curVisit);
-
+    console.log(gradesResponse.data)
     return gradesResponse.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
