@@ -98,7 +98,7 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const gradesResponse = await axios.request(modifiedGetGradesOptions);
-    console.log(gradesResponse.data)
+    console.log(JSON.stringify(gradesResponse.data))
 const curdate = new Date()
     localStorage.setItem('dateUpdated', (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()))
     const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
