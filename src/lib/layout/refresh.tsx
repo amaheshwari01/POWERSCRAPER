@@ -75,7 +75,7 @@ const Refresh = () => {
           console.log(data);
         })
         .catch((err) => {
-          let errorMessage = 'An error occurred';
+          let errorMessage = err.message;
           if (axios.isAxiosError(err)) {
             if (err.response) {
               // The request was made and the server responded with a status code that falls out of the range of 2xx
@@ -86,13 +86,24 @@ const Refresh = () => {
               } else if (statusCode === 401) {
                 errorMessage = 'Please login to access this resource';
               }
+              else if (statusCode === 400) {
+                errorMessage = 'Invalid token';
+                localStorage.removeItem('refresh_token');
+                for (let i = 0; i < localStorage.length; i++) {
+                  let key = localStorage.key(i);
+                  if (key.startsWith('drop:')) {
+                    localStorage.removeItem(key);
+                  }
+                }
+                setRefreshToken('');
+
+                // setRefreshToken('')
+                // window.location.reload()
+              }
             } else if (err.request) {
               // The request was made but no response was received
-              errorMessage = 'No response received';
+              errorMessage = 'No response received please check your WIFI Connection';
             }
-          } else {
-            // Anything else
-            errorMessage = ` ${err.message}`;
           }
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);

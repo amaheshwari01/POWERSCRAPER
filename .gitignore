@@ -19,3 +19,4 @@ ios
 
 stats.*
 .env
+src/lib/components/utils/grades.json

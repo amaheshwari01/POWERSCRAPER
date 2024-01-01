@@ -67,9 +67,15 @@ dependencies:
   react-icons:
     specifier: ^4.12.0
     version: 4.12.0(react@18.2.0)
+  react-pull-to-refresh:
+    specifier: ^2.0.1
+    version: 2.0.1(react@18.2.0)
   react-router-dom:
     specifier: ^6.19.0
     version: 6.19.0(react-dom@18.2.0)(react@18.2.0)
+  use-pull-to-refresh:
+    specifier: ^2.2.1
+    version: 2.2.1
 
 devDependencies:
   '@capacitor/assets':
@@ -6095,6 +6101,11 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
+  /hammerjs@2.0.8:
+    resolution: {integrity: sha512-tSQXBXS/MWQOn/RKckawJ61vvsDpCom87JgxiYdGwHdOa0ht0vzUWDlfioofFCRU0L+6NGDt6XzbgoJvZkMeRQ==}
+    engines: {node: '>=0.8.0'}
+    dev: false
+
   /handlebars@4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
     engines: {node: '>=0.4.7'}
@@ -7884,6 +7895,15 @@ packages:
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
+  /react-pull-to-refresh@2.0.1(react@18.2.0):
+    resolution: {integrity: sha512-mbNI9r3sBF4X+2fBO8c9CuXDLIywNuoZ24AIGU3Odi+L8C4MpS0tuhMQUSg5cSOuUtDFkE8Z/YnBYixo10QI6Q==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      hammerjs: 2.0.8
+      react: 18.2.0
+    dev: false
+
   /react-refresh@0.14.0:
     resolution: {integrity: sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==}
     engines: {node: '>=0.10.0'}
@@ -9203,6 +9223,12 @@ packages:
       '@types/react': 18.2.37
       react: 18.2.0
       tslib: 2.6.2
+    dev: false
+
+  /use-pull-to-refresh@2.2.1:
+    resolution: {integrity: sha512-uKGi8eAaAON3isPaqBzcataSxNNL+ffZiWSrxWe09usrmR9Fef0IGRsG/SYI/c894mh0d4ymCfUdBafC3MhC0g==}
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /use-sidecar@1.1.2(@types/react@18.2.37)(react@18.2.0):

@@ -41,7 +41,9 @@
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-icons": "^4.12.0",
-    "react-router-dom": "^6.19.0"
+    "react-pull-to-refresh": "^2.0.1",
+    "react-router-dom": "^6.19.0",
+    "use-pull-to-refresh": "^2.2.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.4",

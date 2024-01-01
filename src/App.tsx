@@ -2,7 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { inject } from '@vercel/analytics';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-
+import PullToRefresh from 'react-pull-to-refresh';
 import Layout from '~/lib/layout';
 import Routings from '~/lib/router/Routings';
 import { theme } from '~/lib/styles/theme';
@@ -15,8 +15,10 @@ const App = () => {
   useEffect(() => {
     inject();
   }, []);
+
   return (
     <ChakraProvider theme={theme}>
+
       <AppContext.Provider
         value={{
           default_data,
@@ -33,6 +35,8 @@ const App = () => {
           </Layout>
         </Router>
       </AppContext.Provider>
+
+
     </ChakraProvider>
   );
 };
