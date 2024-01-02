@@ -7,13 +7,13 @@ import { scrape } from "./scrape";
 
 export default function Scraper() {
 
-    const { refresh_token, setLoading, setDefault_data, setData, setRefreshToken, runFetch } = useContext(AppContext);
+    const { refresh_token, setLoading, setDefault_data, setData, setRefreshToken, runFetch, setWeights } = useContext(AppContext);
     const toast = useToast();
     const scrapeData = async (refkey: string) => {
         setLoading(true);
 
         if (refkey) {
-            scrape(refkey)
+            scrape(refkey, setWeights)
                 .then(async (data) => {
                     await setDefault_data(data);
                     const gradesToDrop = [];
@@ -95,8 +95,8 @@ export default function Scraper() {
                         title: 'Error Getting Grades',
                         description: errorMessage,
                         status: 'error',
-                        duration: 9000,
-                        isClosable: true,
+                        duration: null,
+                        isClosable: false,
                     });
                     setLoading(false);
                 });

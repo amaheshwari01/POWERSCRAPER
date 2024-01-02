@@ -1,3 +1,4 @@
+import { set } from 'firebase/database';
 import { createContext } from 'react';
 
 // Define the shape of your context state
@@ -12,6 +13,8 @@ interface IAppContext {
   setRunFetch: (data: any) => void;
   loading: boolean;
   setLoading: (data: any) => void;
+  weights: any;
+  setWeights: (data: any) => void;
 }
 
 // Create the context with the initial state
@@ -26,6 +29,8 @@ const AppContext = createContext<IAppContext>({
   setRunFetch: () => { },
   loading: false,
   setLoading: () => { },
+  weights: null,
+  setWeights: () => { },
 
 });
 

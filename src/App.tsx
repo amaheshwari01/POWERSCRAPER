@@ -14,6 +14,7 @@ const App = () => {
   const [refresh_token, setRefreshToken] = useState<string>('');
   const [runFetch, setRunFetch] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [weights, setWeights] = useState<any>({});
   useEffect(() => {
     inject();
   }, []);
@@ -33,6 +34,8 @@ const App = () => {
           setRunFetch,
           loading,
           setLoading,
+          weights,
+          setWeights,
         }}
       >
         <Router>

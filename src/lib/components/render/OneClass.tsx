@@ -6,7 +6,6 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
-import weights from '~/weights.json';
 import AppContext from '~/lib/utils/AppContext';
 import { calculatePercent } from '../utils/HelperFunctions';
 import Categories from './Categories';
@@ -17,7 +16,7 @@ interface OneClassProps {
   section_guid: string;
 }
 const OneClass = (props: OneClassProps) => {
-  const { data, default_data } = useContext(AppContext);
+  const { data, default_data, weights } = useContext(AppContext);
   //Calcualte grade based on weights.json
   const [calualtedGrade, setCalculatedGrade] = useState<number>();
 
@@ -34,7 +33,6 @@ const OneClass = (props: OneClassProps) => {
   const curWeight = weights[section.name]
 
   useEffect(() => {
-
     if (current_term.finalGrade) {
       setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
     }
@@ -43,7 +41,7 @@ const OneClass = (props: OneClassProps) => {
 
   return (
     <>
-      {current_term.finalGrade && (
+      {(current_term.finalGrade && weights) && (
         <AccordionItem key={section.name}>
           <HStack>
             <AccordionButton>

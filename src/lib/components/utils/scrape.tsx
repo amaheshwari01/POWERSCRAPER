@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { database as db } from './firebase'
-import { set, ref, push } from 'firebase/database';
+import { set, ref, push, get } from 'firebase/database';
+// const localGrades=false
 // import grades from './grades.json'
 const oauth2Options = {
   method: 'POST',
@@ -58,7 +59,7 @@ const getGradesOptions = {
 
   },
 };
-async function scrape(refreshkey: string): Promise<any> {
+async function scrape(refreshkey: string, setWeights: any): Promise<any> {
   try {
     console.log(refreshkey)
     const modifiedOauth2Options = {
@@ -98,12 +99,22 @@ async function scrape(refreshkey: string): Promise<any> {
         variables: { guid },
       },
     };
-    const gradesResponse = await axios.request(modifiedGetGradesOptions);
+    let gradesResponse = await axios.request(modifiedGetGradesOptions);
     if (gradesResponse.data.errors && gradesResponse.data.errors.length > 0) {
-      throw new Error(gradesResponse.data.errors[0].message)
       // return grades;
+      console.log(gradesResponse.data.errors[0].message)
+      try {
+        const grades = await import('./grades.json')
+        gradesResponse.data = grades
+      } catch (error) {
+        if (gradesResponse.data.errors[0].message === "The school has disabled access to this student's data.")
+          throw new Error("PowerSchool is closed over break. Please try again later.")
+        else
+          throw new Error(gradesResponse.data.errors[0].message)
+      }
+
     }
-    console.log(JSON.stringify(gradesResponse.data))
+    // console.log(JSON.stringify(gradesResponse.data))
     const curdate = new Date()
     localStorage.setItem('dateUpdated', (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()))
     const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
@@ -114,29 +125,14 @@ async function scrape(refreshkey: string): Promise<any> {
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
     set(userRef, curVisit);
+    const wieghtRef = ref(db, 'weights/')
+    const curweigths = JSON.parse(JSON.stringify(await get(wieghtRef)).replaceAll("|", "/"))
+    setWeights(curweigths)
+    // set
     console.log(gradesResponse.data)
     return gradesResponse.data;
-  } catch (error) {
-    // if (axios.isAxiosError(error)) {
-    //   if (error.response) {
-    //     // The request was made and the server responded with a status code that falls out of the range of 2xx
-    //     const statusCode = error.response.status;
-    //     if (statusCode === 404) {
-    //       console.log('The requested resource does not exist or has been deleted');
-    //     } else if (statusCode === 401) {
-    //       console.log('Please login to access this resource');
-    //     }
-    //   } else if (error.request) {
-    //     // The request was made but no response was received
-    //     console.log('No response received');
-    //   }
-    // } else {
-    //   // Anything else
-    //   console.log('Error', error.message);
-    // }
 
-    // Display a toast notification with the error message
-    // alert
+  } catch (error) {
 
     throw error;
   }
