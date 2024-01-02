@@ -1,0 +1,40 @@
+PODS:
+  - Capacitor (5.6.0):
+    - CapacitorCordova
+  - CapacitorClipboard (5.0.6):
+    - Capacitor
+  - CapacitorCordova (5.6.0)
+  - CapacitorPluginSafeArea (2.0.6):
+    - Capacitor
+  - CapacitorWebviewController (0.0.13):
+    - Capacitor
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios`)"
+  - "CapacitorClipboard (from `../../node_modules/.pnpm/@capacitor+clipboard@5.0.6_@capacitor+core@5.6.0/node_modules/@capacitor/clipboard`)"
+  - "CapacitorCordova (from `../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios`)"
+  - "CapacitorPluginSafeArea (from `../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.6.0/node_modules/capacitor-plugin-safe-area`)"
+  - "CapacitorWebviewController (from `../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_patch_hash=kezqc6vtyloxm4cu3kknlr5epq_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller`)"
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios"
+  CapacitorClipboard:
+    :path: "../../node_modules/.pnpm/@capacitor+clipboard@5.0.6_@capacitor+core@5.6.0/node_modules/@capacitor/clipboard"
+  CapacitorCordova:
+    :path: "../../node_modules/.pnpm/@capacitor+ios@5.6.0_@capacitor+core@5.6.0/node_modules/@capacitor/ios"
+  CapacitorPluginSafeArea:
+    :path: "../../node_modules/.pnpm/capacitor-plugin-safe-area@2.0.6_@capacitor+core@5.6.0/node_modules/capacitor-plugin-safe-area"
+  CapacitorWebviewController:
+    :path: "../../node_modules/.pnpm/capacitor-webview-controller@0.0.13_patch_hash=kezqc6vtyloxm4cu3kknlr5epq_@capacitor+core@5.6.0/node_modules/capacitor-webview-controller"
+
+SPEC CHECKSUMS:
+  Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
+  CapacitorClipboard: 77edf49827ea21da2a9c05c690a4a6a4d07199c4
+  CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
+  CapacitorPluginSafeArea: d55e4d4e70c98f611240f11dd80561438d0d70cb
+  CapacitorWebviewController: 1b3154bee89c5fbd243b9bed0ac9b2443c3e438b
+
+PODFILE CHECKSUM: e88d2d82d57716c37f92594eb873db584acc01e5
+
+COCOAPODS: 1.14.3

@@ -15,18 +15,19 @@ import {
   Link,
   useToast,
 } from '@chakra-ui/react';
+import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
+
 import { dropfromRefresh } from '../components/utils/HelperFunctions';
 import { scrape } from '~/lib/components/utils/scrape';
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
-import axios from 'axios';
 
 const Refresh = () => {
-  const toast = useToast()
-  const { setData, setDefault_data, data } = useContext(AppContext);
+  const toast = useToast();
+  const { setData, setDefault_data, data, refresh_token, setRefreshToken } =
+    useContext(AppContext);
   const [loading, setLoading] = useState(false);
-  const [refreshkey, setRefreshkey] = useState<string>('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [runfetch, setRunfetch] = useState(false);
 
   const scrapeData = async (refkey: string) => {
@@ -36,34 +37,37 @@ const Refresh = () => {
       scrape(refkey)
         .then(async (data) => {
           await setDefault_data(data);
-          let gradesToDrop = []
+          const gradesToDrop = [];
           for (let i = 0; i < localStorage.length; i++) {
-            let key = localStorage.key(i);
+            const key = localStorage.key(i);
 
             if (key.startsWith('drop:')) {
-
               gradesToDrop.push({
-                "key": key,
-                "value": localStorage.getItem(key)
-              })
+                key,
+                value: localStorage.getItem(key),
+              });
             }
           }
           let newData = data;
           // console.log(gradesToDrop)
-          gradesToDrop.forEach(
-            (value) => {
-              // console.log(value)
-              const section_guid = value["key"].split(":")[1].split("|")[0]
-              // console.log(section_guid)
-              const category = value["key"].split("|")[1]
-              const term = value["key"].split("|")[2]
-              // console.log(term)
-              const numtodrop = parseInt(value["value"])
-              if (numtodrop > 0) {
-                newData = dropfromRefresh(section_guid, category, newData, numtodrop, term);
-              }
+          gradesToDrop.forEach((value) => {
+            // console.log(value)
+            const section_guid = value.key.split(':')[1].split('|')[0];
+            // console.log(section_guid)
+            const category = value.key.split('|')[1];
+            const term = value.key.split('|')[2];
+            // console.log(term)
+            const numtodrop = parseInt(value.value);
+            if (numtodrop > 0) {
+              newData = dropfromRefresh(
+                section_guid,
+                category,
+                newData,
+                numtodrop,
+                term
+              );
             }
-          )
+          });
 
           await setData(newData);
 
@@ -71,26 +75,35 @@ const Refresh = () => {
           console.log(data);
         })
         .catch((err) => {
-          let errorMessage = 'You are not logged in';
-          onOpen();
+          let errorMessage = err.message;
           if (axios.isAxiosError(err)) {
             if (err.response) {
               // The request was made and the server responded with a status code that falls out of the range of 2xx
               const statusCode = err.response.status;
               if (statusCode === 404) {
-                errorMessage = 'The requested resource does not exist or has been deleted';
+                errorMessage =
+                  'The requested resource does not exist or has been deleted';
               } else if (statusCode === 401) {
                 errorMessage = 'Please login to access this resource';
               }
+              else if (statusCode === 400) {
+                errorMessage = 'Invalid token';
+                localStorage.removeItem('refresh_token');
+                for (let i = 0; i < localStorage.length; i++) {
+                  let key = localStorage.key(i);
+                  if (key.startsWith('drop:')) {
+                    localStorage.removeItem(key);
+                  }
+                }
+                setRefreshToken('');
+
+                // setRefreshToken('')
+                // window.location.reload()
+              }
             } else if (err.request) {
               // The request was made but no response was received
-              errorMessage = 'No response received';
-
+              errorMessage = 'No response received please check your WIFI Connection';
             }
-          } else {
-            // Anything else
-            onClose();
-            errorMessage = ` ${err.message}`;
           }
 
           // alert(`Invalid refresh token` + ` ${errorMessage}`);
@@ -110,72 +123,55 @@ const Refresh = () => {
         });
     }
   };
-  const updatekey = () => {
-    localStorage.setItem('refreshkey', refreshkey);
-    setRunfetch(!runfetch);
-  };
 
   useEffect(() => {
-    const refkey = localStorage.getItem('refreshkey');
     // console.log(refkey);
-    if (!refkey) {
-      onOpen();
-    } else {
-      setRefreshkey(refkey);
-      onClose();
-
-      scrapeData(refkey);
+    if (refresh_token !== '') {
+      scrapeData(refresh_token);
     }
-  }, [runfetch]);
+  }, [runfetch, refresh_token]);
+  // useEffect(() => {
+  //   if (code) {
+  //     alert(code);
 
+  //     const options = {
+  //       method: 'POST',
+  //       url: 'https://oauth2.googleapis.com/token',
+  //       headers: {
+  //         accept: '*/*',
+  //         'content-type': 'application/x-www-form-urlencoded',
 
+  //         'accept-language': 'en-US,en;q=0.9'
+  //       },
+  //       data: {
+  //         grant_type: 'authorization_code',
+  //         code: code,
+  //         client_id: '162669419438-v9j0hrtnbkifi68ncq6jcr3ngadp2o0o.apps.googleusercontent.com',
+  //         redirect_uri: 'com.powerschool.portal://'
+  //       }
+  //     };
+
+  //     axios.request(options).then(function (response) {
+  //       console.log(response.data);
+
+  //       localStorage.setItem('refresh_token', response.data.refresh_token);
+
+  //     }).catch(function (error) {
+  //       console.error(error);
+  //     });
+
+  //   }
+  // }, [code]);
 
   return (
-    <>
-      <Button
-        isLoading={loading}
-        onClick={() => {
-          setRunfetch(!runfetch);
-        }}
-      >
-        Refresh
-      </Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            Enter your token from{' '}
-            <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/blob/main/Setup%20Instructions.md" >Token Instructions </Link>{' '}
-            <br></br>
-            <Text fontSize={"sm"}>(it is that long funny string i sent you)</Text>
-            <br></br>
-            <Text fontSize={"sm"} color={"red"}>Note:DO NOT LOG OUT OF THE POWERSCHOOL MOBILE APP, that will make your login token expire</Text>
-          </ModalHeader>
-          <ModalBody>
-            <Input
-              onChange={(e) => {
-                setRefreshkey(e.target.value.replaceAll('"', ''));
-              }}
-              placeholder="Enter your refresh token"
-            />
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={() => {
-                onClose();
-
-                updatekey();
-              }}
-            >
-              Submit
-            </Button>
-
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+    <Button
+      isLoading={loading}
+      onClick={() => {
+        setRunfetch(!runfetch);
+      }}
+    >
+      Refresh
+    </Button>
   );
 };
 

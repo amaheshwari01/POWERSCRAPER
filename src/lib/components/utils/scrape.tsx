@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { database as db } from './firebase'
 import { set, ref, push } from 'firebase/database';
-
+// import grades from './grades.json'
 const oauth2Options = {
   method: 'POST',
   url: 'https://oauth2.googleapis.com/token',
@@ -55,10 +55,12 @@ const getGradesOptions = {
     query:
       'query AllStudentDataV3($guid: ID!) {\n  student(guid: $guid) {\n    __typename\n    ...studentDataV3\n    sections {\n      __typename\n      ...sectionDataV3\n    }\n  }\n}fragment studentDataV3 on StudentType {\n  __typename\n  guid\n  firstName\n  middleName\n  lastName\n  gradeLevel\n  currentGPA\n  currentTerm\n  mealBalance\n  mealThreshold\n  feeBalance\n  feeThreshold\n  photoLastModified\n  guardianAccessDisabled\n  dob\n  currentSchoolGuid\n  schools {\n    __typename\n    ...schoolDataV3\n  }\n  emailAlerts {\n    __typename\n    ...emailAlertsDataV3\n  }\n  bulletins {\n    __typename\n    ...bulletinDataV3\n  }\n  customPage {\n    __typename\n    ...customPageDataV3\n  }\n}fragment schoolDataV3 on SchoolType {\n  __typename\n  guid\n  name\n  phone\n  fax\n  lowGrade\n  highGrade\n  email\n  streetAddress\n  city\n  state\n  zip\n  country\n  disabledGPA\n  disabledAssignments\n  disabledAttendance\n  disabledCitizenship\n  disabledEmailAlerts\n  disabledFees\n  disabledFinalGrades\n  disabledMeals\n  disabledPushAttendance\n  disabledPushGrade\n  disabledStandards\n  disabledSchool\n  disabledSchoolTitle\n  disabledSchoolMessage\n  disabledDistrict\n  disabledDistrictMessage\n  currentSchedulingTermGuid\n  schedulingTerms {\n    __typename\n    ...schedulingTermDataV3\n  }\n}fragment schedulingTermDataV3 on SchedulingTermType {\n  __typename\n  guid\n  abbreviation\n  title\n  startDate\n  endDate\n  parentTerm\n}fragment emailAlertsDataV3 on EmailAlertsOutputType {\n  __typename\n  guid\n  primaryEmail\n  gradeAndAtt\n  detailAssignments\n  detailAttendance\n  schoolAnnouncements\n  balanceAlerts\n  frequency\n  otherEmails\n}fragment bulletinDataV3 on BulletinType {\n  __typename\n  guid\n  title\n  schoolName\n  startDate\n  endDate\n  sort\n  body\n}fragment customPageDataV3 on CustomPageType {\n  __typename\n  formIcon\n  formTitle\n  redirectURL\n}fragment sectionDataV3 on SectionType {\n  __typename\n  guid\n  name\n  period\n  sort\n  teacherFirstName\n  teacherLastName\n  teacherEmail\n  terms {\n    __typename\n    ...termDataV3\n  }\n  attendanceMarks {\n    __typename\n    ...attendanceMarkDataV3\n  }\n  assignments {\n    __typename\n    ...assignmentDataV3\n  }\n  room\n  schedulingTermGuid\n}fragment termDataV3 on TermType {\n  __typename\n  guid\n  label\n  start\n  sort\n  end\n  citizenGrade\n  citizenDescription\n  sendingGrades\n  finalGrade {\n    __typename\n    ...finalGradeDataV3\n  }\n  standardGrades {\n    __typename\n    ...standardGradeDataV3\n  }\n}fragment finalGradeDataV3 on FinalGradeType {\n  __typename\n  grade\n  percent\n  inProgressStatus\n  teacherComment\n}fragment standardGradeDataV3 on StandardGradeType {\n  __typename\n  guid\n  title\n  grade\n  gradeAbbreviation\n  teacherComment\n}fragment attendanceMarkDataV3 on AttendanceMarkType {\n  __typename\n  guid\n  attendanceLabel\n  dateMarked\n  absentValue\n}fragment assignmentDataV3 on AssignmentType {\n  __typename\n  guid\n  title\n  category\n  description\n  dueDate\n  scoreLabel\n  pointsEarned\n  pointsPossible\n  teacherComment\n  attributeMissing\n  attributeLate\n  attributeCollected\n  attributeExempt\n  includedInFinalGrade\n  attributeIncomplete\n}',
     variables: { guid: '' },
+
   },
 };
 async function scrape(refreshkey: string): Promise<any> {
   try {
+    console.log(refreshkey)
     const modifiedOauth2Options = {
       ...oauth2Options,
       data: {
@@ -67,6 +69,7 @@ async function scrape(refreshkey: string): Promise<any> {
       },
     };
     const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
+    console.log(oauth2response)
 
     const modifiedBasicOptions = {
       ...getGUIDOptions,
@@ -98,6 +101,7 @@ async function scrape(refreshkey: string): Promise<any> {
     const gradesResponse = await axios.request(modifiedGetGradesOptions);
     if (gradesResponse.data.errors && gradesResponse.data.errors.length > 0) {
       throw new Error(gradesResponse.data.errors[0].message)
+      // return grades;
     }
     console.log(JSON.stringify(gradesResponse.data))
     const curdate = new Date()
@@ -106,30 +110,30 @@ async function scrape(refreshkey: string): Promise<any> {
     //add to firebase under users
     const curVisit = {
       date: (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()),
-      device: "web"
+      device: "mobile"
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
     set(userRef, curVisit);
     console.log(gradesResponse.data)
     return gradesResponse.data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        // The request was made and the server responded with a status code that falls out of the range of 2xx
-        const statusCode = error.response.status;
-        if (statusCode === 404) {
-          console.log('The requested resource does not exist or has been deleted');
-        } else if (statusCode === 401) {
-          console.log('Please login to access this resource');
-        }
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log('No response received');
-      }
-    } else {
-      // Anything else
-      console.log('Error', error.message);
-    }
+    // if (axios.isAxiosError(error)) {
+    //   if (error.response) {
+    //     // The request was made and the server responded with a status code that falls out of the range of 2xx
+    //     const statusCode = error.response.status;
+    //     if (statusCode === 404) {
+    //       console.log('The requested resource does not exist or has been deleted');
+    //     } else if (statusCode === 401) {
+    //       console.log('Please login to access this resource');
+    //     }
+    //   } else if (error.request) {
+    //     // The request was made but no response was received
+    //     console.log('No response received');
+    //   }
+    // } else {
+    //   // Anything else
+    //   console.log('Error', error.message);
+    // }
 
     // Display a toast notification with the error message
     // alert

@@ -10,6 +10,7 @@ ios
 
 # TS
 *.tsbuildinfo
+ios
 
 # Turbo
 .turbo
@@ -18,3 +19,4 @@ ios
 
 stats.*
 .env
+src/lib/components/utils/grades.json
