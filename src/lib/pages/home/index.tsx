@@ -6,7 +6,7 @@ import { Login } from '~/lib/components/render/login';
 import { usePullToRefresh } from 'use-pull-to-refresh';
 
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
-import Scraper from '~/lib/components/utils/Scraper';
+import Scraper from '~/lib/components/utils/getScrape';
 const MAXIMUM_PULL_LENGTH = 240;
 const REFRESH_THRESHOLD = 10;
 // import ReactPullToRefresh from 'react-pull-to-refresh';
