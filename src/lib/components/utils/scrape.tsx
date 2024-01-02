@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { database as db } from './firebase'
 import { set, ref, push } from 'firebase/database';
-import grades from './grades.json'
+// import grades from './grades.json'
 const oauth2Options = {
   method: 'POST',
   url: 'https://oauth2.googleapis.com/token',
