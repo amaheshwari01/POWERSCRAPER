@@ -51,6 +51,8 @@ export default function Scraper() {
                     await setData(newData);
 
                     setLoading(false);
+                    toast.closeAll()
+
                     console.log(data);
                 })
                 .catch((err) => {
