@@ -103,15 +103,15 @@ async function scrape(refreshkey: string, setWeights: any): Promise<any> {
     if (gradesResponse.data.errors && gradesResponse.data.errors.length > 0) {
       // return grades;
       console.log(gradesResponse.data.errors[0].message)
-      try {
-        const grades = await import('./grades.json')
-        gradesResponse.data = grades
-      } catch (error) {
-        if (gradesResponse.data.errors[0].message === "The school has disabled access to this student's data.")
-          throw new Error("PowerSchool is closed over break. Please try again later.")
-        else
-          throw new Error(gradesResponse.data.errors[0].message)
-      }
+      // try {
+      //   const grades = await import('./grades.json')
+      //   gradesResponse.data = grades
+      // } catch (error) {
+      if (gradesResponse.data.errors[0].message === "The school has disabled access to this student's data.")
+        throw new Error("PowerSchool is closed over break. Please try again later.")
+      else
+        throw new Error(gradesResponse.data.errors[0].message)
+      // }
 
     }
     // console.log(JSON.stringify(gradesResponse.data))
