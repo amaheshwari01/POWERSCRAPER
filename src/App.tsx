@@ -12,6 +12,8 @@ const App = () => {
   const [data, setData] = useState<any>({});
   const [default_data, setDefault_data] = useState<any>({});
   const [refresh_token, setRefreshToken] = useState<string>('');
+  const [runFetch, setRunFetch] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     inject();
   }, []);
@@ -27,6 +29,10 @@ const App = () => {
           setData,
           refresh_token,
           setRefreshToken,
+          runFetch,
+          setRunFetch,
+          loading,
+          setLoading,
         }}
       >
         <Router>

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Skeleton, Spinner } from '@chakra-ui/react';
+import { Box, Button, Grid, Skeleton, Spinner, useToast } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import Loading from '~/lib/components/render/Loader';
 import FullRender from '~/lib/components/render/full';
@@ -6,22 +6,23 @@ import { Login } from '~/lib/components/render/login';
 import { usePullToRefresh } from 'use-pull-to-refresh';
 
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
+import Scraper from '~/lib/components/utils/Scraper';
 const MAXIMUM_PULL_LENGTH = 240;
 const REFRESH_THRESHOLD = 10;
 // import ReactPullToRefresh from 'react-pull-to-refresh';
 const Home = () => {
-  const { data, refresh_token } = useContext(AppContext);
   const [refresthing, setRefreshing] = useState(false);
+
+  const { data, refresh_token, loading, runFetch, setRunFetch } = useContext(AppContext);
+
+
 
   const { isRefreshing, pullPosition } = usePullToRefresh({
 
-    onRefresh: async () => {
-      // Your refresh function here
-      // console.log('Page was pulled down!');
-      setTimeout(() => {
-        setRefreshing(false)
-      }
-        , 10000);
+    onRefresh: () => {
+
+      setRunFetch(!runFetch);
+
     },
     maximumPullLength: MAXIMUM_PULL_LENGTH,
     refreshThreshold: REFRESH_THRESHOLD,
@@ -32,9 +33,16 @@ const Home = () => {
       setRefreshing(true)
     }
   }, [isRefreshing])
+  useEffect(() => {
+    if (loading === false) {
+      setRefreshing(false)
+    }
+  }
+    , [loading])
 
 
   return <>
+    <Scraper />
     <div
       style={{
         backgroundColor: '#f7fafc', // bg-base-100
@@ -60,9 +68,6 @@ const Home = () => {
       />
     </div>
 
-    {/* <ReactPullToRefresh onRefresh={handleRefresh} > */}
-    {/* <Box w="100%" h="100%" bg="green.200" /> */}
-    {/*  */}
 
 
 

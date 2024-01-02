@@ -8,6 +8,10 @@ interface IAppContext {
   setData: (data: any) => void;
   refresh_token: string;
   setRefreshToken: (data: any) => void;
+  runFetch: boolean;
+  setRunFetch: (data: any) => void;
+  loading: boolean;
+  setLoading: (data: any) => void;
 }
 
 // Create the context with the initial state
@@ -18,6 +22,11 @@ const AppContext = createContext<IAppContext>({
   setData: () => { },
   refresh_token: '',
   setRefreshToken: () => { },
+  runFetch: false,
+  setRunFetch: () => { },
+  loading: false,
+  setLoading: () => { },
+
 });
 
 export default AppContext;
