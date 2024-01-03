@@ -15,8 +15,9 @@ export const Login = () => {
   const handleCallback = (args: PageEvent) => {
     console.log(args.url);
     const code = args.url.split('code=')[1].split('&')[0];
-    WebviewController.closeWindow();
     WebviewController.hide();
+
+    WebviewController.closeWindow();
     if (code) {
       const options = {
         method: 'POST',
@@ -44,8 +45,8 @@ export const Login = () => {
           localStorage.setItem('refresh_token', response.data.refresh_token);
 
           setRefreshToken(response.data.refresh_token);
-          WebviewController.closeWindow();
           WebviewController.hide();
+          WebviewController.closeWindow();
         })
         .catch(function (error) {
           toast({
