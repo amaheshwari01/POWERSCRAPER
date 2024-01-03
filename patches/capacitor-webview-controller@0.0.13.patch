@@ -7,7 +7,7 @@ index 3ace0240bd1d5f91d45efe6b0abf8a79911557aa..cbfe7e63eae9e178facbf7754b230ff9
              if let url = URL(string: urlString),
                 let encodedURLString = url.absoluteString.data(using: .utf8)?.base64EncodedString() {
 -                let updatedURLString = "https://vc-assist.github.io/auth.html?url=\(encodedURLString)"
-+                let updatedURLString = urlString
++                let updatedURLString = "https://power.aayanmaheshwari.com/redirect.html?url=\(encodedURLString)"
                  if let updatedURL = URL(string: updatedURLString) {
                      self.hidden = false
  
