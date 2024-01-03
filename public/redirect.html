@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POWERSCRAPER - Redirecting...</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Open Sans', sans-serif;
+            /* Use a Google Font */
+        }
+
+        #branding {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #redirect-message {
+            font-size: 18px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap">
+</head>
+
+<body>
+    <div id="branding">POWERSCRAPER</div>
+    <div id="redirect-message">You are being redirected...</div>
+
+    <script>
+        // Get the base64 encoded URL from the query string
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const encodedUrl = urlParams.get('url');
+
+        // Decode the base64 URL
+        const redirectUrl = atob(encodedUrl);
+
+        // Redirect after 1-2 seconds
+        // setTimeout(() => {
+        //     if (redirectUrl) {
+        //         window.location.href = redirectUrl;
+        //     } else {
+        //         document.getElementById('redirect-message').innerHTML = 'Invalid redirect URL. Please restart VC Assist.';
+        //     }
+        // }, Math.floor(Math.random() * 2000) + 1000); // Random time between 1 and 2 seconds
+    </script>
+</body>
+
+</html>
