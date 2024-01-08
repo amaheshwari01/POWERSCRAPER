@@ -13,6 +13,8 @@ export default function Scraper() {
         setLoading(true);
 
         if (refkey) {
+            toast.closeAll()
+
             scrape(refkey, setWeights)
                 .then(async (data) => {
                     await setDefault_data(data);

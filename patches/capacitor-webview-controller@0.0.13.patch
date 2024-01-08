@@ -1,13 +1,15 @@
 diff --git a/ios/Plugin/WebviewControllerPlugin.swift b/ios/Plugin/WebviewControllerPlugin.swift
-index 3ace0240bd1d5f91d45efe6b0abf8a79911557aa..cbfe7e63eae9e178facbf7754b230ff9f422fb1f 100644
+index 3ace0240bd1d5f91d45efe6b0abf8a79911557aa..74ff43dacaa28926fcea95d1e5f2c6796c91489e 100644
 --- a/ios/Plugin/WebviewControllerPlugin.swift
 +++ b/ios/Plugin/WebviewControllerPlugin.swift
-@@ -278,7 +278,7 @@ public class WebviewControllerPlugin: CAPPlugin {
+@@ -277,8 +277,8 @@ public class WebviewControllerPlugin: CAPPlugin {
+             }
  
              if let url = URL(string: urlString),
-                let encodedURLString = url.absoluteString.data(using: .utf8)?.base64EncodedString() {
+-               let encodedURLString = url.absoluteString.data(using: .utf8)?.base64EncodedString() {
 -                let updatedURLString = "https://vc-assist.github.io/auth.html?url=\(encodedURLString)"
-+                let updatedURLString = "https://power.aayanmaheshwari.com/redirect.html?url=\(encodedURLString)"
++                let encodedURLString = url.absoluteString.data(using: .utf8)?.base64EncodedString() {
++                let updatedURLString = "https://power.aayanmaheshwari.com/redirect.html?url="+encodedURLString
                  if let updatedURL = URL(string: updatedURLString) {
                      self.hidden = false
  

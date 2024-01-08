@@ -39,9 +39,10 @@ const OneClass = (props: OneClassProps) => {
 
   }, [data]);
 
+  const hidden = ["Open Period", "Chapel"]
   return (
     <>
-      {(current_term.finalGrade && weights) && (
+      {(current_term.sendingGrades && weights && hidden.indexOf(section.name) == -1) && (
         <AccordionItem key={section.name}>
           <HStack>
             <AccordionButton>
@@ -86,14 +87,16 @@ const OneClass = (props: OneClassProps) => {
             </Box>}
 
           </HStack >
-          <AccordionPanel pb={4}>
-            <Categories
-              curTerm={props.term}
-              termstart={new Date(current_term.start)}
-              termend={new Date(current_term.end)}
-              section_guid={props.section_guid}
-            />
-          </AccordionPanel>
+          {current_term.finalGrade &&
+            <AccordionPanel pb={4}>
+              <Categories
+                curTerm={props.term}
+                termstart={new Date(current_term.start)}
+                termend={new Date(current_term.end)}
+                section_guid={props.section_guid}
+              />
+            </AccordionPanel>
+          }
         </AccordionItem >
       )}
     </>
