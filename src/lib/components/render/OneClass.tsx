@@ -7,9 +7,11 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '~/lib/utils/AppContext';
-import { calculatePercent } from '../utils/HelperFunctions';
+import { calculatePercent, sumCategories } from '../utils/HelperFunctions';
 import Categories from './Categories';
 import GradeCalculator from '../gradeCalcuator/gradeCalculator';
+import { database } from '../utils/firebase';
+import { ref, get, set } from 'firebase/database';
 
 interface OneClassProps {
   term: string;
@@ -38,6 +40,40 @@ const OneClass = (props: OneClassProps) => {
     }
 
   }, [data]);
+  useEffect(() => {
+    if (!curWeight) {
+      const grades = sumCategories(section, termstart, termend)
+
+      const userWeights = Object.keys(grades)
+      const weightref = ref(database, 'userWeights/' + section.name)
+      get(weightref).then((snapshot) => {
+        const currentData = snapshot.val();
+        console.log(currentData)
+        let combinedArray = []
+        // Convert arrays to sets to remove duplicates
+        if (!currentData) {
+          combinedArray = userWeights
+        }
+        else {
+          const combinedSet = new Set([...currentData, ...userWeights]);
+
+          // Convert set back to array
+          combinedArray = Array.from(combinedSet);
+        }
+
+        // Update Firebase with the combined array
+        set(weightref, combinedArray)
+          .then(() => {
+            console.log('Update succeeded');
+          })
+          .catch((error) => {
+            console.log('Update failed:', error);
+          });
+      }).catch((error) => {
+        console.log('Failed to read data:', error);
+      });
+    }
+  }, [])
 
   const hidden = ["Open Period", "Chapel"]
   return (
