@@ -12,6 +12,7 @@ import Categories from './Categories';
 import GradeCalculator from '../gradeCalcuator/gradeCalculator';
 import { database } from '../utils/firebase';
 import { ref, get, set } from 'firebase/database';
+import NoCalc from './noCalc';
 
 interface OneClassProps {
   term: string;
@@ -119,8 +120,10 @@ const OneClass = (props: OneClassProps) => {
               curWeight={curWeight}
             />
             }
-            {!calualtedGrade && <Box as="span" width="60px" >
+            {(!calualtedGrade && !current_term.finalGrade) && <Box as="span" width="60px" >
             </Box>}
+            {(!calualtedGrade && current_term.finalGrade) && <NoCalc />}
+
 
           </HStack >
           {current_term.finalGrade &&
