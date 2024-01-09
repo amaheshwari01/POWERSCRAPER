@@ -98,14 +98,7 @@ const OneClass = (props: OneClassProps) => {
               </Box>
 
             </AccordionButton>
-            {calualtedGrade && <GradeCalculator
-              curGrade={calualtedGrade}
-              section={section}
-              termstart={termstart}
-              termend={termend}
-              curWeight={curWeight}
-            />
-            }
+
             {/* {(!calualtedGrade && !current_term.finalGrade) && <Box as="span" width="60px" >
             </Box>}
             {(!calualtedGrade) && <NoCalc />} */}
