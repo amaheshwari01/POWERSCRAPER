@@ -114,7 +114,7 @@ export const updateData = (data: any, section_guid: string, category: string, ne
                             assignments:
                                 s.assignments.map((a: any) => {
                                     if (a.category === category) {
-                                        return (new_assignments.find((c) => c.guid === a.guid))
+                                        return (new_assignments.find((c) => c.guid === a.guid) || a)
 
                                     }
                                     else {

@@ -100,6 +100,13 @@ export const Login = () => {
     localStorage.getItem('refresh_token')
       ? setRefreshToken(localStorage.getItem('refresh_token'))
       : null;
+    if (localStorage.getItem('refreshkey')) {
+      const key = localStorage.getItem('refreshkey');
+      localStorage.setItem('refresh_token', key);
+      localStorage.removeItem('refreshkey');
+      setRefreshToken(key)
+    }
+
   }, []);
   return (
     <>
