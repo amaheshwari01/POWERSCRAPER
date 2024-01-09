@@ -36,11 +36,15 @@ const OneClass = (props: OneClassProps) => {
   const curWeight = weights[section.name]
 
   useEffect(() => {
-    if (current_term.finalGrade) {
+    try {
       setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
+    }
+    catch (err) {
+      console.log(err)
     }
 
   }, [data]);
+  //update weights to firebase
   useEffect(() => {
     if (!curWeight) {
       const grades = sumCategories(section, termstart, termend)
@@ -49,7 +53,7 @@ const OneClass = (props: OneClassProps) => {
       const weightref = ref(database, 'userWeights/' + section.name)
       get(weightref).then((snapshot) => {
         const currentData = snapshot.val();
-        console.log(currentData)
+        // console.log(currentData)
         let combinedArray = []
         // Convert arrays to sets to remove duplicates
         if (!currentData) {
@@ -79,7 +83,7 @@ const OneClass = (props: OneClassProps) => {
   const hidden = ["Open Period", "Chapel"]
   return (
     <>
-      {(current_term.sendingGrades && weights && hidden.indexOf(section.name) == -1) && (
+      {(weights && hidden.indexOf(section.name) == -1) && (
         <AccordionItem key={section.name}>
           <HStack>
             <AccordionButton>
@@ -89,26 +93,8 @@ const OneClass = (props: OneClassProps) => {
 
               <Box as="span" flex="1">
                 Grade :{' '}
-                {current_term.finalGrade && calualtedGrade ? (
-                  <>
-                    {current_term.finalGrade.grade}{' '}
-                    {/* {current_term.finalGrade.percent}{' '} */}
-
-
-                    {calualtedGrade.toFixed(2)}%
-                  </>
-                ) : (
-                  <>
-                    {current_term.finalGrade ? (
-                      <>
-                        {current_term.finalGrade.grade}{' '}
-                        {current_term.finalGrade.percent}{' '}
-                      </>
-                    ) : (
-                      <>N/A</>
-                    )}
-                  </>
-                )}
+                {calualtedGrade ? calualtedGrade.toFixed(2) + "%"
+                  : (current_term.finalGrade ? current_term.finalGrade.percent + "%" : "N/A")}
               </Box>
 
             </AccordionButton>
@@ -120,13 +106,23 @@ const OneClass = (props: OneClassProps) => {
               curWeight={curWeight}
             />
             }
-            {(!calualtedGrade && !current_term.finalGrade) && <Box as="span" width="60px" >
+            {/* {(!calualtedGrade && !current_term.finalGrade) && <Box as="span" width="60px" >
             </Box>}
-            {(!calualtedGrade && current_term.finalGrade) && <NoCalc />}
+            {(!calualtedGrade) && <NoCalc />} */}
+            {calualtedGrade ? <GradeCalculator
+              curGrade={calualtedGrade}
+              section={section}
+              termstart={termstart}
+              termend={termend}
+              curWeight={curWeight}
+            />
+              : (current_term.finalGrade ? <NoCalc /> : (current_term.sendingGrades ? <Box as="span" width="60px" >
+              </Box> : <NoCalc />))}
+
 
 
           </HStack >
-          {current_term.finalGrade &&
+          {
             <AccordionPanel pb={4}>
               <Categories
                 curTerm={props.term}

@@ -36,6 +36,8 @@ const Categories = (props: CategoriesProps) => {
       new Date(a.dueDate) > new Date(b.dueDate) ? -1 : 1
     ))
   const [catGrade, setCatGrade] = useState<number>();
+
+  // update overall data when current_assignments changes by the drop assignmets modal
   useEffect(() => {
     let total = 0;
     let total_earned = 0;

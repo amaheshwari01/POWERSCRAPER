@@ -33,7 +33,7 @@ export const calculateNeccasaryGrade = (section: any, termstart: Date, termend: 
 
     }
     const grades = sumCategories(section, termstart, termend)
-    console.log(grades)
+    // console.log(grades)
     let computed = desiredGrade / 100
     let totalweight = 0;
     let allexceptcat = 0;

@@ -20,14 +20,12 @@ const FullRender = () => {
     const start = new Date(term.startDate).getTime()
     const end = new Date(term.endDate).getTime()
     const cur = new Date().getTime()
-    console.log(start, end, cur, term.abbreviation)
-    console.log(cur >= start && cur <= end)
+    // console.log(start, end, cur, term.abbreviation)
+    // console.log(cur >= start && cur <= end)
 
     return cur >= start && cur <= end
   }) - 1
-  useEffect(() => {
-    console.log(curtermindex)
-  }, [])
+
 
   return (
     <>
