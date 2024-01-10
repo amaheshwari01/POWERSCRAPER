@@ -23,9 +23,8 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
         return arr.filter((v, i, a) => a.indexOf(v) === i);
     }
 
-    const gradecats: string[] = removeDuplicates(current_assignments.map((a: any) => a.category))
 
-    const cats = removeDuplicates([...gradecats, "Final Exam"].filter((cat, index) => (curWeight[cat] !== undefined)))
+    const cats = Object.keys(curWeight)
     const [selectedCat, setSelectedCat] = useState<string>("")
     const [pointspossible, setPointspossible] = useState<number>(0)
     const [pointsearned, setPointsearned] = useState<number>(0)

@@ -3,6 +3,8 @@ import { database as db } from './firebase'
 import { set, ref, push, get } from 'firebase/database';
 // const localGrades=false
 // import grades from './grades.json'
+const version = 13
+
 const oauth2Options = {
   method: 'POST',
   url: 'https://oauth2.googleapis.com/token',
@@ -59,7 +61,7 @@ const getGradesOptions = {
 
   },
 };
-async function scrape(refreshkey: string, setWeights: any): Promise<any> {
+async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<any> {
   try {
     console.log(refreshkey)
     const modifiedOauth2Options = {
@@ -127,7 +129,21 @@ async function scrape(refreshkey: string, setWeights: any): Promise<any> {
     set(userRef, curVisit);
     const wieghtRef = ref(db, 'weights/')
     const curweigths = JSON.parse(JSON.stringify(await get(wieghtRef)).replaceAll("|", "/"))
+
     setWeights(curweigths)
+    const versionref = ref(db, 'version/')
+    const curVersion = await get(versionref)
+
+    if (curVersion.val().version !== version) {
+      alert("PLEASE UPDATE THE APP! Some features might not work as expectaed if you dont")
+      // toast({
+      //   title: 'New Version!',
+      //   description: "There's a new version of the app! Please update to the latest version for the best experience.",
+      //   status: 'info',
+      //   duration: null,
+      //   isClosable: true,
+      // })
+    }
     // set
     console.log(gradesResponse.data)
     return gradesResponse.data;

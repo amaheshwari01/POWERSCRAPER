@@ -1,0 +1,462 @@
+{
+    "AP Biology": {
+        "Classwork|Homework": 0.15,
+        "Distance Learning": 0,
+        "Final Exam": 0.1,
+        "Lab Investigations": 0.3,
+        "Mastery Assessments": 0.45
+    },
+    "AP Calculus AB": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.1
+    },
+    "AP Calculus BC": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.1
+    },
+    "AP Chemistry": {
+        "Excuse passes": 0,
+        "Final Exam": 0.2,
+        "Homework|classwork": 0.1,
+        "Lab Activity": 0.15,
+        "Mastery Assessment": 0.4,
+        "Progress Assessment": 0.15
+    },
+    "AP Chinese Language and Culture": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational Assessment": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "AP Comp Sci Principles (CodeHS)": {
+        "Classwork|Homework": 0.35,
+        "Final Exam": 0.15,
+        "Major Assignments": 0.2,
+        "Mastery Assessments": 0.3
+    },
+    "AP Computer Science A (CodeHS)": {
+        "Classwork|Homework": 0.35,
+        "Final Exam": 0.15,
+        "Major Assignments": 0.2,
+        "Mastery Assessments": 0.3
+    },
+    "AP English Language and Comp": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment,Mastery Assessments": 0.4,
+        "Progress Assessment,Progress Assessments": 0.25
+    },
+    "AP English Literature and Comp": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.25
+    },
+    "AP Environmental Science": {
+        "Classwork|Homework": 0.1,
+        "Final Exam": 0.2,
+        "Lab Investigations": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.15
+    },
+    "AP Human Geography": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "AP Microeconomics": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "AP Physics 1": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.15,
+        "Lab Investigations,Labs & Projects": 0.2
+    },
+    "AP Physics C: Mechanics": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Labs & Projects": 0.15,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.15
+    },
+    "AP Spanish Language & Culture": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational": 0.2,
+        "Progress": 0.2
+    },
+    "AP Statistics": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.45,
+        "Progress Assessments": 0.1
+    },
+    "AP US Government & Politics": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "AP US History": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "African American Literature": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment": 0.4,
+        "Progress": 0.25
+    },
+    "Algebra I": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Algebra II": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Algebra II (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.1
+    },
+    "American Literature": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment": 0.4,
+        "Progress,Progress Assessment": 0.25
+    },
+    "Anatomy|Physiology": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.2,
+        "Lab": 0.25,
+        "Mastery|Progress Assessments": 0.4
+    },
+    "Anatomy|Physiology (H)": {
+        "Classwork|Homework": 0.1,
+        "Final Exam": 0.2,
+        "Lab Investigation": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "Art of Filmmaking": {
+        "Classwork|Homework": 0.3,
+        "Final": 0.1,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.3
+    },
+    "Biology (H)": {
+        "Classwork|Homework": 0.1,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.2,
+        "Lab Investigation,Lab Investigations": 0.2
+    },
+    "British Literature": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.25
+    },
+    "Business Fundamentals": {
+        "Classwork|Homework": 0.4,
+        "Mastery Assessments": 0.2,
+        "Final Exam,Final Exams": 0.1,
+        "Progress Assessment,Progress Assessments": 0.1,
+        "Projects,Projects and Presentations,Projects|Presentations": 0.2
+    },
+    "Calculus (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Chemistry (H)": {
+        "Excuse passes": 0,
+        "Final Exam": 0.2,
+        "Classwork|Homework,Homework|classwork": 0.1,
+        "Mastery Assessment,Mastery Assessments": 0.4,
+        "Lab Activity,Lab Investigations": 0.15,
+        "Progress Assessment,Progress Assessments": 0.15
+    },
+    "Debate": {
+        "Classwork|Homework": 0.4,
+        "Final Exam": 0.1,
+        "Mastery Assessments": 0.25,
+        "Progress Assessments": 0.25
+    },
+    "Economics": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "English 10": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.1,
+        "Mastery Assessment": 0.35,
+        "Progress Assessment": 0.25
+    },
+    "English 10 (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment,Mastery Assessments": 0.4,
+        "Progress Assessment,Progress Assessments": 0.25
+    },
+    "English 9": {
+        "Classwork|Homework": 0.35,
+        "Final Exam": 0.1,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.25
+    },
+    "English 9 (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment,Mastery Assessments": 0.4,
+        "Progress Assessment,Progress Assessments": 0.25
+    },
+    "French I": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.2,
+        "Presentations": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "French II": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.2,
+        "Presentations": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "French III": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.2,
+        "Presentations": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "French IV (H)": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.2,
+        "Presentations": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Fundamentals of Cyber Security (CodeHS)": {
+        "Classwork|Homework": 0.4,
+        "Final Exam": 0.1,
+        "Major Assignments": 0.2,
+        "Mastery Assessments": 0.3
+    },
+    "Geometry": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessment,Progress Assessments": 0.15
+    },
+    "Geometry (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.1
+    },
+    "History and Music": {
+        "Classwork|Homework": 0.35,
+        "Final": 0.15,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.2
+    },
+    "Integrated Science": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Lab": 0.3,
+        "Mastery|Progress Assessments": 0.35
+    },
+    "Latin II": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.25,
+        "Presentational Assessments": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Latin III (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.25,
+        "Presentational Assessments": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Linear Algebra (H)": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.15
+    },
+    "Mandarin I": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational Assessment": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Mandarin II": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational Assessment": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Mandarin III": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational Assessment": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Mathematics of Financial Analysis": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Modern World History": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "Modern World History (H)": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "Multi": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.15
+    },
+    "Multi-Variable Calculus (H)": {
+        "Classwork|Homework": 0.25,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.4,
+        "Progress Assessments": 0.15
+    },
+    "PLTW Principles of Engineering (H)": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.1,
+        "Major Assignments": 0.3,
+        "Mastery Assessments": 0.3
+    },
+    "Philosophy in Literature": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessment": 0.4,
+        "Progress Assessment": 0.25
+    },
+    "Physics": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Lab Investigations": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.15
+    },
+    "Pre-Calculus": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Service Learning:  Mentoring": {
+        "Classwork|Homework": 0.35,
+        "Community Service": 0.15,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.2
+    },
+    "Spanish I": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational,Presentational Assessments": 0.2,
+        "Progress,Progress Assessments": 0.2
+    },
+    "Spanish II": {
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Progress Assessments": 0.2,
+        "Classwork|Assignments,Classwork|Homework": 0.15,
+        "Presentational,Presentational Assessement": 0.2
+    },
+    "Spanish III": {
+        "Classwork|Assignments": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational Assessement": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Spanish III (H)": {
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Classwork|Assignments,Classwork|Homework": 0.15,
+        "Presentational,Presentational Assessment": 0.2,
+        "Progress,Progress Assessments": 0.2
+    },
+    "Spanish IV": {
+        "Classwork|Homework": 0.15,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.3,
+        "Presentational": 0.2,
+        "Progress Assessments": 0.2
+    },
+    "Statistics (H)": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Trigonometry|Pre": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.15
+    },
+    "Trig|Pre": {
+        "Classwork|Homework": 0.2,
+        "Final Exam": 0.2,
+        "Mastery Assessments": 0.5,
+        "Progress Assessments": 0.1
+    },
+    "US Government": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    },
+    "US History": {
+        "Classwork|Homework": 0.3,
+        "Final Exam": 0.15,
+        "Mastery Assessments": 0.35,
+        "Progress Assessments": 0.2
+    }
+}

@@ -15,7 +15,7 @@ export default function Scraper() {
         if (refkey) {
             toast.closeAll()
 
-            scrape(refkey, setWeights)
+            scrape(refkey, setWeights, toast)
                 .then(async (data) => {
                     await setDefault_data(data);
                     const gradesToDrop = [];

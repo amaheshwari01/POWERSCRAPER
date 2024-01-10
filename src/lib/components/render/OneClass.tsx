@@ -33,11 +33,14 @@ const OneClass = (props: OneClassProps) => {
   )[0];
   const termstart = new Date(current_term.start)
   const termend = new Date(current_term.end)
-  const curWeight = weights[section.name]
+  const [curWeight, setCurWeight] = useState<any>()
+
+
 
   useEffect(() => {
     try {
-      setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
+      if (curWeight)
+        setCalculatedGrade(calculatePercent(section, termstart, termend, curWeight))
     }
     catch (err) {
       console.log(err)
@@ -47,37 +50,84 @@ const OneClass = (props: OneClassProps) => {
   //update weights to firebase
   useEffect(() => {
     if (!curWeight) {
+      let savetoFirebase = false
       const grades = sumCategories(section, termstart, termend)
 
       const userWeights = Object.keys(grades)
-      const weightref = ref(database, 'userWeights/' + section.name)
-      get(weightref).then((snapshot) => {
-        const currentData = snapshot.val();
-        // console.log(currentData)
-        let combinedArray = []
-        // Convert arrays to sets to remove duplicates
-        if (!currentData) {
-          combinedArray = userWeights
+      const dataWeights = weights[section.name]
+      if (dataWeights) {
+        let updatedCurWeight = {}
+        const weightkeys = Object.keys(dataWeights)
+        weightkeys.forEach((key) => {
+          if (key.split(",").length > 1) {
+            const keysplit = key.split(",")
+            let found = false
+            for (let i = 0; i < keysplit.length; i++) {
+              if (userWeights.indexOf(keysplit[i]) !== -1) {
+                updatedCurWeight[keysplit[i]] = dataWeights[key]
+                found = true
+                break;
+              }
+            }
+            if (!found) {
+              updatedCurWeight[keysplit[0]] = dataWeights[key]
+            }
+
+          }
+          else {
+            updatedCurWeight[key] = dataWeights[key]
+          }
+
+        })
+        const vals = Object.values(updatedCurWeight)
+
+        const sum = vals.reduce((a: number, b: number) => a + b, 0)
+        if (sum === 1) {
+          setCurWeight(updatedCurWeight)
         }
         else {
-          const combinedSet = new Set([...currentData, ...userWeights]);
-
-          // Convert set back to array
-          combinedArray = Array.from(combinedSet);
+          console.log("Weights do not add up to 1", sum, section.name)
+          console.log(updatedCurWeight)
+          savetoFirebase = true
         }
+      }
+      else {
+        savetoFirebase = true
+      }
+      if (savetoFirebase) {
+        const weightref = ref(database, 'userWeights/' + section.name)
+        get(weightref).then((snapshot) => {
+          const currentData = snapshot.val();
+          // console.log(currentData)
+          let combinedArray = []
+          // Convert arrays to sets to remove duplicates
+          if (!currentData) {
+            combinedArray = userWeights
+          }
+          else {
+            const combinedSet = new Set([...currentData, ...userWeights]);
 
-        // Update Firebase with the combined array
-        set(weightref, combinedArray)
-          .then(() => {
-            console.log('Update succeeded');
-          })
-          .catch((error) => {
-            console.log('Update failed:', error);
-          });
-      }).catch((error) => {
-        console.log('Failed to read data:', error);
-      });
+            // Convert set back to array
+            combinedArray = Array.from(combinedSet);
+          }
+
+          // Update Firebase with the combined array
+          set(weightref, combinedArray)
+            .then(() => {
+              console.log('Update succeeded');
+            })
+            .catch((error) => {
+              console.log('Update failed:', error);
+            });
+        }).catch((error) => {
+          console.log('Failed to read data:', error);
+        });
+      }
+
+
+
     }
+
   }, [])
 
   const hidden = ["Open Period", "Chapel"]
