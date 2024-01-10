@@ -87,9 +87,12 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                 <ModalContent>
                     <ModalHeader>Grade Calcualtor
                         <HStack>
-                            <Text fontSize={"md"}>for {props.section.name}
+                            <HStack>
+                                <Text fontSize={"md"}>for {props.section.name}
+
+                                </Text>
                                 <Text fontSize={"sm"}>Current Grade: {props.curGrade.toFixed(3)}%</Text>
-                            </Text>
+                            </HStack>
                             <Spacer />
                             <IconButton
                                 isRound={true}
@@ -162,7 +165,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                             <Button colorScheme='blue' onClick={calculateGrade}>Calculate!</Button>
                         }
                     </ModalFooter>
-                </ModalContent>a
+                </ModalContent>
             </Modal>
         </div>
     )
