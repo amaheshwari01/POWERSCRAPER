@@ -129,6 +129,7 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
     set(userRef, curVisit);
     const wieghtRef = ref(db, 'weights/')
     const curweigths = JSON.parse(JSON.stringify(await get(wieghtRef)).replaceAll("|", "/"))
+    localStorage.setItem('weights', JSON.stringify(curweigths))
 
     setWeights(curweigths)
     const versionref = ref(db, 'version/')

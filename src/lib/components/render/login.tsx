@@ -122,11 +122,8 @@ export const Login = () => {
         <ModalContent>
           <ModalHeader>
             Enter your token from{' '}
-            <Link color='blue' href="https://github.com/amaheshwari01/Key-Finder/blob/main/Setup%20Instructions.md" >Token Instructions </Link>{' '}
+            <Link color='blue' href="https://testflight.apple.com/join/7qNUyzsp" >POWERSCRAPER Mobile</Link>{' '} It is currently in beta on Testflight
             <br></br>
-            <Text fontSize={"sm"}>(it is that long funny string i sent you)</Text>
-            <br></br>
-            <Text fontSize={"sm"} color={"red"}>Note:DO NOT LOG OUT OF THE POWERSCHOOL MOBILE APP, that will make your login token expire</Text>
           </ModalHeader>
           <ModalBody>
             <Input

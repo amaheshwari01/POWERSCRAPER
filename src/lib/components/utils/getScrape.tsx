@@ -16,46 +16,8 @@ export default function Scraper() {
             toast.closeAll()
 
             scrape(refkey, setWeights, toast)
-                .then(async (data) => {
-                    await setDefault_data(data);
-                    const gradesToDrop = [];
-                    for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-
-                        if (key.startsWith('drop:')) {
-                            gradesToDrop.push({
-                                key,
-                                value: localStorage.getItem(key),
-                            });
-                        }
-                    }
-                    let newData = data;
-                    // console.log(gradesToDrop)
-                    gradesToDrop.forEach((value) => {
-                        // console.log(value)
-                        const section_guid = value.key.split(':')[1].split('|')[0];
-                        // console.log(section_guid)
-                        const category = value.key.split('|')[1];
-                        const term = value.key.split('|')[2];
-                        // console.log(term)
-                        const numtodrop = parseInt(value.value);
-                        if (numtodrop > 0) {
-                            newData = dropfromRefresh(
-                                section_guid,
-                                category,
-                                newData,
-                                numtodrop,
-                                term
-                            );
-                        }
-                    });
-
-                    await setData(newData);
-
+                .then(handleData).then(() => {
                     setLoading(false);
-                    toast.closeAll()
-
-                    console.log(data);
                 })
                 .catch((err) => {
                     let errorMessage = err.message;
@@ -106,6 +68,47 @@ export default function Scraper() {
                 });
         }
     };
+    const handleData = async (data: any) => {
+        await setDefault_data(data);
+        const gradesToDrop = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+
+            if (key.startsWith('drop:')) {
+                gradesToDrop.push({
+                    key,
+                    value: localStorage.getItem(key),
+                });
+            }
+        }
+        let newData = data;
+        // console.log(gradesToDrop)
+        gradesToDrop.forEach((value) => {
+            // console.log(value)
+            const section_guid = value.key.split(':')[1].split('|')[0];
+            // console.log(section_guid)
+            const category = value.key.split('|')[1];
+            const term = value.key.split('|')[2];
+            // console.log(term)
+            const numtodrop = parseInt(value.value);
+            if (numtodrop > 0) {
+                newData = dropfromRefresh(
+                    section_guid,
+                    category,
+                    newData,
+                    numtodrop,
+                    term
+                );
+            }
+        });
+
+        await setData(newData);
+        localStorage.setItem('data', JSON.stringify(newData));
+
+        toast.closeAll()
+
+        console.log(data);
+    }
 
     useEffect(() => {
         // console.log(refkey);
@@ -113,5 +116,14 @@ export default function Scraper() {
             scrapeData(refresh_token);
         }
     }, [runFetch, refresh_token]);
+    useEffect(() => {
+        const curdata = JSON.parse(localStorage.getItem('data'))
+        const curWeights = JSON.parse(localStorage.getItem('weights'))
+        if (curdata && curWeights) {
+            handleData(curdata)
+            setWeights(curWeights)
+
+        }
+    }, [])
     return <>    </>
 }
