@@ -3,7 +3,7 @@ import { database as db } from './firebase'
 import { set, ref, push, get } from 'firebase/database';
 // const localGrades=false
 // import grades from './grades.json'
-const version = 13
+const version = 14
 
 const oauth2Options = {
   method: 'POST',
@@ -135,7 +135,7 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
     const versionref = ref(db, 'version/')
     const curVersion = await get(versionref)
 
-    if (curVersion.val().version !== version) {
+    if (parseInt(curVersion.val().version) > version) {
       alert("PLEASE UPDATE THE APP! Some features might not work as expectaed if you dont")
       // toast({
       //   title: 'New Version!',
