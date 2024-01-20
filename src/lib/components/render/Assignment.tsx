@@ -13,6 +13,7 @@ import {
   CircularProgress,
   CircularProgressLabel,
   VStack,
+  Center,
 } from '@chakra-ui/react';
 
 import type { AssignmentType } from 'global';
@@ -56,10 +57,16 @@ const Assignment = (props: AssignmentProps) => {
             {/* <CircularProgress value={((assignment.pointsEarned / assignment.pointsPossible) * 100)} color='blue.400' >
               <CircularProgressLabel>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(0)}%</CircularProgressLabel>
             </CircularProgress> */}
-            {assignment.pointsEarned !== null &&
+            {assignment.pointsEarned !== null ?
               <>
                 <Text>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(1)}%</Text>
                 <Text color={"gray"} fontSize='xs'>{assignment.pointsEarned}/{assignment.pointsPossible}</Text>
+              </>
+              :
+              <>
+                <Text></Text><Text></Text>
+
+                <Text > / {assignment.pointsPossible}</Text>
               </>
             }
           </VStack>
