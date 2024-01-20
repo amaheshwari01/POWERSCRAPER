@@ -10,6 +10,9 @@ import {
   NumberInput,
   NumberInputField,
   HStack,
+  CircularProgress,
+  CircularProgressLabel,
+  VStack,
 } from '@chakra-ui/react';
 
 import type { AssignmentType } from 'global';
@@ -33,59 +36,89 @@ const Assignment = (props: AssignmentProps) => {
     <Box pl={4} pb={1}>
       <Card boxShadow="xl" variant="filled" maxW="xl">
         <Flex px={3} pt={3}>
-          {/* <Checkbox defaultChecked> */}
-          <Text size="md">{assignment.title}</Text>
-          {/* </Checkbox> */}
-          <>
-            {(assignment.pointsEarned === null) && (
-              <Tag size="sm" colorScheme="green" borderRadius="full">
-                <TagLabel>Not Entered</TagLabel>
-              </Tag>
-            )}
-            {assignment.attributeMissing && (
-              <Tag size="sm" colorScheme="orange" borderRadius="full">
-                <TagLabel>Missing</TagLabel>
-              </Tag>
-            )}
 
-            {(assignment.attributeExempt || !assignment.includedInFinalGrade) && (
-              <Tag size="sm" colorScheme="yellow" borderRadius="full">
-                <TagLabel>Exempt</TagLabel>
-              </Tag>
-            )}
-            {assignment.attributeLate && (
-              <Tag size="sm" colorScheme="red" borderRadius="full">
-                <TagLabel>Late</TagLabel>
-              </Tag>
+          <VStack alignItems={"left"} spacing={0}
+          >
 
-            )}
-            {assignment.attributeDropped && (
-              <Tag size="sm" colorScheme="purple" borderRadius="full">
-                <TagLabel>Dropped</TagLabel>
-              </Tag>
-            )}
-          </>
+            <Text color={"gray"} fontSize='xs'>Due: {formatDate(assignment.dueDate)}</Text>
+
+            <Text size="md">{assignment.title}</Text>
+
+
+            <Text color={"gray"} fontSize='xs'>{props.CustomText}</Text>
+
+            <Tags assignment={assignment} />
+          </VStack>
+
           <Spacer />
-          {/* <NumberInput maxW={"10"} size={'xs'} defaultValue={isNaN(assignment.pointsEarned) ? 0 : assignment.pointsEarned} >
-                            <NumberInputField px={1} py={1} />
-                        </NumberInput> */}
-          <Text>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(2)}%  </Text>
-          <Spacer></Spacer>
-          <Text>{assignment.pointsEarned}</Text>/
-          <Text>{assignment.pointsPossible}</Text>
+          <VStack>
+
+            {/* <CircularProgress value={((assignment.pointsEarned / assignment.pointsPossible) * 100)} color='blue.400' >
+              <CircularProgressLabel>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(0)}%</CircularProgressLabel>
+            </CircularProgress> */}
+            {assignment.pointsEarned !== null &&
+              <>
+                <Text>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(1)}%</Text>
+                <Text color={"gray"} fontSize='xs'>{assignment.pointsEarned}/{assignment.pointsPossible}</Text>
+              </>
+            }
+          </VStack>
           {/* <br></br> */}
 
 
         </Flex>
-        <HStack>
-          <Text textAlign={"left"} color={"gray"} px='10px' fontSize='xs'>{props.CustomText}</Text>
-          <Spacer />
-          <Text textAlign={"right"} color={"gray"} px='10px' fontSize='xs'>{formatDate(assignment.dueDate)}</Text>
-        </HStack>
+
 
         {/* </HStack> */}
       </Card>
     </Box>
   );
 };
+interface TagProps {
+  assignment: AssignmentType;
+}
+const Tags = (props: TagProps) => {
+  const { assignment } = props;
+  return (
+    <>
+      {(assignment.pointsEarned === null) && (
+        <SingleTag title="Not Entered" color="green" />
+
+      )}
+      {assignment.attributeMissing && (
+        <SingleTag title="Missing" color="orange" />
+
+      )}
+
+      {(assignment.attributeExempt || !assignment.includedInFinalGrade) && (
+        <SingleTag title="Exempt" color="yellow" />
+
+      )}
+      {assignment.attributeLate && (
+
+        <SingleTag title="Late" color="red" />
+
+
+      )}
+      {assignment.attributeDropped && (
+        <SingleTag title="Dropped" color="purple" />
+      )}
+    </>
+  )
+}
+interface singleTagProps {
+  title: string;
+  color: string;
+}
+const SingleTag = (props: singleTagProps) => {
+  const { title, color } = props;
+  return (
+    <Box p={.1}>
+      <Tag size="sm" colorScheme={color} borderRadius="full">
+        <TagLabel>{title}</TagLabel>
+      </Tag>
+    </Box>
+  )
+}
+
 export default Assignment;

@@ -6,11 +6,11 @@ dist-ssr
 
 yarn-error.log*
 .pnpm-debug.log*
-ios
+
 
 # TS
 *.tsbuildinfo
-ios
+
 
 # Turbo
 .turbo

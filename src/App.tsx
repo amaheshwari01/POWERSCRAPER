@@ -15,8 +15,11 @@ const App = () => {
   const [runFetch, setRunFetch] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [weights, setWeights] = useState<any>({});
+
   useEffect(() => {
-    inject();
+    // inject();
+    // console.log(window.location.pathname)
+
   }, []);
 
   return (

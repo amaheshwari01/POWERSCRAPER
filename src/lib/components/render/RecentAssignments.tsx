@@ -6,6 +6,7 @@ import Assignment from "./Assignment";
 interface AssignmentArray {
     assignment: AssignmentType;
     ClassName: string;
+    category: string;
 }
 const RecentAssignments = () => {
     const { data } = useContext(AppContext);
@@ -21,7 +22,8 @@ const RecentAssignments = () => {
                 if (today.getTime() - date.getTime() < 604800000 && assignment.pointsEarned !== null) {
                     RecentAssignment.push({
                         assignment: assignment,
-                        ClassName: section.name
+                        ClassName: section.name,
+                        category: assignment.category
 
                     });
                 }
@@ -54,7 +56,7 @@ const RecentAssignments = () => {
                             <Box paddingLeft={5}>
                                 <Stack spacing={2}>
                                     {RecentAssignment.map((oneAssignment: AssignmentArray) => (
-                                        <Assignment key={JSON.stringify(oneAssignment)} section_guid={""} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName} />
+                                        <Assignment key={JSON.stringify(oneAssignment)} section_guid={""} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName + " " + oneAssignment.category} />
                                     ))}
                                 </Stack>
 

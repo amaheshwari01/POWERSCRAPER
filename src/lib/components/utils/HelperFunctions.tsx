@@ -37,7 +37,8 @@ export const calculateNeccasaryGrade = (section: any, termstart: Date, termend: 
     let computed = desiredGrade / 100
     let totalweight = 0;
     let allexceptcat = 0;
-    Object.keys(grades).forEach((grade) => {
+    const powercat = Object.keys(grades)
+    powercat.forEach((grade) => {
 
         const weightedGrade = (grades[grade].earned / grades[grade].total)
         // console.log(weightedGrade)
@@ -49,7 +50,7 @@ export const calculateNeccasaryGrade = (section: any, termstart: Date, termend: 
 
         }
     })
-    if (category === "Final Exam") {
+    if (!(category in powercat)) {
         totalweight += curWeight[category]
         computed *= totalweight
         computed -= allexceptcat
