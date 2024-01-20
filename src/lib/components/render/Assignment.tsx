@@ -64,9 +64,10 @@ const Assignment = (props: AssignmentProps) => {
               </>
               :
               <>
-                <Text></Text><Text></Text>
+                <Flex justifyContent="center" alignItems="center" height="100%">
 
-                <Text > / {assignment.pointsPossible}</Text>
+                  <Text > / {assignment.pointsPossible}</Text>
+                </Flex>
               </>
             }
           </VStack>
