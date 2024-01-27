@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import AppContext from "~/lib/utils/AppContext";
 import { dropfromRefresh } from "./HelperFunctions";
 import { scrape } from "./scrape";
+import dirtyFix from "./dirtyphysicsfix";
 
 export default function Scraper() {
 
@@ -68,7 +69,10 @@ export default function Scraper() {
                 });
         }
     };
-    const handleData = async (data: any) => {
+    const handleData = async (plaindata: any) => {
+        // console.log("plaindata", plaindata)
+        const data = dirtyFix(plaindata);
+
         await setDefault_data(data);
         const gradesToDrop = [];
         for (let i = 0; i < localStorage.length; i++) {
