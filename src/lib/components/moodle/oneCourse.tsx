@@ -1,0 +1,86 @@
+import { useEffect, useState } from "react"
+
+import { getCourse } from "./scrapehelper"
+import { Select } from "chakra-react-select"
+import { set } from "firebase/database"
+import { Skeleton } from "@chakra-ui/react"
+import DayPlan from "./dayplan"
+interface OneCourseProps {
+    courseurl: string
+}
+export default function OneCourse(props: OneCourseProps) {
+    const { courseurl } = props
+    const [courseData, setCourseData] = useState({})
+    const [options, setOptions] = useState([])
+    const [curquarter, setCurQuarter] = useState("")
+    const [dayoptions, setDayOptions] = useState([])
+    const [curDay, setCurDay] = useState("")
+    //get first num in string
+    const getNum = (str) => {
+        const num = str.match(/\d+/g).map(Number)[0]
+        return num
+    }
+    const courseget = async () => {
+        const course = await getCourse(courseurl)
+        console.log(course)
+        setCourseData(course)
+        const options = Object.keys(course).map((option) => {
+            return { value: option, label: option }
+        }).sort((a, b) => {
+            return getNum(a.label) - getNum(b.label)
+        })
+        setOptions(options)
+        setCurQuarter(options[options.length - 1].value)
+
+    }
+    useEffect(() => {
+        if (courseData[curquarter]) {
+
+            const dayoptions = courseData[curquarter].days
+            console.log(dayoptions)
+            if (!dayoptions) {
+                return
+            }
+            const options = dayoptions.map((option) => {
+                return { value: option[0], label: option[1] }
+            })
+            setDayOptions(options)
+        }
+
+    }, [options])
+
+    useEffect(() => {
+        setCourseData({})
+        setDayOptions([])
+        setOptions([])
+        setCurQuarter("")
+
+        courseurl &&
+            courseget()
+    }, [courseurl])
+    return (
+        <>
+            {dayoptions.length !== 0 ?
+                <>
+                    <Select
+                        placeholder="Select a quarter"
+                        onChange={(e) => setCurQuarter(e.value)}
+                        defaultValue={options[options.length - 1]}
+                        options={options}
+                    />
+                    <Select
+                        placeholder="Select a day"
+                        options={dayoptions}
+                        onChange={(e) => setCurDay(e.value)}
+                    />
+                    <DayPlan dayurl={curDay} />
+
+                </>
+                :
+                <Skeleton height="80vh" />
+            }
+
+        </>
+    )
+
+}
