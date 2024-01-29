@@ -15,6 +15,7 @@ interface DayPlanProps {
 export default function DayPlan(props: DayPlanProps) {
     const { dayurl } = props
     const [daydata, setDayData] = useState("")
+    const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     const dayget = async () => {
         const day: string = await getDay(dayurl)
         console.log(day)
@@ -45,7 +46,7 @@ export default function DayPlan(props: DayPlanProps) {
                 </> :
                 <>{dayurl !== "" &&
                     < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
-                        <iframe scrolling="no" height={"50%"} src={useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")} /></Box>}</>
+                        <iframe scrolling="no" height={"50%"} src={loaderpath} /></Box>}</>
 
             }
 

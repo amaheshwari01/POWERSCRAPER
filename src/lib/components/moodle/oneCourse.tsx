@@ -15,22 +15,33 @@ export default function OneCourse(props: OneCourseProps) {
     const [curquarter, setCurQuarter] = useState("")
     const [dayoptions, setDayOptions] = useState([])
     const [curDay, setCurDay] = useState("")
+    const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     //get first num in string
     const getNum = (str) => {
         const num = str.match(/\d+/g).map(Number)[0]
         return num
     }
     const courseget = async () => {
+        setCourseData({})
+        setDayOptions([])
+        setOptions([])
+        setCurQuarter("")
+        setCurDay("")
         const course = await getCourse(courseurl)
-        console.log(course)
         setCourseData(course)
-        const options = Object.keys(course).map((option) => {
-            return { value: option, label: option }
-        }).sort((a, b) => {
-            return getNum(a.label) - getNum(b.label)
-        })
-        setOptions(options)
-        setCurQuarter(options[options.length - 1].value)
+        const options = Object.keys(course)
+            .filter((option) => option !== "id")
+            .map((option) => {
+                return { value: option, label: option }
+            }).sort((a, b) => {
+                return getNum(a.label) - getNum(b.label)
+            })
+        console.log(options)
+        if (course["id"] === courseurl) {
+            setOptions(options)
+            setCurQuarter(options[options.length - 1].value)
+        }
+
 
     }
     useEffect(() => {
@@ -50,11 +61,7 @@ export default function OneCourse(props: OneCourseProps) {
     }, [options])
 
     useEffect(() => {
-        setCourseData({})
-        setDayOptions([])
-        setOptions([])
-        setCurQuarter("")
-        setCurDay("")
+
 
         courseurl && courseget()
     }, [courseurl])
@@ -80,7 +87,7 @@ export default function OneCourse(props: OneCourseProps) {
                 </>
                 :
                 <>{courseurl !== "" && < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
-                    <iframe scrolling="no" height={"500px"} src={useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")} /></Box>
+                    <iframe scrolling="no" height={"500px"} src={loaderpath} /></Box>
                 }</>
             }
 
