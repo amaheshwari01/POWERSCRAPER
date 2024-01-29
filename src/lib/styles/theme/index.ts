@@ -19,6 +19,13 @@ export const theme = extendTheme({
       iframe: {
         maxWidth: '100%',
       },
+      a: {
+        color: 'blue.700',
+        fontWeight: 'bold'
+      },
+      strong: {
+        fontWeight: 'bold',
+      },
     },
   }
 ));
