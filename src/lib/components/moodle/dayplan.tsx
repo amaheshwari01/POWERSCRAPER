@@ -19,7 +19,7 @@ export default function DayPlan(props: DayPlanProps) {
     const dayget = async () => {
         const day: string = await getDay(dayurl)
         console.log(day)
-        setDayData(day.replace(/(vspace|hspace)="[^"]*"/g, ''))
+        setDayData(day)
         // const jsxCode = await mdxCompile(day);
         // setDayData(jsxCode)
     }
