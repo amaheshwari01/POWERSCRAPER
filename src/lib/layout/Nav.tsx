@@ -4,6 +4,8 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons';
+import { useLocation } from 'react-router-dom';
+
 import {
     Box,
     Flex,
@@ -32,10 +34,20 @@ import ThemeToggle from './ThemeToggle';
 import { SafeArea } from 'capacitor-plugin-safe-area';
 
 import { useEffect, useState } from 'react';
+import MoodleOut from './moodlelogout';
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure();
     const [topPadding, setTopPadding] = useState(2);
+    const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
+    useEffect(() => {
+        if (window.location.pathname == "/moodle") {
+            setNAV_ITEMS(MOODLE_NAV)
+        }
+        else setNAV_ITEMS(window.location.pathname == "/" ? POWER_NAV : [])
+
+    }, [window.location.pathname])
+
     useEffect(() => {
         SafeArea.getSafeAreaInsets().then(({ insets }) => {
             // alert(JSON.stringify(insets));
@@ -88,7 +100,7 @@ export default function WithSubnavigation() {
                     justify={{ base: 'center', md: 'start' }}
                 >
                     <Flex ml={10}>
-                        <DesktopNav />
+                        <DesktopNav NAV_ITEMS={NAV_ITEMS} />
                     </Flex>
                 </Flex>
 
@@ -96,16 +108,19 @@ export default function WithSubnavigation() {
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
-                <MobileNav />
+                <MobileNav NAV_ITEMS={NAV_ITEMS} />
             </Collapse>
         </Box>
     );
 }
+interface NavProps {
+    NAV_ITEMS: Array<NavItem>;
+}
+const DesktopNav = (props: NavProps) => {
 
-const DesktopNav = () => {
     return (
         <Stack direction="row" spacing={4}>
-            {NAV_ITEMS.map((navItem) => (
+            {props.NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label} pt={2} pb={2}>
                     {navItem.Thing}
                     {/* <Button
@@ -128,14 +143,14 @@ const DesktopNav = () => {
     );
 };
 
-const MobileNav = () => {
+const MobileNav = (props: NavProps) => {
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
             p={4}
             display={{ md: 'none' }}
         >
-            {NAV_ITEMS.map((navItem) => (
+            {props.NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
         </Stack>
@@ -155,7 +170,20 @@ interface NavItem {
     Thing?: JSX.Element;
 }
 
-const NAV_ITEMS: Array<NavItem> = [
+const MOODLE_NAV: Array<NavItem> = [
+    {
+        label: 'Logout',
+        Thing: <MoodleOut />,
+    },
+    {
+        label: "home",
+        Thing: <Button as="a" href='/'>Home</Button>
+    }
+
+];
+
+
+const POWER_NAV: Array<NavItem> = [
     {
         label: 'GPA',
         Thing: <Gpa />,
@@ -176,4 +204,9 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'CopyToken',
         Thing: <CopyToken />,
     },
+    {
+        label: "home",
+        Thing: <Button as="a" href='/moodle'>Moodle</Button>
+    }
 ];
+
