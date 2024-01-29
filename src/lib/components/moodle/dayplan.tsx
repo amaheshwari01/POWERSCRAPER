@@ -5,8 +5,9 @@ import parse from 'html-react-parser';
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
-
+import './dayplan.css'
 import { getDay } from "./scrapehelper"
+import { Prose } from "@nikolovlazar/chakra-ui-prose";
 
 interface DayPlanProps {
     dayurl: string
@@ -15,6 +16,7 @@ export default function DayPlan(props: DayPlanProps) {
     const { dayurl } = props
     const [daydata, setDayData] = useState("")
     const dayget = async () => {
+        setDayData("")
         const day: string = await getDay(dayurl)
         console.log(day)
         setDayData(day.replace(/(vspace|hspace)="[^"]*"/g, ''))
@@ -34,12 +36,17 @@ export default function DayPlan(props: DayPlanProps) {
     )
     return (
         <Box
-            borderWidth='1px' borderRadius='lg' overflow='hidden'>
-            <Button colorScheme="blue" as="a" href={dayurl}>Go to lesson Plan Page</Button>
-            <ReactMarkdown components={ChakraUIRenderer()} children={daydata} rehypePlugins={[rehypeRaw]} />
+            borderWidth='1px' borderRadius='lg' overflow='none' width={"full"}>
+            {daydata !== "" &&
+                <>
+                    <Button colorScheme="blue" as="a" href={dayurl}>Go to lesson Plan Page</Button>
+                    <Prose p={"6"} wordBreak={"break-word"} dangerouslySetInnerHTML={{ __html: daydata }} />
+                    {/* <ReactMarkdown className="text" components={ChakraUIRenderer()} children={daydata} rehypePlugins={[rehypeRaw]} /> */}
+                </>
 
+            }
 
-        </Box>
+        </Box >
     )
 }
 //     <Text fontSize='2xl' fontWeight='bold' textAlign='center' >Day Plan</Text>
