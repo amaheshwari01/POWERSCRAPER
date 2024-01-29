@@ -9,6 +9,7 @@ import { set } from "firebase/database"
 export default function Moodle() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [showButton, setShowButton] = useState(true)
     const toast = useToast()
     const [loggedIn, setLoggedIn] = useState(false)
     const [classData, setClassData] = useState([])
@@ -17,6 +18,7 @@ export default function Moodle() {
     const handleSubmit = async (username, password) => {
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
+        setShowButton(false)
         onClose()
         const classes = getClasses()
         toast.promise(classes, {
@@ -38,6 +40,7 @@ export default function Moodle() {
             localStorage.removeItem("username")
             localStorage.removeItem("password")
             localStorage.removeItem("cookies")
+            setShowButton(true)
             onOpen()
         }
 
@@ -62,13 +65,15 @@ export default function Moodle() {
     return (
         <div>
             {!loggedIn ?
-                <Box position={"fixed"} top={"50%"} left={"50%"} zIndex={2} transform={"translate(-50%,-50%)"}>
-                    {/* <AbsoluteCenter> */}
-                    <Button onClick={onOpen} colorScheme="orange">
-                        Login to Moodle
-                    </Button>
-                    {/* </AbsoluteCenter> */}
-                </Box> :
+                <>
+                    {showButton &&
+                        < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={2} transform={"translate(-50%,-50%)"}>
+                            {/* <AbsoluteCenter> */}
+                            <Button onClick={onOpen} colorScheme="orange">
+                                Login to Moodle
+                            </Button>
+                            {/* </AbsoluteCenter> */}
+                        </Box>}</> :
                 <MoodleFull classData={classData} />
             }
 

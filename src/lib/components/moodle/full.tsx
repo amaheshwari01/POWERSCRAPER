@@ -24,6 +24,7 @@ export default function MoodleFull(props: getClassesProps) {
                 placeholder="Select a course"
                 onChange={(e) => setCurCourse(e.value)}
                 options={couses}
+                isSearchable={false}
 
             />
             <OneCourse courseurl={curCourse} />

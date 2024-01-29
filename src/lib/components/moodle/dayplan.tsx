@@ -1,5 +1,5 @@
 
-import { Box, Button } from "@chakra-ui/react"
+import { Box, Button, useColorModeValue } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import parse from 'html-react-parser';
 import ReactMarkdown from "react-markdown";
@@ -16,7 +16,6 @@ export default function DayPlan(props: DayPlanProps) {
     const { dayurl } = props
     const [daydata, setDayData] = useState("")
     const dayget = async () => {
-        setDayData("")
         const day: string = await getDay(dayurl)
         console.log(day)
         setDayData(day.replace(/(vspace|hspace)="[^"]*"/g, ''))
@@ -24,6 +23,7 @@ export default function DayPlan(props: DayPlanProps) {
         // setDayData(jsxCode)
     }
     useEffect(() => {
+        setDayData("")
         if (dayurl !== "") {
 
             dayget()
@@ -37,12 +37,15 @@ export default function DayPlan(props: DayPlanProps) {
     return (
         <Box
             borderWidth='1px' borderRadius='lg' overflow='none' width={"full"}>
-            {daydata !== "" &&
+            {daydata !== "" ?
                 <>
                     <Button colorScheme="blue" as="a" href={dayurl}>Go to lesson Plan Page</Button>
                     <Prose p={"6"} wordBreak={"break-word"} dangerouslySetInnerHTML={{ __html: daydata }} />
                     {/* <ReactMarkdown className="text" components={ChakraUIRenderer()} children={daydata} rehypePlugins={[rehypeRaw]} /> */}
-                </>
+                </> :
+                <>{dayurl !== "" &&
+                    < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
+                        <iframe scrolling="no" height={"50%"} src={useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")} /></Box>}</>
 
             }
 

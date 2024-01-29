@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getCourse } from "./scrapehelper"
 import { Select } from "chakra-react-select"
 import { set } from "firebase/database"
-import { Skeleton } from "@chakra-ui/react"
+import { Box, Skeleton, useColorModeValue } from "@chakra-ui/react"
 import DayPlan from "./dayplan"
 interface OneCourseProps {
     courseurl: string
@@ -54,9 +54,9 @@ export default function OneCourse(props: OneCourseProps) {
         setDayOptions([])
         setOptions([])
         setCurQuarter("")
+        setCurDay("")
 
-        courseurl &&
-            courseget()
+        courseurl && courseget()
     }, [courseurl])
     return (
         <>
@@ -67,17 +67,21 @@ export default function OneCourse(props: OneCourseProps) {
                         onChange={(e) => setCurQuarter(e.value)}
                         defaultValue={options[options.length - 1]}
                         options={options}
+                        isSearchable={false}
                     />
                     <Select
                         placeholder="Select a day"
                         options={dayoptions}
                         onChange={(e) => setCurDay(e.value)}
+                        isSearchable={false}
                     />
                     <DayPlan dayurl={curDay} />
 
                 </>
                 :
-                <Skeleton height="80vh" />
+                <>{courseurl !== "" && < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
+                    <iframe scrolling="no" height={"500px"} src={useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")} /></Box>
+                }</>
             }
 
         </>

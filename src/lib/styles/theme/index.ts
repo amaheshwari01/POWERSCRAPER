@@ -13,4 +13,12 @@ export const theme = extendTheme({
     // }
   },
   config,
-},withProse());
+}, withProse(
+  {
+    baseStyle: {
+      iframe: {
+        maxWidth: '100%',
+      },
+    },
+  }
+));
