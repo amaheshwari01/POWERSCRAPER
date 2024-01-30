@@ -122,7 +122,7 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
     const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
     //add to firebase under users
     const curVisit = {
-      date: (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()),
+      date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
       device: "mobile"
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));

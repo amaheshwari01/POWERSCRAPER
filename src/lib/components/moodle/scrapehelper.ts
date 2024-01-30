@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import { database as db } from '../utils/firebase'
+import { set, ref, push, get } from 'firebase/database';
 
 export async function getClasses(): Promise<any> {
     const username = localStorage.getItem("username")
@@ -32,6 +33,15 @@ export async function getClasses(): Promise<any> {
         localStorage.setItem("cookies", JSON.stringify(response.data["cookies"]))
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
+        const curdate = new Date()
+
+        const curVisit = {
+        date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
+        device: "mobile"
+        }
+        const userRef = ref(db, 'moodleusers/' + (username.replaceAll(".", " ")) + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
+        // console.log(userRef)
+        set(userRef, curVisit);
         return response.data["classes"]
 
     }
@@ -74,6 +84,7 @@ export async function getCourse(courseurl: String): Promise<any>{
         localStorage.setItem("cookies", JSON.stringify(response.data["cookies"]))
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
+            
         return response.data.courseData
 
     }
