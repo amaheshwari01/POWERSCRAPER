@@ -2,9 +2,7 @@
 import { Box, Button, useColorModeValue } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import parse from 'html-react-parser';
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
+
 import './dayplan.css'
 import { getDay } from "./scrapehelper"
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
