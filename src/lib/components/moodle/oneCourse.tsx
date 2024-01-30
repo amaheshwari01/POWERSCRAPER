@@ -58,7 +58,7 @@ export default function OneCourse(props: OneCourseProps) {
             setDayOptions(options)
         }
 
-    }, [options])
+    }, [curquarter])
 
     useEffect(() => {
 
