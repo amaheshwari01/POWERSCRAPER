@@ -8,6 +8,7 @@ const Logout = () => {
   const { setRefreshToken } = useContext(AppContext);
   const logout = () => {
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('data')
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
       if (key.startsWith('drop:')) {
