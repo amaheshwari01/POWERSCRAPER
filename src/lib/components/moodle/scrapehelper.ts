@@ -51,7 +51,7 @@ export async function getClasses(): Promise<any> {
     }
 
 }
-export async function getCourse(courseurl: String): Promise<any>{
+export async function getCourse(courseurl: string): Promise<any>{
     const username = localStorage.getItem("username")
     const password = localStorage.getItem("password")
     const cookies = JSON.parse(localStorage.getItem("cookies"))
@@ -84,7 +84,7 @@ export async function getCourse(courseurl: String): Promise<any>{
         localStorage.setItem("cookies", JSON.stringify(response.data["cookies"]))
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
-            
+        localStorage.setItem(courseurl,JSON.stringify(response.data.courseData))
         return response.data.courseData
 
     }

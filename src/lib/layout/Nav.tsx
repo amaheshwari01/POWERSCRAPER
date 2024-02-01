@@ -206,7 +206,7 @@ const POWER_NAV: Array<NavItem> = [
     },
     {
         label: "home",
-        Thing: <Button as="a" href='/moodle'>Moodle</Button>
+        Thing: <Button colorScheme={"orange"} as="a" href='/moodle'>Moodle</Button>
     }
 ];
 

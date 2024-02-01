@@ -15,6 +15,7 @@ export default function OneCourse(props: OneCourseProps) {
     const [curquarter, setCurQuarter] = useState("")
     const [dayoptions, setDayOptions] = useState([])
     const [curDay, setCurDay] = useState("")
+    const [updatequarter, setUpdateQuarter] = useState(false)
     const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     //get first num in string
     const getNum = (str) => {
@@ -22,12 +23,22 @@ export default function OneCourse(props: OneCourseProps) {
         return num
     }
     const courseget = async () => {
-        setCourseData({})
-        setDayOptions([])
-        setOptions([])
-        setCurQuarter("")
-        setCurDay("")
+
         const course = await getCourse(courseurl)
+        if (JSON.stringify(course) !== JSON.stringify(courseData)) {
+
+            parsecourse(course)
+        }
+        else {
+            console.log("same data")
+
+        }
+
+
+    }
+    const parsecourse = (course: any) => {
+
+        console.log(course)
         setCourseData(course)
         const options = Object.keys(course)
             .filter((option) => option !== "id")
@@ -36,16 +47,20 @@ export default function OneCourse(props: OneCourseProps) {
             }).sort((a, b) => {
                 return getNum(a.label) - getNum(b.label)
             })
+
         console.log(options)
+
         if (course["id"] === courseurl) {
+            console.log("setting options")
             setOptions(options)
+            console.log(options[options.length - 1].value)
             setCurQuarter(options[options.length - 1].value)
+            setUpdateQuarter(!updatequarter)
         }
-
-
     }
     useEffect(() => {
         if (courseData[curquarter]) {
+            console.log("setting day options")
 
             const dayoptions = courseData[curquarter].days
             console.log(dayoptions)
@@ -58,10 +73,20 @@ export default function OneCourse(props: OneCourseProps) {
             setDayOptions(options)
         }
 
-    }, [curquarter])
+    }, [updatequarter])
 
     useEffect(() => {
+        setCourseData({})
+        setDayOptions([])
+        setOptions([])
+        setCurQuarter("")
+        setCurDay("")
 
+        const coursedata = localStorage.getItem(courseurl)
+        if (coursedata) {
+            console.log("using local data")
+            parsecourse(JSON.parse(coursedata))
+        }
 
         courseurl && courseget()
     }, [courseurl])

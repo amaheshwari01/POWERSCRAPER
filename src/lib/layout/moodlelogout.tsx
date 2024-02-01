@@ -6,6 +6,16 @@ export default function MoodleOut() {
         localStorage.removeItem("password")
         localStorage.removeItem("cookies")
         localStorage.removeItem("classData")
+        let keystoremove = []
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if (key.startsWith('https')) {
+                keystoremove.push(key)
+            }
+        }
+        keystoremove.forEach((key) => {
+            localStorage.removeItem(key)
+        });
 
         window.location.reload();
     }
