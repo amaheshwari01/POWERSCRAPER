@@ -5,6 +5,7 @@ export default function MoodleOut() {
         localStorage.removeItem("username")
         localStorage.removeItem("password")
         localStorage.removeItem("cookies")
+        localStorage.removeItem("classData")
 
         window.location.reload();
     }
