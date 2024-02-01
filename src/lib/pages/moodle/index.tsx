@@ -30,6 +30,7 @@ export default function Moodle() {
             const res = await classes
             // console.log(res)
             setClassData(res)
+            localStorage.setItem("classData", JSON.stringify(res))
 
             setLoggedIn(true)
             // conso
@@ -55,7 +56,14 @@ export default function Moodle() {
             onOpen()
         }
         else {
-            handleSubmit(username, password)
+            const classdata = localStorage.getItem("classData")
+            if (classdata) {
+                setClassData(JSON.parse(classdata))
+                setLoggedIn(true)
+            }
+            else {
+                handleSubmit(username, password)
+            }
 
 
         }
