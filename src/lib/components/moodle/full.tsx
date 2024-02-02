@@ -17,7 +17,7 @@ export default function MoodleFull(props: getClassesProps) {
     }
 
     useEffect(() => {
-        console.log(classData)
+        // console.log(classData)
         const courses = classData.map((course) => {
             return { value: course[0], label: course[1] }
         })

@@ -33,13 +33,21 @@ import Reset from './reset';
 import ThemeToggle from './ThemeToggle';
 import { SafeArea } from 'capacitor-plugin-safe-area';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MoodleOut from './moodlelogout';
+import { useIsOverflow } from './useIsOverflow';
+import Settings from './Settings';
 
 export default function WithSubnavigation() {
+    const ref = useRef();
+    const isOverflow = useIsOverflow(ref);
+
     const { isOpen, onToggle } = useDisclosure();
     const [topPadding, setTopPadding] = useState(2);
     const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
+    useEffect(() => {
+        console.log(isOverflow)
+    }, [isOverflow])
     useEffect(() => {
         if (window.location.pathname == "/moodle") {
             setNAV_ITEMS(MOODLE_NAV)
@@ -65,6 +73,8 @@ export default function WithSubnavigation() {
         <Box>
 
             <Flex
+                ref={ref}
+
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
                 minH="60px"
@@ -104,7 +114,7 @@ export default function WithSubnavigation() {
                     </Flex>
                 </Flex>
 
-                <ThemeToggle />
+                <Settings />
             </Flex>
 
             <Collapse in={isOpen} animateOpacity>
@@ -123,20 +133,7 @@ const DesktopNav = (props: NavProps) => {
             {props.NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label} pt={2} pb={2}>
                     {navItem.Thing}
-                    {/* <Button
-                                as="a"
-                                p={2}
-                                href={navItem.href ?? '#'}
-                                fontSize={'lg'}
-                                fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: 'none',
-                                    color: linkHoverColor,
 
-                                }}>
-                                {navItem.label}
-                            </Button> */}
                 </Box>
             ))}
         </Stack>
@@ -171,13 +168,10 @@ interface NavItem {
 }
 
 const MOODLE_NAV: Array<NavItem> = [
-    {
-        label: 'Logout',
-        Thing: <MoodleOut />,
-    },
+
     {
         label: "home",
-        Thing: <Button as="a" href='/'>Home</Button>
+        Thing: <Button colorScheme={"purple"} as="a" href='/'>Home</Button>
     }
 
 ];
@@ -188,22 +182,12 @@ const POWER_NAV: Array<NavItem> = [
         label: 'GPA',
         Thing: <Gpa />,
     },
-    {
-        label: 'Reset',
-        Thing: <Reset />,
-    },
+
     {
         label: 'Refresh',
         Thing: <Refresh />,
     },
-    {
-        label: 'Logout',
-        Thing: <Logout />,
-    },
-    {
-        label: 'CopyToken',
-        Thing: <CopyToken />,
-    },
+
     {
         label: "home",
         Thing: <Button colorScheme={"orange"} as="a" href='/moodle'>Moodle</Button>

@@ -20,6 +20,6 @@ export default function MoodleOut() {
         window.location.reload();
     }
     return (
-        <Button onClick={logout}>Logout</Button>
+        <Button colorScheme={"red"} onClick={logout}>Logout of Moodle</Button>
     )
 }

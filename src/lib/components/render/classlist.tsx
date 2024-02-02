@@ -37,7 +37,22 @@ const ClassList = (props: ClassListProps) => {
 
 
 
-  });
+  })
+  useEffect(() => {
+    let aday = []
+    let bday = []
+    sections.forEach((section: any) => {
+      if (section.period.includes("A")) {
+        aday.push(section.name)
+      }
+      else {
+        bday.push(section.name)
+      }
+    })
+    localStorage.setItem("aday", JSON.stringify(aday))
+    localStorage.setItem("bday", JSON.stringify(bday))
+
+  }, [sections]);
 
   return (
     <>

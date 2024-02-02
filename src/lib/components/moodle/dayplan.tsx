@@ -16,7 +16,7 @@ export default function DayPlan(props: DayPlanProps) {
     const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     const dayget = async () => {
         const day: string = await getDay(dayurl)
-        console.log(day)
+        // console.log(day)
         setDayData(day)
         // const jsxCode = await mdxCompile(day);
         // setDayData(jsxCode)

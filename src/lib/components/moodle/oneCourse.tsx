@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-import { getCourse } from "./scrapehelper"
+import { closestindex, getCourse } from "./scrapehelper"
 import { Select } from "chakra-react-select"
 import { set } from "firebase/database"
 import { Box, Skeleton, useColorModeValue } from "@chakra-ui/react"
@@ -12,12 +12,30 @@ export default function OneCourse(props: OneCourseProps) {
     const { courseurl } = props
     const [courseData, setCourseData] = useState({})
     const [options, setOptions] = useState([])
+
     const [curquarter, setCurQuarter] = useState("")
     const [dayoptions, setDayOptions] = useState([])
     const [curDay, setCurDay] = useState("")
     const [updatequarter, setUpdateQuarter] = useState(false)
+    const [daytype, setDayType] = useState("")
     const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     //get first num in string
+    const getcurday = () => {
+        const aday = localStorage.getItem("aday")
+        const bday = localStorage.getItem("bday")
+        if (aday && bday) {
+            const adayarray = JSON.parse(aday)
+            const bdayarray = JSON.parse(bday)
+            const adist = closestindex(adayarray, curDay)
+            const bdist = closestindex(bdayarray, curDay)
+            if (adist < bdist) {
+                setDayType("A")
+            }
+            else {
+                setDayType("B")
+            }
+        }
+    }
     const getNum = (str) => {
         const num = str.match(/\d+/g).map(Number)[0]
         return num
@@ -30,7 +48,6 @@ export default function OneCourse(props: OneCourseProps) {
             parsecourse(course)
         }
         else {
-            console.log("same data")
 
         }
 
@@ -38,7 +55,6 @@ export default function OneCourse(props: OneCourseProps) {
     }
     const parsecourse = (course: any) => {
 
-        console.log(course)
         setCourseData(course)
         const options = Object.keys(course)
             .filter((option) => option !== "id")
@@ -48,22 +64,17 @@ export default function OneCourse(props: OneCourseProps) {
                 return getNum(a.label) - getNum(b.label)
             })
 
-        console.log(options)
 
         if (course["id"] === courseurl) {
-            console.log("setting options")
             setOptions(options)
-            console.log(options[options.length - 1].value)
             setCurQuarter(options[options.length - 1].value)
             setUpdateQuarter(!updatequarter)
         }
     }
     useEffect(() => {
         if (courseData[curquarter]) {
-            console.log("setting day options")
 
             const dayoptions = courseData[curquarter].days
-            console.log(dayoptions)
             if (!dayoptions) {
                 return
             }
@@ -71,9 +82,10 @@ export default function OneCourse(props: OneCourseProps) {
                 return { value: option[0], label: option[1] }
             })
             setDayOptions(options)
+            getcurday()
         }
 
-    }, [updatequarter])
+    }, [updatequarter, curquarter])
 
     useEffect(() => {
         setCourseData({})
@@ -84,12 +96,42 @@ export default function OneCourse(props: OneCourseProps) {
 
         const coursedata = localStorage.getItem(courseurl)
         if (coursedata) {
-            console.log("using local data")
             parsecourse(JSON.parse(coursedata))
         }
 
         courseurl && courseget()
     }, [courseurl])
+
+    // useEffect(() => {
+    //     let curdaynew = ""
+    //     let curlabelnew = ""
+    //     console.log(daytype)
+    //     dayoptions.forEach((option) => {
+    //         let currentdate;
+    //         if (option.label.includes("/")) {
+    //             if (daytype === "A") {
+    //                 currentdate = option.label.split("/")[0]
+    //             }
+    //             else {
+    //                 currentdate = option.label.split("/")[0].split(" ")[0] + " " + option.label.split("/")[1]
+    //             }
+    //         }
+    //         else {
+    //             currentdate = option.label
+    //         }
+    //         currentdate = new Date(currentdate)
+    //         const today = new Date(new Date().toISOString().split("T")[0])
+    //         if (today.getTime() >= currentdate.getTime())
+    //             curdaynew = option.value
+    //         curlabelnew = option.label
+
+
+
+    //     })
+    //     console.log(curlabelnew)
+    //     setCurDay(curdaynew)
+    // }, [daytype])
+
     return (
         <>
             {dayoptions.length !== 0 ?
@@ -104,6 +146,7 @@ export default function OneCourse(props: OneCourseProps) {
                     <Select
                         placeholder="Select a day"
                         options={dayoptions}
+                        defaultValue={dayoptions.filter((option) => option.value === curDay)[0]}
                         onChange={(e) => setCurDay(e.value)}
                         isSearchable={false}
                     />
