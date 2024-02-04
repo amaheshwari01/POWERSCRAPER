@@ -3,7 +3,7 @@ import { database as db } from './firebase'
 import { set, ref, push, get } from 'firebase/database';
 // const localGrades=false
 // import grades from './grades.json'
-const version = 14
+const version = 21
 
 const oauth2Options = {
   method: 'POST',

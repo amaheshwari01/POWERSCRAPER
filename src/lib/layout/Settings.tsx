@@ -14,6 +14,7 @@ const Settings = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
     useEffect(() => {
+
         if (window.location.pathname == "/moodle") {
             setNAV_ITEMS(MOODLE_NAV)
         }
@@ -35,9 +36,9 @@ const Settings = () => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Center p={2}><ThemeToggle /></Center>
-                        {NAV_ITEMS.map((item) => <>
-                            <Center p={2}>{item.Thing}                        </Center>
-                        </>
+                        {NAV_ITEMS.map((item) =>
+                            <Center key={item.label} p={2}>{item.Thing}</Center>
+
                         )}
                     </ModalBody>
 
@@ -66,10 +67,6 @@ const POWER_NAV: Array<NavItem> = [
         Thing: <Reset />,
     },
 
-    {
-        label: "home",
-        Thing: <Button colorScheme={"orange"} as="a" href='/moodle'>Moodle</Button>
-    },
     {
         label: 'CopyToken',
         Thing: <CopyToken />,

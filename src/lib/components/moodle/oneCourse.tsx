@@ -6,11 +6,10 @@ import { set } from "firebase/database"
 import { Box, Skeleton, useColorModeValue } from "@chakra-ui/react"
 import DayPlan from "./dayplan"
 interface OneCourseProps {
-    courseurl: string
+    courseData: any;
 }
 export default function OneCourse(props: OneCourseProps) {
-    const { courseurl } = props
-    const [courseData, setCourseData] = useState({})
+    const { courseData } = props
     const [options, setOptions] = useState([])
 
     const [curquarter, setCurQuarter] = useState("")
@@ -36,26 +35,14 @@ export default function OneCourse(props: OneCourseProps) {
             }
         }
     }
-    const getNum = (str) => {
+    const getNum = (str: string) => {
         const num = str.match(/\d+/g).map(Number)[0]
         return num
     }
-    const courseget = async () => {
 
-        const course = await getCourse(courseurl)
-        if (JSON.stringify(course) !== JSON.stringify(courseData)) {
-
-            parsecourse(course)
-        }
-        else {
-
-        }
-
-
-    }
     const parsecourse = (course: any) => {
 
-        setCourseData(course)
+        // console.log("Re Parsing")
         const options = Object.keys(course)
             .filter((option) => option !== "id")
             .map((option) => {
@@ -64,15 +51,18 @@ export default function OneCourse(props: OneCourseProps) {
                 return getNum(a.label) - getNum(b.label)
             })
 
-
-        if (course["id"] === courseurl) {
+        // console.log(options)
+        if (true) {//(course["id"] === courseurl) {
             setOptions(options)
             setCurQuarter(options[options.length - 1].value)
             setUpdateQuarter(!updatequarter)
+            // console.log("Done")
         }
     }
     useEffect(() => {
         if (courseData[curquarter]) {
+            // console.log("Setting Day Options")
+            // console.log(courseData)
 
             const dayoptions = courseData[curquarter].days
             if (!dayoptions) {
@@ -81,26 +71,26 @@ export default function OneCourse(props: OneCourseProps) {
             const options = dayoptions.map((option) => {
                 return { value: option[0], label: option[1] }
             })
+            // console.log(options)
             setDayOptions(options)
             getcurday()
+        }
+        else {
+            setDayOptions([])
+
         }
 
     }, [updatequarter, curquarter])
 
     useEffect(() => {
-        setCourseData({})
-        setDayOptions([])
         setOptions([])
+        setDayOptions([])
         setCurQuarter("")
         setCurDay("")
 
-        const coursedata = localStorage.getItem(courseurl)
-        if (coursedata) {
-            parsecourse(JSON.parse(coursedata))
-        }
+        parsecourse(courseData)
 
-        courseurl && courseget()
-    }, [courseurl])
+    }, [courseData])
 
     // useEffect(() => {
     //     let curdaynew = ""
@@ -154,7 +144,7 @@ export default function OneCourse(props: OneCourseProps) {
 
                 </>
                 :
-                <>{courseurl !== "" && < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
+                <>{courseData !== "" && < Box position={"fixed"} top={"50%"} left={"50%"} zIndex={0} transform={"translate(-50%,-50%)"}>
                     <iframe scrolling="no" height={"500px"} src={loaderpath} /></Box>
                 }</>
             }
