@@ -1,5 +1,4 @@
-# Power-Assist
-this branch tries to compute grades
+# POWERSCRAPER
 This is a remake to my my PowerGui/PowerScraper(I really need to get better at naming these things) but uses the mobile powerschool api instead
 
 ## Getting Started
