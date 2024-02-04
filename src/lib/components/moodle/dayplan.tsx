@@ -1,11 +1,10 @@
 
-import { Box, Button, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, IconButton, useColorModeValue } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import parse from 'html-react-parser';
-
-import './dayplan.css'
 import { getDay } from "./scrapehelper"
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 interface DayPlanProps {
     dayurl: string
@@ -38,8 +37,9 @@ export default function DayPlan(props: DayPlanProps) {
             borderWidth='1px' borderRadius='lg' overflow='none' width={"full"}>
             {daydata !== "" ?
                 <>
-                    <Button colorScheme="blue" as="a" href={dayurl}>Go to lesson Plan Page</Button>
                     <Prose p={"6"} wordBreak={"break-word"} dangerouslySetInnerHTML={{ __html: daydata }} />
+                    <IconButton aria-label="go to lesson plan" icon={<ExternalLinkIcon />} colorScheme="blue" as="a" href={dayurl} />
+
                     {/* <ReactMarkdown className="text" components={ChakraUIRenderer()} children={daydata} rehypePlugins={[rehypeRaw]} /> */}
                 </> :
                 <>{dayurl !== "" &&
@@ -51,10 +51,3 @@ export default function DayPlan(props: DayPlanProps) {
         </Box >
     )
 }
-//     <Text fontSize='2xl' fontWeight='bold' textAlign='center' >Day Plan</Text>
-//             <Box p='8'>
-//                 {parse(daydata)}
-//             </Box>
-// {/* <iframe srcDoc={daydata}>
-
-//             </iframe> */}

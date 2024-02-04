@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 import { closestindex, getCourse } from "./scrapehelper"
 import { Select } from "chakra-react-select"
 import { set } from "firebase/database"
-import { Box, Skeleton, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, HStack, IconButton, Skeleton, Spacer, useColorModeValue } from "@chakra-ui/react"
 import DayPlan from "./dayplan"
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons"
 interface OneCourseProps {
     courseData: any;
 }
@@ -14,27 +15,27 @@ export default function OneCourse(props: OneCourseProps) {
 
     const [curquarter, setCurQuarter] = useState("")
     const [dayoptions, setDayOptions] = useState([])
-    const [curDay, setCurDay] = useState("")
+    const [curDay, setCurDay] = useState<number>(null)
     const [updatequarter, setUpdateQuarter] = useState(false)
     const [daytype, setDayType] = useState("")
     const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
     //get first num in string
-    const getcurday = () => {
-        const aday = localStorage.getItem("aday")
-        const bday = localStorage.getItem("bday")
-        if (aday && bday) {
-            const adayarray = JSON.parse(aday)
-            const bdayarray = JSON.parse(bday)
-            const adist = closestindex(adayarray, curDay)
-            const bdist = closestindex(bdayarray, curDay)
-            if (adist < bdist) {
-                setDayType("A")
-            }
-            else {
-                setDayType("B")
-            }
-        }
-    }
+    // const getcurday = () => {
+    //     const aday = localStorage.getItem("aday")
+    //     const bday = localStorage.getItem("bday")
+    //     if (aday && bday) {
+    //         const adayarray = JSON.parse(aday)
+    //         const bdayarray = JSON.parse(bday)
+    //         const adist = closestindex(adayarray, curDay)
+    //         const bdist = closestindex(bdayarray, curDay)
+    //         if (adist < bdist) {
+    //             setDayType("A")
+    //         }
+    //         else {
+    //             setDayType("B")
+    //         }
+    //     }
+    // }
     const getNum = (str: string) => {
         const num = str.match(/\d+/g).map(Number)[0]
         return num
@@ -64,16 +65,16 @@ export default function OneCourse(props: OneCourseProps) {
             // console.log("Setting Day Options")
             // console.log(courseData)
 
-            const dayoptions = courseData[curquarter].days
+            const dayoptions: string[][] = courseData[curquarter].days
             if (!dayoptions) {
                 return
             }
-            const options = dayoptions.map((option) => {
-                return { value: option[0], label: option[1] }
+            const options = dayoptions.map((option, index) => {
+                return { value: option[0], label: option[1], index: index }
             })
             // console.log(options)
             setDayOptions(options)
-            getcurday()
+            // getcurday()
         }
         else {
             setDayOptions([])
@@ -86,7 +87,7 @@ export default function OneCourse(props: OneCourseProps) {
         setOptions([])
         setDayOptions([])
         setCurQuarter("")
-        setCurDay("")
+        setCurDay(null)
 
         parsecourse(courseData)
 
@@ -126,6 +127,7 @@ export default function OneCourse(props: OneCourseProps) {
         <>
             {dayoptions.length !== 0 ?
                 <>
+
                     <Select
                         placeholder="Select a quarter"
                         onChange={(e) => setCurQuarter(e.value)}
@@ -136,11 +138,18 @@ export default function OneCourse(props: OneCourseProps) {
                     <Select
                         placeholder="Select a day"
                         options={dayoptions}
-                        defaultValue={dayoptions.filter((option) => option.value === curDay)[0]}
-                        onChange={(e) => setCurDay(e.value)}
+                        value={(dayoptions[curDay]) ? dayoptions[curDay] : null}
+                        onChange={(e) => setCurDay(e.index)}
                         isSearchable={false}
                     />
-                    <DayPlan dayurl={curDay} />
+                    <HStack p={2}>
+                        <IconButton aria-label="go back" disabled={curDay === 0} onClick={() => setCurDay(curDay - 1)} icon={<ArrowLeftIcon />} />
+                        <Spacer></Spacer>
+                        <IconButton aria-label="go forward" disabled={curDay === dayoptions.length - 1} onClick={() => setCurDay(curDay + 1)} icon={<ArrowRightIcon />} />
+                    </HStack>
+                    {curDay !== null &&
+                        <DayPlan dayurl={dayoptions[curDay].value} />
+                    }
 
                 </>
                 :
