@@ -143,9 +143,9 @@ export default function OneCourse(props: OneCourseProps) {
                         isSearchable={false}
                     />
                     <HStack p={2}>
-                        <IconButton aria-label="go back" disabled={curDay === 0} onClick={() => setCurDay(curDay - 1)} icon={<ArrowLeftIcon />} />
+                        <IconButton aria-label="go back" isDisabled={curDay === 0 || curDay === null} onClick={() => setCurDay(curDay - 1)} icon={<ArrowLeftIcon />} />
                         <Spacer></Spacer>
-                        <IconButton aria-label="go forward" disabled={curDay === dayoptions.length - 1} onClick={() => setCurDay(curDay + 1)} icon={<ArrowRightIcon />} />
+                        <IconButton aria-label="go forward" isDisabled={curDay === dayoptions.length - 1} onClick={() => setCurDay(curDay + 1)} icon={<ArrowRightIcon />} />
                     </HStack>
                     {curDay !== null &&
                         <DayPlan dayurl={dayoptions[curDay].value} />
