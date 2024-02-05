@@ -59,7 +59,6 @@ const Home = () => {
   }, []);
 
   return <>
-    sillytest
     <Scraper />
 
 
