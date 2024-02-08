@@ -121,9 +121,10 @@ export const Login = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Enter your token from{' '}
-            <Link color='blue' href="https://testflight.apple.com/join/7qNUyzsp" >POWERSCRAPER Mobile</Link>{' '} It is currently in beta on Testflight
+            Copy your token from{' '}
+            <Link color='blue' href="https://apps.apple.com/us/app/powerscraper/id6475117998" >POWERSCRAPER Mobile</Link>{' '}
             <br></br>
+            <Text fontSize='sm'>{'It is under settings -> copy token'}</Text>
           </ModalHeader>
           <ModalBody>
             <Input
