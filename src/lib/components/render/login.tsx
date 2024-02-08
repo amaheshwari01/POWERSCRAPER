@@ -84,13 +84,16 @@ export const Login = () => {
   const login = () => {
     const platform = Capacitor.getPlatform();
     if (platform === 'web') {
+
       onOpen();
+
       return;
     }
     else {
       openBrowser();
     }
   }
+
   const saveKey = () => {
     localStorage.setItem('refresh_token', curRefKey);
     setRefreshToken(curRefKey);
@@ -105,6 +108,14 @@ export const Login = () => {
       localStorage.setItem('refresh_token', key);
       localStorage.removeItem('refreshkey');
       setRefreshToken(key)
+    }
+    else {
+      const urlkey = new URLSearchParams(window.location.search).get('token')
+      if (urlkey) {
+        localStorage.setItem('refresh_token', urlkey);
+        setRefreshToken(urlkey);
+      }
+
     }
 
   }, []);
