@@ -3,10 +3,10 @@ export default function dirtyFix(data: any) {
     // console.log(updatedData.data.student.sections)
     let section: any;
     for (section in updatedData.data.student.sections) {
-        console.log(section)
+        // console.log(section)
         section = updatedData.data.student.sections[section];
         if (section.name === "AP Physics 1" && section.teacherLastName === "Naumann") {
-            console.log("found section")
+            // console.log("found section")
             let assignment: any;
             for (assignment in section.assignments) {
                 assignment = section.assignments[assignment];

@@ -110,7 +110,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                     <ModalCloseButton />
                     {reverse ? <ModalBody>
                         <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
-                            {cats.map((cat) => (<option key={cat} value={cat}>{cat}</option>))
+                            {cats.map((cat) => (<option key={cat} value={cat}>{cat + " " + curWeight[cat]}</option>))
 
                             }
                         </Select>
@@ -131,7 +131,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                     </ModalBody> :
                         <ModalBody>
                             <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
-                                {cats.map((cat) => (<option key={cat} value={cat}>{cat}</option>))
+                                {cats.map((cat) => (<option key={cat} value={cat}>{cat + " " + curWeight[cat]}</option>))
 
                                 }
                             </Select>
