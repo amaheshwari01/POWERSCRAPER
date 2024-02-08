@@ -8,6 +8,7 @@ import Reset from './reset';
 import MoodleOut from './moodlelogout';
 import { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
+import CopyWebsite from './copywebsitelink';
 
 
 const Settings = () => {
@@ -70,6 +71,10 @@ const POWER_NAV: Array<NavItem> = [
     {
         label: 'CopyToken',
         Thing: <CopyToken />,
+    },
+    {
+        label: 'website',
+        Thing: <CopyWebsite />,
     },
     {
         label: 'Logout',

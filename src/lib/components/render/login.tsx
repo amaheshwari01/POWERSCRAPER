@@ -114,6 +114,8 @@ export const Login = () => {
       if (urlkey) {
         localStorage.setItem('refresh_token', urlkey);
         setRefreshToken(urlkey);
+        //refresh page
+        window.location.href = window.location.href.split('?')[0];
       }
 
     }
