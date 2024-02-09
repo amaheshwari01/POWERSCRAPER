@@ -13,6 +13,30 @@ import CopyWebsite from './copywebsitelink';
 
 const Settings = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const handleClose = () => {
+        onClose()
+    }
+
+    const POWER_NAV: Array<NavItem> = [
+
+        {
+            label: 'Reset',
+            Thing: <Reset />,
+        },
+
+        {
+            label: 'CopyToken',
+            Thing: <CopyToken />,
+        },
+        {
+            label: 'website',
+            Thing: <CopyWebsite setClose={handleClose} />,
+        },
+        {
+            label: 'Logout',
+            Thing: <Logout />,
+        },
+    ];
     const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
     useEffect(() => {
 
@@ -61,26 +85,6 @@ interface NavItem {
     Thing?: JSX.Element;
 }
 
-const POWER_NAV: Array<NavItem> = [
-
-    {
-        label: 'Reset',
-        Thing: <Reset />,
-    },
-
-    {
-        label: 'CopyToken',
-        Thing: <CopyToken />,
-    },
-    {
-        label: 'website',
-        Thing: <CopyWebsite />,
-    },
-    {
-        label: 'Logout',
-        Thing: <Logout />,
-    },
-];
 const MOODLE_NAV: Array<NavItem> = [
 
     {

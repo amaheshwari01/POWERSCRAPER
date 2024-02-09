@@ -123,7 +123,7 @@ export const Login = () => {
   }, []);
   return (
     <>
-      <Box position={"fixed"} top={"50%"} left={"50%"} zIndex={9999} transform={"translate(-50%,-50%)"}>
+      <Box position={"fixed"} top={"50%"} left={"50%"} zIndex={2} transform={"translate(-50%,-50%)"}>
         {/* <AbsoluteCenter> */}
         <Button onClick={login} isLoading={loading} colorScheme="purple">
           Login
