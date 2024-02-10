@@ -59,8 +59,8 @@ const Assignment = (props: AssignmentProps) => {
             </CircularProgress> */}
             {assignment.pointsEarned !== null ?
               <>
-                <Text>{((assignment.pointsEarned / assignment.pointsPossible) * 100).toFixed(1)}%</Text>
-                <Text p={1} color={"gray"} fontSize='sm'>{assignment.pointsEarned}/{assignment.pointsPossible}</Text>
+                <Text>{((assignment.pointsPossible / assignment.pointsPossible) * 100).toFixed(1)}%</Text>
+                <Text p={1} color={"gray"} fontSize='sm'>{assignment.pointsPossible}/{assignment.pointsPossible}</Text>
               </>
               :
               <>

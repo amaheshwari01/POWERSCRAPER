@@ -85,7 +85,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
             <Modal size={"md"} isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Grade Calcualtor
+                    <ModalHeader>Grade Calculator
                         <HStack>
                             <HStack>
                                 <Text fontSize={"md"}>for {props.section.name}
