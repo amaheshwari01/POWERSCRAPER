@@ -168,5 +168,8 @@ export function closestindex(arr, str) {
         closestIndex = index;
     }
     });
-  return minDistance;
+  return {
+    minDistance:minDistance,
+    closestIndex:closestIndex
+  };
 }

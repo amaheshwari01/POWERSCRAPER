@@ -2,7 +2,7 @@ import { Box, HStack, Spacer, VStack, useColorModeValue, useToast } from "@chakr
 import { Select } from "chakra-react-select";
 import { useEffect, useState } from "react";
 import OneCourse from "./oneCourse";
-import { getCourse } from "./scrapehelper";
+import { closestindex, getCourse } from "./scrapehelper";
 interface getClassesProps {
     classData: any
 }
@@ -19,6 +19,28 @@ export default function MoodleFull(props: getClassesProps) {
         // classData.forEach(element => {
         //     getCourse(element[0])
         // });
+        const aday=JSON.parse(localStorage.getItem("aday"))
+        const bday=JSON.parse(localStorage.getItem("bday"))
+        if(!aday || !bday) return
+        let adaymoodle=[]
+        let bdaymoodle=[]
+
+        classData.forEach((course:string[])=>{
+            const adist = closestindex(aday,course[1])
+            const bdist = closestindex(bday,course[1])
+            // console.log(course,adist,bdist)
+            if(adist.minDistance>bdist.minDistance){
+                // console.log(course,bday[bdist.closestIndex])
+                bdaymoodle.push(course[0])
+            }
+            else{
+                // console.log(course,aday[adist.closestIndex])
+                adaymoodle.push(course[0])
+            }
+        })
+        localStorage.setItem("adaymoodle",JSON.stringify(adaymoodle))
+        localStorage.setItem("bdaymoodle",JSON.stringify(bdaymoodle))
+
     }
 
     useEffect(() => {
@@ -26,7 +48,12 @@ export default function MoodleFull(props: getClassesProps) {
         const courses = classData.map((course) => {
             return { value: course[0], label: course[1] }
         })
+
+        
         setCourses(courses)
+
+        
+
         getallcourses()
 
     }, [])
