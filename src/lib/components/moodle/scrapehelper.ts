@@ -1,6 +1,5 @@
 import axios from "axios";
-import { database as db } from '../utils/firebase'
-import { set, ref, push, get } from 'firebase/database';
+const BASE_URL = "https://moodle.aayanmaheshwari.com/"
 
 export async function getClasses(): Promise<any> {
     const username = localStorage.getItem("username")
@@ -24,7 +23,7 @@ export async function getClasses(): Promise<any> {
 
     const options = {
         method: 'POST',
-        url: 'https://moodle.aayanmaheshwari.com/getClasses',
+        url: BASE_URL+'getClasses',
         data: data
     };
     try {
@@ -33,15 +32,7 @@ export async function getClasses(): Promise<any> {
         localStorage.setItem("cookies", JSON.stringify(response.data["cookies"]))
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
-        const curdate = new Date()
-
-        const curVisit = {
-        date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
-        device: "mobile"
-        }
-        const userRef = ref(db, 'moodleusers/' + (username.replaceAll(".", " ")) + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
-        // console.log(userRef)
-        set(userRef, curVisit);
+       
         return response.data["classes"]
 
     }
@@ -75,7 +66,7 @@ export async function getCourse(courseurl: string): Promise<any>{
 
     const options = {
         method: 'POST',
-        url: 'https://moodle.aayanmaheshwari.com/getCourseData',
+        url: BASE_URL+'getCourseData',
         data: data,
        
     };
@@ -119,7 +110,7 @@ export async function getDay(dayurl: String): Promise<string>{
 
     const options = {
         method: 'POST',
-        url: 'https://moodle.aayanmaheshwari.com/getLessonplan',
+        url: BASE_URL+'getLessonplan',
         data: data,
        
     };

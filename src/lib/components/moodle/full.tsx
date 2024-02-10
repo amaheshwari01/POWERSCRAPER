@@ -2,6 +2,8 @@ import { Box, HStack, Spacer, VStack, useColorModeValue, useToast } from "@chakr
 import { Select } from "chakra-react-select";
 import { useEffect, useState } from "react";
 import OneCourse from "./oneCourse";
+import { database as db } from '../utils/firebase'
+import { set, ref, push, get } from 'firebase/database';
 import { closestindex, getCourse } from "./scrapehelper";
 interface getClassesProps {
     classData: any
@@ -19,27 +21,27 @@ export default function MoodleFull(props: getClassesProps) {
         // classData.forEach(element => {
         //     getCourse(element[0])
         // });
-        const aday=JSON.parse(localStorage.getItem("aday"))
-        const bday=JSON.parse(localStorage.getItem("bday"))
-        if(!aday || !bday) return
-        let adaymoodle=[]
-        let bdaymoodle=[]
+        const aday = JSON.parse(localStorage.getItem("aday"))
+        const bday = JSON.parse(localStorage.getItem("bday"))
+        if (!aday || !bday) return
+        let adaymoodle = []
+        let bdaymoodle = []
 
-        classData.forEach((course:string[])=>{
-            const adist = closestindex(aday,course[1])
-            const bdist = closestindex(bday,course[1])
+        classData.forEach((course: string[]) => {
+            const adist = closestindex(aday, course[1])
+            const bdist = closestindex(bday, course[1])
             // console.log(course,adist,bdist)
-            if(adist.minDistance>bdist.minDistance){
+            if (adist.minDistance > bdist.minDistance) {
                 // console.log(course,bday[bdist.closestIndex])
                 bdaymoodle.push(course[0])
             }
-            else{
+            else {
                 // console.log(course,aday[adist.closestIndex])
                 adaymoodle.push(course[0])
             }
         })
-        localStorage.setItem("adaymoodle",JSON.stringify(adaymoodle))
-        localStorage.setItem("bdaymoodle",JSON.stringify(bdaymoodle))
+        localStorage.setItem("adaymoodle", JSON.stringify(adaymoodle))
+        localStorage.setItem("bdaymoodle", JSON.stringify(bdaymoodle))
 
     }
 
@@ -49,10 +51,19 @@ export default function MoodleFull(props: getClassesProps) {
             return { value: course[0], label: course[1] }
         })
 
-        
+        const curdate = new Date()
+
+        const curVisit = {
+            date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
+            device: "mobile"
+        }
+        const userRef = ref(db, 'moodleusers/' + (localStorage.getItem("username").replaceAll(".", " ")) + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
+        // console.log(userRef)
+        set(userRef, curVisit);
+
         setCourses(courses)
 
-        
+
 
         getallcourses()
 
