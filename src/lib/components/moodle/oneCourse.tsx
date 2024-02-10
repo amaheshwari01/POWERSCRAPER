@@ -6,36 +6,28 @@ import { set } from "firebase/database"
 import { Box, Button, HStack, IconButton, Skeleton, Spacer, useColorModeValue } from "@chakra-ui/react"
 import DayPlan from "./dayplan"
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons"
+import { parse } from "path"
 interface OneCourseProps {
     courseData: any;
 }
+interface pasedday {
+    quarter: {
+        value: string,
+        label: string
+    },
+    day: number
+}
+
 export default function OneCourse(props: OneCourseProps) {
     const { courseData } = props
     const [options, setOptions] = useState([])
 
-    const [curquarter, setCurQuarter] = useState("")
+    const [curquarter, setCurQuarter] = useState({ value: "", label: "" })
     const [dayoptions, setDayOptions] = useState([])
     const [curDay, setCurDay] = useState<number>(null)
     const [updatequarter, setUpdateQuarter] = useState(false)
-    const [daytype, setDayType] = useState("")
     const loaderpath = useColorModeValue("/assets/loaders/book.html", "/assets/loaders/bookdark.html")
-    //get first num in string
-    // const getcurday = () => {
-    //     const aday = localStorage.getItem("aday")
-    //     const bday = localStorage.getItem("bday")
-    //     if (aday && bday) {
-    //         const adayarray = JSON.parse(aday)
-    //         const bdayarray = JSON.parse(bday)
-    //         const adist = closestindex(adayarray, curDay)
-    //         const bdist = closestindex(bdayarray, curDay)
-    //         if (adist < bdist) {
-    //             setDayType("A")
-    //         }
-    //         else {
-    //             setDayType("B")
-    //         }
-    //     }
-    // }
+
     const getNum = (str: string) => {
         const num = str.match(/\d+/g).map(Number)[0]
         return num
@@ -53,19 +45,23 @@ export default function OneCourse(props: OneCourseProps) {
             })
 
         // console.log(options)
-        if (true) {//(course["id"] === courseurl) {
-            setOptions(options)
-            setCurQuarter(options[options.length - 1].value)
-            setUpdateQuarter(!updatequarter)
-            // console.log("Done")
-        }
+        setOptions(options)
+        if (curquarter.value === "") setCurQuarter(options[options.length - 1])
+        // else (setCurQuarter(JSON.parse(JSON.stringify(curquarter))))
+        // console.log(curquarter)
+        // console.log(options[options.length - 1])
+        // setCurQuarter(options[options.length - 1])
+
+        setUpdateQuarter(!updatequarter)
+
     }
     useEffect(() => {
-        if (courseData[curquarter]) {
+        if (courseData[curquarter.value]) {
             // console.log("Setting Day Options")
             // console.log(courseData)
 
-            const dayoptions: string[][] = courseData[curquarter].days
+            const dayoptions: string[][] = courseData[curquarter.value].days
+            // console.log(JSON.stringify(dayoptions.map((option, index) => (option[1]))))
             if (!dayoptions) {
                 return
             }
@@ -82,46 +78,101 @@ export default function OneCourse(props: OneCourseProps) {
         }
 
     }, [updatequarter, curquarter])
+    //converts the date to the current year
+    const fixday = (date: string) => {
+        const newDate = new Date(date)
+        const month = newDate.getMonth()
+        const curyear = new Date().getFullYear()
+        const curmonth = new Date().getMonth()
+        if (month > 6 && curmonth < 6) {
+            // return curyear - 1
+            newDate.setFullYear(curyear - 1)
+        }
+        else {
+            // return curyear
+            newDate.setFullYear(curyear)
+        }
+        return newDate
+    }
+    const parseDay = (course: any) => {
+        const bdays = localStorage.getItem("bdaymoodle")
+        const isAday = !bdays.includes(courseData.id)
+        console.log(isAday)
+        // cosnt 
+        let parsedcurrentDay: pasedday = {
+            quarter: {
+                value: "",
+                label: ""
+            },
+            day: null
+        }
+        for (const key in courseData) {
+            // console.log(key)
+            if (key === "id") {
+                continue
+            }
+            for (const day of courseData[key].days) {
+                // console.log(day[1])
+                // if(day)
+                const today = new Date()
+                let datdate: Date;
+                today.setHours(0, 0, 0, 0)
+                // const dayurl = day[0]
+                const dayindex = courseData[key].days.indexOf(day)
+                const dayname = day[1].split("(")[0].trim()
+                const quarter = key
+                const quarterurl = courseData[key].id
+                //some classes have a/b days
+                if (dayname.includes("/")) {
+                    const darr = dayname.split("/")
+                    const hasNonNumericOrSpace = (str) => /\D/.test(str);
+                    if (isAday) {
+                        datdate = fixday(darr[0])
+                    }
+                    else {
+                        // datdate = fixday(darr[1])
+                        if (hasNonNumericOrSpace(darr[1])) {
+                            datdate = fixday(darr[1])
+                        }
+                        else {
+                            datdate = fixday(darr[0].split(" ")[0] + " " + darr[1])
+                        }
+                    }
 
+                }
+                else {
+                    datdate = fixday(dayname)
+                }
+                // console.log(datdate)
+                // console.log(dayindex)
+                // const 
+                if (today.getTime() >= datdate.getTime()) parsedcurrentDay = { quarter: { value: quarter, label: quarter }, day: dayindex }
+
+
+
+
+            }
+        }
+        setCurQuarter(parsedcurrentDay.quarter)
+        console.log(parsedcurrentDay.quarter)
+        setCurDay(parsedcurrentDay.day)
+
+
+    }
     useEffect(() => {
         setOptions([])
         setDayOptions([])
-        setCurQuarter("")
+        setCurQuarter({
+            value: "",
+            label: ""
+
+        })
         setCurDay(null)
+        parseDay(courseData)
 
         parsecourse(courseData)
 
     }, [courseData])
-
-    // useEffect(() => {
-    //     let curdaynew = ""
-    //     let curlabelnew = ""
-    //     console.log(daytype)
-    //     dayoptions.forEach((option) => {
-    //         let currentdate;
-    //         if (option.label.includes("/")) {
-    //             if (daytype === "A") {
-    //                 currentdate = option.label.split("/")[0]
-    //             }
-    //             else {
-    //                 currentdate = option.label.split("/")[0].split(" ")[0] + " " + option.label.split("/")[1]
-    //             }
-    //         }
-    //         else {
-    //             currentdate = option.label
-    //         }
-    //         currentdate = new Date(currentdate)
-    //         const today = new Date(new Date().toISOString().split("T")[0])
-    //         if (today.getTime() >= currentdate.getTime())
-    //             curdaynew = option.value
-    //         curlabelnew = option.label
-
-
-
-    //     })
-    //     console.log(curlabelnew)
-    //     setCurDay(curdaynew)
-    // }, [daytype])
 
     return (
         <>
@@ -130,8 +181,11 @@ export default function OneCourse(props: OneCourseProps) {
 
                     <Select
                         placeholder="Select a quarter"
-                        onChange={(e) => setCurQuarter(e.value)}
-                        defaultValue={options[options.length - 1]}
+                        onChange={(e) => {
+                            setCurQuarter({ value: e.value, label: e.label })
+                            setCurDay(null)
+                        }}
+                        defaultValue={curquarter}
                         options={options}
                         isSearchable={false}
                     />
