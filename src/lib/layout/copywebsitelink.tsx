@@ -28,12 +28,29 @@ interface copyProps {
 const CopyWebsite = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { refresh_token } = useContext(AppContext);
-  const copy = async () => {
+  const refresh_token = localStorage.getItem('refresh_token')
 
-    if (refresh_token !== '') {
+  const [authPayload, setAuthPayload] = useState<string>('');
+  const copy = async () => {
+    const refresh_token = localStorage.getItem('refresh_token')
+    const username = localStorage.getItem('username')
+    const password = localStorage.getItem('password')
+    //add whatever is not null to the authpayklod object
+    const payload = {
+      refresh_token: refresh_token,
+      username: username,
+      password: password
+    }
+    // console.log(payload)
+    //base64 encode the payload url save e
+    // setAuth
+    const encoded = btoa(JSON.stringify(payload))
+    // console.log(encoded)
+    setAuthPayload(encoded)
+    if (refresh_token) {
+
       await Clipboard.write({
-        string: "https://power.aayanmaheshwari.com/?token=" + refresh_token,
+        string: "https://power.aayanmaheshwari.com/?auth=" + encoded,
       });
       toast({
         title: 'Copied Link',
@@ -67,7 +84,7 @@ const CopyWebsite = () => {
         <ModalContent
           borderRadius="8px" // Rounded corners for a softer feel
           boxShadow="md" // Subtle drop shadow for depth
-          bg="white" // Bright white background
+        // bg="white" // Bright white background
         >
           {/* Remove header for cleaner look */}
           <ModalCloseButton ml={4} mt={4} size="sm" />
@@ -76,13 +93,13 @@ const CopyWebsite = () => {
               Your login link has been copied!
             </Text>
             <Text as="p" marginBottom={4}>
-              It is a custom link that will automatically log you in to the grade calculator.
+              It is a custom link that will automatically log you in to the website.
             </Text>
             <Text as="p" marginBottom={4}>
               You can visit {' '}
               <Link
                 color="blue.500" // Lighter blue for link
-                href="https://power.aayanmaheshwari.com"
+                href={"https://power.aayanmaheshwari.com/?auth=" + authPayload}
                 fontWeight="bold"
                 _hover={{ textDecoration: "underline" }} // Subtle underline on hover
               >

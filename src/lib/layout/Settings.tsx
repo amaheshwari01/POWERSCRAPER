@@ -67,7 +67,10 @@ interface NavItem {
 }
 
 const MOODLE_NAV: Array<NavItem> = [
-
+    {
+        label: 'website',
+        Thing: <CopyWebsite />,
+    },
     {
         label: 'Logout',
         Thing: <MoodleOut />,

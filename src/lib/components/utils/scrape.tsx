@@ -61,9 +61,32 @@ const getGradesOptions = {
 
   },
 };
+
+
+const getSchedOptions = {
+  method: 'POST',
+  url: 'https://mobile.powerschool.com/v3.0/graphql',
+  headers: {
+    'content-type': 'application/json',
+    authorization: '',
+    profileuri: '',
+    serverurl: 'https://vcsnet.powerschool.com'
+  },
+  data: {
+    query: 'query SectionMeetingsV3($sectionGuids: [ID]!, $start: DateTime!, $stop: DateTime!) {\n  sectionMeetings(sectionGuids: $sectionGuids, start: $start, stop: $stop) {\n    __typename\n    ...sectionMeetingDataV3\n  }\n}fragment sectionMeetingDataV3 on SectionMeetingType {\n  __typename\n  sectionGuid\n  start\n  stop\n}',
+    variables: {
+      sectionGuids: [
+
+      ],
+      start: '',
+      stop: ''
+    }
+  }
+};
+
 async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<any> {
   try {
-    console.log(refreshkey)
+    // console.log(refreshkey)
     const modifiedOauth2Options = {
       ...oauth2Options,
       data: {
@@ -72,7 +95,7 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
       },
     };
     const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
-    console.log(oauth2response)
+    // console.log(oauth2response)
 
     const modifiedBasicOptions = {
       ...getGUIDOptions,
@@ -148,7 +171,7 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
       // })
     }
     // set
-    console.log(gradesResponse.data)
+    // console.log(gradesResponse.data)
     return gradesResponse.data;
 
   } catch (error) {
@@ -156,4 +179,76 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
     throw error;
   }
 }
-export { scrape };
+
+async function schedScraper(refreshkey: string, sections: any[]): Promise<any> {
+  try {
+    // console.log(refreshkey)
+    const modifiedOauth2Options = {
+      ...oauth2Options,
+      data: {
+        ...oauth2Options.data,
+        refresh_token: refreshkey,
+      },
+    };
+    const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
+    // console.log(oauth2response)
+    let guidlist = {}
+
+    const { startsting, endsting } = getDatesting()
+    console.log(startsting, endsting)
+    sections.forEach((section) => { guidlist[section.guid] = section.name })
+    const modifiedSchedOptions = {
+      ...getSchedOptions,
+      headers: {
+        ...getSchedOptions.headers,
+        authorization: `Bearer ${oauth2response.data.access_token}`,
+        profileuri: oauth2response.data.id_token,
+      },
+      data: {
+        ...getSchedOptions.data,
+        variables: { sectionGuids: Object.keys(guidlist), start: startsting, stop: endsting },
+      },
+
+    };
+    let schedResponse = await axios.request(modifiedSchedOptions);
+    schedResponse.data.data.sectionMeetings = schedResponse.data.data.sectionMeetings.map((meeting: any) => (
+      {
+        // ...meeting,
+        start: new Date(meeting.start),
+        stop: new Date(meeting.stop),
+        name: guidlist[meeting.sectionGuid]
+
+      }
+    )).sort((a: any, b: any) => a.start - b.start)
+    console.log(schedResponse.data)
+
+    return schedResponse.data;
+
+
+  } catch (error) {
+
+    throw error;
+  }
+}
+const getDatesting = () => {
+  const start = new Date();
+  // let dayOfWeek = start.getDay();
+  // let diff = dayOfWeek >= 1 ? dayOfWeek - 1 : 6; // Get the difference to Monday
+  // start.setDate(start.getDate() - diff); // Set the date to Monday
+  let dayOfWeek = start.getDay();
+  if (dayOfWeek === 0) {
+    // If today is Sunday, set to next Monday
+    start.setDate(start.getDate() + ((7 - dayOfWeek) % 7));
+  } else if (dayOfWeek !== 1) {
+    // If today is not Monday, set to the previous Monday
+    start.setDate(start.getDate() - ((dayOfWeek - 1) % 7));
+  }
+  const end = new Date(start).setDate(start.getDate() + 6)
+  const startsting = new Date(start).toISOString().split('T')[0] + "T00:00:00.000Z"
+  const endsting = new Date(end).toISOString().split('T')[0] + "T00:00:00.000Z"
+  return { startsting, endsting }
+}
+
+
+
+export { scrape, schedScraper };
