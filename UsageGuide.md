@@ -1,5 +1,5 @@
 
-# Welcome to Power-Assist!
+# Welcome to PowerScraper!
 
 ## Common Errors
 
