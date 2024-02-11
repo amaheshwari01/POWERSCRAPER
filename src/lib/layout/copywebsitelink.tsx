@@ -60,24 +60,38 @@ const CopyWebsite = () => {
       {/* <Box position={"fixed"} top={"50%"} left={"50%"} transform={"translate(-50%,-50%)"}> */}
 
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          {/* <ModalHeader>Note:</ModalHeader> */}
-          <ModalCloseButton />
-          <ModalBody fontSize="md" lineHeight="tall">
-            <Text as="p" marginBottom="2">
-              Your personal login link has been copied. Share it responsibly.
+        <ModalOverlay
+          bg="rgba(0, 0, 0, 0.6)" // Semi-transparent black overlay
+          backdropFilter="blur(4px)" // Blur effect for a softer look
+        />
+        <ModalContent
+          borderRadius="8px" // Rounded corners for a softer feel
+          boxShadow="md" // Subtle drop shadow for depth
+          bg="white" // Bright white background
+        >
+          {/* Remove header for cleaner look */}
+          <ModalCloseButton ml={4} mt={4} size="sm" />
+          <ModalBody fontSize="md" lineHeight="tall" px={8} py={6}>
+            <Text as="p" marginBottom={5} fontWeight="bold">
+              Your login link has been copied!
             </Text>
-            <Text as="p" marginBottom="2">
-              Visit <Link color='blue' href="https://power.aayanmaheshwari.com" >power.aayanmaheshwari.com</Link> to access the grade calculator without logging in again.
+            <Text as="p" marginBottom={4}>
+              It is a custom link that will automatically log you in to the grade calculator.
+            </Text>
+            <Text as="p" marginBottom={4}>
+              You can visit {' '}
+              <Link
+                color="blue.500" // Lighter blue for link
+                href="https://power.aayanmaheshwari.com"
+                fontWeight="bold"
+                _hover={{ textDecoration: "underline" }} // Subtle underline on hover
+              >
+                power.aayanmaheshwari.com
+              </Link>
+              {' '}
+              anytime to use it.
             </Text>
           </ModalBody>
-          {/* 
-          <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
-              Close
-            </Button>
-          </ModalFooter> */}
         </ModalContent>
       </Modal>
       {/* </Box> */}
