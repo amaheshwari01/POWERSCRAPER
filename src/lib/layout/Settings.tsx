@@ -17,26 +17,7 @@ const Settings = () => {
         onClose()
     }
 
-    const POWER_NAV: Array<NavItem> = [
 
-        {
-            label: 'Reset',
-            Thing: <Reset />,
-        },
-
-        {
-            label: 'CopyToken',
-            Thing: <CopyToken />,
-        },
-        {
-            label: 'website',
-            Thing: <CopyWebsite setClose={handleClose} />,
-        },
-        {
-            label: 'Logout',
-            Thing: <Logout />,
-        },
-    ];
     const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
     useEffect(() => {
 
@@ -90,5 +71,25 @@ const MOODLE_NAV: Array<NavItem> = [
     {
         label: 'Logout',
         Thing: <MoodleOut />,
+    },
+];
+const POWER_NAV: Array<NavItem> = [
+
+    {
+        label: 'Reset',
+        Thing: <Reset />,
+    },
+
+    {
+        label: 'CopyToken',
+        Thing: <CopyToken />,
+    },
+    {
+        label: 'website',
+        Thing: <CopyWebsite />,
+    },
+    {
+        label: 'Logout',
+        Thing: <Logout />,
     },
 ];

@@ -37,6 +37,8 @@ import { useEffect, useRef, useState } from 'react';
 import MoodleOut from './moodlelogout';
 import { useIsOverflow } from './useIsOverflow';
 import Settings from './Settings';
+import CopyWebsite from './copywebsitelink';
+import { Capacitor } from '@capacitor/core';
 
 export default function WithSubnavigation() {
     const ref = useRef();
@@ -127,6 +129,7 @@ interface NavProps {
     NAV_ITEMS: Array<NavItem>;
 }
 const DesktopNav = (props: NavProps) => {
+    const platform = Capacitor.getPlatform();
 
     return (
         <Stack direction="row" spacing={4}>
@@ -136,11 +139,19 @@ const DesktopNav = (props: NavProps) => {
 
                 </Box>
             ))}
+            {platform !== 'web' && <CopyWebsite />
+            }
+
         </Stack>
     );
 };
 
 const MobileNav = (props: NavProps) => {
+    //get device from cpaacitor
+    // const { Device } = Plugins;
+    // const { device } = useDevice();
+    const platform = Capacitor.getPlatform();
+
     return (
         <Stack
             bg={useColorModeValue('white', 'gray.800')}
@@ -150,6 +161,9 @@ const MobileNav = (props: NavProps) => {
             {props.NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
+            <CopyWebsite />
+
+
         </Stack>
     );
 };
