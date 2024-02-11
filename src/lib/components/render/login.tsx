@@ -116,13 +116,17 @@ export const Login = () => {
         decoded.refresh_token && localStorage.setItem('refresh_token', decoded.refresh_token);
         decoded.username && localStorage.setItem('username', decoded.username);
         decoded.password && localStorage.setItem('password', decoded.password);
-        // console.log(decoded)
-        // setRefreshToken(urlkey);
-        //refresh page "1//06GhJRFkfgpLOCgYIARAAGAYSNwF-L9IraGz-tf3vHoH8WBELDPX3MIAHDh_YY0-GrlZ46AriiY_gA5P_g8HIwjwzoTsAB9U3hSs"
-        //  1//06GhJRFkfgpLOCgYIARAAGAYSNwF-L9IraGz-tf3vHoH8WBELDPX3MIAHDh_YY0-GrlZ46AriiY_gA5P_g8HIwjwzoTsAB9U3hSs
+
         window.location.href = window.location.href.split('?')[0];
       }
+      const token = new URLSearchParams(window.location.search).get('token');
+      if (token) {
+        localStorage.setItem('refresh_token', token);
+        setRefreshToken(token);
+        window.location.href = window.location.href.split('?')[0];
 
+
+      }
     }
 
   }, []);
