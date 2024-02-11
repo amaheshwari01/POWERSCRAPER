@@ -5,6 +5,7 @@ import OneCourse from "./oneCourse";
 import { database as db } from '../utils/firebase'
 import { set, ref, push, get } from 'firebase/database';
 import { closestindex, getCourse } from "./scrapehelper";
+import { Capacitor } from "@capacitor/core";
 interface getClassesProps {
     classData: any
 }
@@ -52,10 +53,10 @@ export default function MoodleFull(props: getClassesProps) {
         })
 
         const curdate = new Date()
-
+        const device = Capacitor.getPlatform()
         const curVisit = {
             date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
-            device: "mobile"
+            device: device
         }
         const userRef = ref(db, 'moodleusers/' + (localStorage.getItem("username").replaceAll(".", " ")) + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
         // console.log(userRef)

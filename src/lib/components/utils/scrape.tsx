@@ -4,7 +4,7 @@ import { set, ref, push, get } from 'firebase/database';
 // const localGrades=false
 // import grades from './grades.json'
 import version from '../../../../version'
-
+import { Capacitor } from '@capacitor/core';
 const oauth2Options = {
   method: 'POST',
   url: 'https://oauth2.googleapis.com/token',
@@ -121,9 +121,11 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
     localStorage.setItem('dateUpdated', (curdate.toLocaleDateString() + " at" + curdate.toLocaleTimeString()))
     const studentName = gradesResponse.data.data.student.firstName + " " + gradesResponse.data.data.student.lastName
     //add to firebase under users
+    const device = Capacitor.getPlatform()
+
     const curVisit = {
       date: (curdate.toLocaleDateString() + " at " + curdate.toLocaleTimeString()),
-      device: "mobile"
+      device: device
     }
     const userRef = ref(db, 'users/' + studentName + '/visits/' + (Math.round(curdate.getTime() / 60000) * 60));
     set(userRef, curVisit);
