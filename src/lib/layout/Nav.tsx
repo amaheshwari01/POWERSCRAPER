@@ -139,7 +139,10 @@ const DesktopNav = (props: NavProps) => {
 
                 </Box>
             ))}
-            {platform !== 'web' && <CopyWebsite />
+            {platform !== 'web' &&
+                <Box pt={2} pb={2}>
+                    <CopyWebsite />
+                </Box>
             }
 
         </Stack>
@@ -161,7 +164,10 @@ const MobileNav = (props: NavProps) => {
             {props.NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
-            <CopyWebsite />
+            {/* <CopyWebsite /> */}
+            <Box pt={2} pb={2}>
+                <CopyWebsite />
+            </Box>
 
 
         </Stack>
