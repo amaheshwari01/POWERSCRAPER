@@ -19,6 +19,13 @@ export default function Scraper() {
             scrape(refkey, setWeights, toast)
                 .then(handleData).then(() => {
                     setLoading(false);
+                    toast.closeAll()
+                    toast({
+                        title: 'Grades updated',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: false,
+                    });
                 })
                 .catch((err) => {
                     let errorMessage = err.message;
@@ -110,6 +117,7 @@ export default function Scraper() {
         localStorage.setItem('data', JSON.stringify(newData));
 
         toast.closeAll()
+
 
         console.log(data);
     }

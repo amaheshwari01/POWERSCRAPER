@@ -7,6 +7,7 @@ import Layout from '~/lib/layout';
 import Routings from '~/lib/router/Routings';
 import { theme } from '~/lib/styles/theme';
 import AppContext from '~/lib/utils/AppContext';
+import { ScheduleData } from './global';
 
 const App = () => {
   const [data, setData] = useState<any>({});
@@ -15,6 +16,7 @@ const App = () => {
   const [runFetch, setRunFetch] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [weights, setWeights] = useState<any>({});
+  const [schedule, setSchedule] = useState<ScheduleData[]>([]);
 
   useEffect(() => {
     // inject();
@@ -39,6 +41,8 @@ const App = () => {
           setLoading,
           weights,
           setWeights,
+          schedule,
+          setSchedule,
         }}
       >
         <Router>

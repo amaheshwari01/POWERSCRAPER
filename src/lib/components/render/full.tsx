@@ -6,6 +6,7 @@ import AppContext from '~/lib/utils/AppContext';
 import RecentAssignments from './RecentAssignments';
 
 import ClassList from './classlist';
+import Schedule from './schedule';
 
 const FullRender = () => {
   const { data } = useContext(AppContext);

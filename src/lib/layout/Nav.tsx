@@ -54,7 +54,7 @@ export default function WithSubnavigation() {
         if (window.location.pathname == "/moodle") {
             setNAV_ITEMS(MOODLE_NAV)
         }
-        else setNAV_ITEMS(window.location.pathname == "/" ? POWER_NAV : [])
+        else setNAV_ITEMS(window.location.pathname == "/grades" ? POWER_NAV : [])
 
     }, [window.location.pathname])
 
@@ -187,11 +187,16 @@ interface NavItem {
     Thing?: JSX.Element;
 }
 
+
 const MOODLE_NAV: Array<NavItem> = [
+    {
+        label: "grades",
+        Thing: <Button colorScheme={"purple"} as="a" href='/grades'>Grades</Button>
+    },
 
     {
         label: "home",
-        Thing: <Button colorScheme={"purple"} as="a" href='/'>Home</Button>
+        Thing: <Button colorScheme={"green"} as="a" href='/'>Home</Button>
     }
 
 ];
@@ -209,8 +214,14 @@ const POWER_NAV: Array<NavItem> = [
     },
 
     {
-        label: "home",
+        label: "moodle",
         Thing: <Button colorScheme={"orange"} as="a" href='/moodle'>Moodle</Button>
-    }
+    },
+    {
+
+        label: "home",
+        Thing: <Button colorScheme={"green"} as="a" href='/'>Home</Button>
+    },
+
 ];
 

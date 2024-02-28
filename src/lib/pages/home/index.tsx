@@ -7,9 +7,10 @@ import { usePullToRefresh } from 'use-pull-to-refresh';
 
 import AppContext from '~/lib/utils/AppContext'; // const fs = window.require('fs')
 import Scraper from '~/lib/components/utils/getScrape';
-import { capacitor } from 'knip/dist/plugins';
-import { Capacitor } from '@capacitor/core';
+
 import { SafeArea } from 'capacitor-plugin-safe-area';
+import Schedule from '~/lib/components/render/schedule';
+import Dashboard from '~/lib/components/render/Dashboard';
 const MAXIMUM_PULL_LENGTH = 240;
 const REFRESH_THRESHOLD = 10;
 // import ReactPullToRefresh from 'react-pull-to-refresh';
@@ -99,7 +100,9 @@ const Home = () => {
         </div>
 
         {Object.keys(data).length === 0 && <Loading />}
-        {Object.keys(data).length !== 0 && <FullRender />}
+        {Object.keys(data).length !== 0 &&
+          <Dashboard />
+        }
       </>
     )}
     {refresh_token === '' && <Login />}

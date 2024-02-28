@@ -1,2 +1,2 @@
-const version = 26
+const version = 30
 export default version

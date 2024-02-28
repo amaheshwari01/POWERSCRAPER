@@ -19,4 +19,8 @@ export interface AssignmentType {
   attributeIncomplete: boolean;
   attributeDropped: boolean;
 }
-
+export interface ScheduleData {
+    start: Date;
+    stop: Date;
+    name: string;
+}

@@ -1,5 +1,6 @@
 import { set } from 'firebase/database';
 import { createContext } from 'react';
+import { ScheduleData } from '~/global';
 
 // Define the shape of your context state
 interface IAppContext {
@@ -15,6 +16,9 @@ interface IAppContext {
   setLoading: (data: any) => void;
   weights: any;
   setWeights: (data: any) => void;
+  schedule: ScheduleData[];
+  setSchedule: (data: ScheduleData[]) => void;
+
 }
 
 // Create the context with the initial state
@@ -31,6 +35,8 @@ const AppContext = createContext<IAppContext>({
   setLoading: () => { },
   weights: null,
   setWeights: () => { },
+  schedule: [],
+  setSchedule: () => { },
 
 });
 

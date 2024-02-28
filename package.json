@@ -36,6 +36,7 @@
     "capacitor-plugin-safe-area": "^2.0.6",
     "capacitor-webview-controller": "^0.0.13",
     "chakra-react-select": "^4.7.6",
+    "date-fns": "^3.3.1",
     "firebase": "^10.7.1",
     "framer-motion": "^10.16.5",
     "html-react-parser": "^5.1.1",

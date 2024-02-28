@@ -9,6 +9,13 @@ const Logout = () => {
   const logout = () => {
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('data')
+    localStorage.removeItem("oauth2Expirey")
+
+    localStorage.removeItem("dateUpdated")
+    localStorage.removeItem("oauth2response")
+
+    localStorage.removeItem("sched")
+    localStorage.removeItem("weights")
     for (let i = 0; i < localStorage.length; i++) {
       let key = localStorage.key(i);
       if (key.startsWith('drop:')) {

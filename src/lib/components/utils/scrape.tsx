@@ -84,19 +84,26 @@ const getSchedOptions = {
   }
 };
 
+async function getOauth(refreshkey: string) {
+  const res = localStorage.getItem("oauth2response")
+  const exp = localStorage.getItem("oauth2Expirey")
+  if (res && exp && (Date.now() < parseInt(exp))) return JSON.parse(res)
+  const modifiedOauth2Options = {
+    ...oauth2Options,
+    data: {
+      ...oauth2Options.data,
+      refresh_token: refreshkey,
+    },
+  };
+  const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
+  localStorage.setItem("oauth2response", JSON.stringify(oauth2response))
+  localStorage.setItem("oauth2Expirey", String(new Date().getTime() + 348000))
+  return oauth2response
+}
 async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<any> {
   try {
     // console.log(refreshkey)
-    const modifiedOauth2Options = {
-      ...oauth2Options,
-      data: {
-        ...oauth2Options.data,
-        refresh_token: refreshkey,
-      },
-    };
-    const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
-    // console.log(oauth2response)
-
+    const oauth2response = await getOauth(refreshkey)
     const modifiedBasicOptions = {
       ...getGUIDOptions,
       headers: {
@@ -180,21 +187,20 @@ async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<
   }
 }
 
-async function schedScraper(refreshkey: string, sections: any[]): Promise<any> {
+async function schedScraper(refreshkey: string, sections: any[], date?: string): Promise<any[]> {
   try {
     // console.log(refreshkey)
-    const modifiedOauth2Options = {
-      ...oauth2Options,
-      data: {
-        ...oauth2Options.data,
-        refresh_token: refreshkey,
-      },
-    };
-    const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
-    // console.log(oauth2response)
+    const oauth2response = await getOauth(refreshkey)
     let guidlist = {}
 
-    const { startsting, endsting } = getDatesting()
+    let { startsting, endsting } = getDatesting()
+    if (date) {
+      const start = new Date(date)
+      start.setHours(0, 0, 0, 0);
+      const end = new Date(start).setDate(start.getDate() + 6)
+      startsting = new Date(start).toISOString().split('T')[0] + "T00:00:00.000Z"
+      endsting = new Date(end).toISOString().split('T')[0] + "T00:00:00.000Z"
+    }
     console.log(startsting, endsting)
     sections.forEach((section) => { guidlist[section.guid] = section.name })
     const modifiedSchedOptions = {
@@ -221,8 +227,9 @@ async function schedScraper(refreshkey: string, sections: any[]): Promise<any> {
       }
     )).sort((a: any, b: any) => a.start - b.start)
     console.log(schedResponse.data)
+    localStorage.setItem('sched', JSON.stringify(schedResponse.data.data.sectionMeetings))
 
-    return schedResponse.data;
+    return schedResponse.data.data.sectionMeetings;
 
 
   } catch (error) {
@@ -232,17 +239,13 @@ async function schedScraper(refreshkey: string, sections: any[]): Promise<any> {
 }
 const getDatesting = () => {
   const start = new Date();
-  // let dayOfWeek = start.getDay();
-  // let diff = dayOfWeek >= 1 ? dayOfWeek - 1 : 6; // Get the difference to Monday
-  // start.setDate(start.getDate() - diff); // Set the date to Monday
+  start.setDate(start.getDate());
+
   let dayOfWeek = start.getDay();
-  if (dayOfWeek === 0) {
-    // If today is Sunday, set to next Monday
-    start.setDate(start.getDate() + ((7 - dayOfWeek) % 7));
-  } else if (dayOfWeek !== 1) {
-    // If today is not Monday, set to the previous Monday
-    start.setDate(start.getDate() - ((dayOfWeek - 1) % 7));
-  }
+  start.setDate(start.getDate() + (1 - dayOfWeek));
+  start.setHours(0, 0, 0, 0);
+
+
   const end = new Date(start).setDate(start.getDate() + 6)
   const startsting = new Date(start).toISOString().split('T')[0] + "T00:00:00.000Z"
   const endsting = new Date(end).toISOString().split('T')[0] + "T00:00:00.000Z"

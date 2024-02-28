@@ -21,10 +21,10 @@ const Settings = () => {
     const [NAV_ITEMS, setNAV_ITEMS] = useState<Array<NavItem>>([]);
     useEffect(() => {
 
-        if (window.location.pathname == "/moodle") {
-            setNAV_ITEMS(MOODLE_NAV)
-        }
-        else setNAV_ITEMS(window.location.pathname == "/" ? POWER_NAV : [])
+        window.location.pathname == "/moodle" && setNAV_ITEMS(MOODLE_NAV)
+
+        window.location.pathname == "/grades" && setNAV_ITEMS(POWER_NAV)
+        window.location.pathname == "/" && setNAV_ITEMS(HOME_NAV)
 
     }, [window.location.pathname])
 
@@ -66,10 +66,35 @@ interface NavItem {
     Thing?: JSX.Element;
 }
 
+const HOME_NAV: Array<NavItem> = [
+    {
+        label: 'CopyToken',
+        Thing: <CopyToken />,
+    },
+    {
+        label: 'website',
+        Thing: <CopyWebsite />,
+    },
+    {
+        label: "support",
+        Thing: <Button as="a" href='/support.html' target="_blank" rel="noopener noreferrer">Support</Button>
+    },
+
+    {
+        label: 'Logout',
+        Thing: <Logout />,
+    },
+
+];
+
 const MOODLE_NAV: Array<NavItem> = [
     {
         label: 'website',
         Thing: <CopyWebsite />,
+    },
+    {
+        label: "support",
+        Thing: <Button as="a" href='/support.html' target="_blank" rel="noopener noreferrer">Support</Button>
     },
     {
         label: 'Logout',
@@ -91,6 +116,11 @@ const POWER_NAV: Array<NavItem> = [
         label: 'website',
         Thing: <CopyWebsite />,
     },
+    {
+        label: "support",
+        Thing: <Button as="a" href='/support.html' target="_blank" rel="noopener noreferrer">Support</Button>
+    },
+
     {
         label: 'Logout',
         Thing: <Logout />,
