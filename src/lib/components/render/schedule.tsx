@@ -6,6 +6,7 @@ import { steps } from "framer-motion";
 import { ScheduleData } from "~/global";
 import { set } from "firebase/database";
 import { ArrowBackIcon, ArrowForwardIcon, RepeatClockIcon } from "@chakra-ui/icons";
+
 const Schedule = () => {
     const [schedule, setSchedule] = useState<ScheduleData[]>([]);
     const [curday, setCurday] = useState<number>()//useState<number>(new Date().getDay() > 0 && new Date().getDay() < 6 ? new Date().getDay() : 1);
@@ -200,53 +201,50 @@ export function getRelativeTimeString(
 ): string {
     // Allow dates or times to be passed
     let timeMs = sdate.getTime();
-    const curtime = Date.now();
-    let isInPast = timeMs < curtime;
+    const now = Date.now();
+    let isInPast = timeMs < now;
     let inclass = false;
     if (isInPast) {
         timeMs = edate.getTime();
-        inclass = timeMs > curtime;
+        inclass = timeMs > now;
 
     }
-    isInPast = timeMs < curtime;
+    isInPast = timeMs < now;
 
 
-    const deltaSeconds = Math.round((curtime - timeMs) / 1000);
 
-    const cutoffs = [60, 3600, 86400];
+    // Calculate the time difference in milliseconds
+    const deltaMilliseconds = Math.abs(now - timeMs);
 
-    const units: Intl.RelativeTimeFormatUnit[] = ["second", "minute", "hour", "day"];
+    // Get seconds, minutes, and hours from deltaMilliseconds
+    let seconds = Math.floor(deltaMilliseconds / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
 
-    const unitIndex = cutoffs.findIndex(cutoff => cutoff > Math.abs(deltaSeconds));
+    // Extract remaining seconds and minutes after hours calculation
+    seconds = seconds % 60;
+    minutes = minutes % 60;
 
-
-    const divisor = unitIndex !== -1 ? cutoffs[unitIndex - 1] : 1;
-
-    let value = Math.abs(Math.floor(deltaSeconds / divisor));
-    if (isNaN(value)) value = Math.abs(deltaSeconds)
-
+    // Return the array with [ss,mm,hh]
     let result = '';
-    switch (units[unitIndex]) {
-        case "second":
-            result = `${value} ${value === 1 ? "second" : "seconds"}`;
-            break;
-        case "minute":
-            const remainingSeconds = Math.abs(deltaSeconds % 60);
-            result = `${value} ${value === 1 ? "minute" : "minutes"} ${remainingSeconds} ${remainingSeconds === 1 ? "second" : "seconds"}`;
-            break;
-        case "hour":
-            const remainingMinutes = Math.abs((deltaSeconds % 3600) / 60);
-            result = `${value} ${value === 1 ? "hour" : "hours"} ${Math.floor(remainingMinutes)} ${Math.floor(remainingMinutes) === 1 ? "minute" : "minutes"}`;
-            break;
-        case "day":
-            const remainingHours = Math.abs((deltaSeconds % 86400) / 3600);
-            result = `${value} ${value === 1 ? "day" : "days"} ${Math.floor(remainingHours)} ${Math.floor(remainingHours) === 1 ? "hour" : "hours"}`;
-            break;
-        default:
-            result = "";
+    if (hours >= 12) {
+        if (minutes < 30) result = `${hours} hours`
+        else result = `${hours + 1} hours`
+    }
+    else if (hours > 0) {
+        if (seconds < 30) result = `${hours} ${hours === 1 ? "hour" : "hours"} ${minutes} ${minutes === 1 ? "minute" : "minutes"
+            } `;
+        else result = `${hours} ${hours === 1 ? "hour" : "hours"} ${minutes + 1} minutes`;
+    }
+    else if (minutes > 0) {
+        result = `${minutes} ${minutes === 1 ? "minute" : "minutes"} ${seconds} ${seconds === 1 ? "second" : "seconds"} `;
+    }
+    else {
+        result = `${seconds} ${seconds === 1 ? "second" : "seconds"} `;
     }
 
-    // Append "ago" if the date is in the past
+
+
     if (result.length !== 0) {
         if (isInPast) {
             result += " ago";
@@ -260,4 +258,6 @@ export function getRelativeTimeString(
 
     return result;
 }
+
+
 export default Schedule;
