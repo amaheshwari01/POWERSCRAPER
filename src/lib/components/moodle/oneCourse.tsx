@@ -80,10 +80,13 @@ export default function OneCourse(props: OneCourseProps) {
     }, [updatequarter, curquarter])
     //converts the date to the current year
     const fixday = (date: string) => {
-        const newDate = new Date(date)
-        const month = newDate.getMonth()
         const curyear = new Date().getFullYear()
         const curmonth = new Date().getMonth()
+        const newDate = new Date(date+" "+curyear)
+        // console.log(newDate)
+
+        const month = newDate.getMonth()
+
         if (month > 6 && curmonth < 6) {
             // return curyear - 1
             newDate.setFullYear(curyear - 1)
@@ -92,11 +95,12 @@ export default function OneCourse(props: OneCourseProps) {
             // return curyear
             newDate.setFullYear(curyear)
         }
+        // console.log(newDate)
         return newDate
     }
     const parseDay = (course: any) => {
         const bdays = localStorage.getItem("bdaymoodle")
-        const isAday = !bdays.includes(courseData.id)
+        const isAday = bdays? !bdays.includes(courseData.id) : true
         console.log(isAday)
         // cosnt 
         let parsedcurrentDay: pasedday = {
