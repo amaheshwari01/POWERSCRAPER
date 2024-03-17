@@ -46,8 +46,8 @@ export default function OneCourse(props: OneCourseProps) {
 
         // console.log(options)
         setOptions(options)
-        if (curquarter.value === "") setCurQuarter(options[options.length - 1])
-        // else (setCurQuarter(JSON.parse(JSON.stringify(curquarter))))
+        // if (curquarter.value === "") setCurQuarter(options[options.length - 1])
+        // else (setCurQuarter(JSON.parse(JSON.stringify(curquarter)))) 
         // console.log(curquarter)
         // console.log(options[options.length - 1])
         // setCurQuarter(options[options.length - 1])
@@ -82,7 +82,7 @@ export default function OneCourse(props: OneCourseProps) {
     const fixday = (date: string) => {
         const curyear = new Date().getFullYear()
         const curmonth = new Date().getMonth()
-        const newDate = new Date(date+" "+curyear)
+        const newDate = new Date(date + " " + curyear)
         // console.log(newDate)
 
         const month = newDate.getMonth()
@@ -100,7 +100,7 @@ export default function OneCourse(props: OneCourseProps) {
     }
     const parseDay = (course: any) => {
         const bdays = localStorage.getItem("bdaymoodle")
-        const isAday = bdays? !bdays.includes(courseData.id) : true
+        const isAday = bdays ? !bdays.includes(course.id) : true
         console.log(isAday)
         // cosnt 
         let parsedcurrentDay: pasedday = {
@@ -110,22 +110,22 @@ export default function OneCourse(props: OneCourseProps) {
             },
             day: null
         }
-        for (const key in courseData) {
+        for (const key in course) {
             // console.log(key)
             if (key === "id") {
                 continue
             }
-            for (const day of courseData[key].days) {
+            for (const day of course[key].days) {
                 // console.log(day[1])
                 // if(day)
                 const today = new Date()
                 let datdate: Date;
                 today.setHours(0, 0, 0, 0)
                 // const dayurl = day[0]
-                const dayindex = courseData[key].days.indexOf(day)
+                const dayindex = course[key].days.indexOf(day)
                 const dayname = day[1].split("(")[0].trim()
                 const quarter = key
-                const quarterurl = courseData[key].id
+                const quarterurl = course[key].id
                 //some classes have a/b days
                 if (dayname.includes("/")) {
                     const darr = dayname.split("/")
@@ -150,7 +150,11 @@ export default function OneCourse(props: OneCourseProps) {
                 // console.log(datdate)
                 // console.log(dayindex)
                 // const 
-                if (today.getTime() >= datdate.getTime()) parsedcurrentDay = { quarter: { value: quarter, label: quarter }, day: dayindex }
+
+                if (today.getTime() >= datdate.getTime()) {
+                    parsedcurrentDay = { quarter: { value: quarter, label: quarter }, day: dayindex }
+                    console.log(parsedcurrentDay)
+                }
 
 
 
@@ -158,7 +162,7 @@ export default function OneCourse(props: OneCourseProps) {
             }
         }
         setCurQuarter(parsedcurrentDay.quarter)
-        console.log(parsedcurrentDay.quarter)
+        console.log(parsedcurrentDay)
         setCurDay(parsedcurrentDay.day)
 
 
@@ -206,6 +210,7 @@ export default function OneCourse(props: OneCourseProps) {
                         <IconButton aria-label="go forward" isDisabled={curDay === dayoptions.length - 1} onClick={() => setCurDay(curDay + 1)} icon={<ArrowRightIcon />} />
                     </HStack>
                     {curDay !== null &&
+                        // <>{JSON.stringify(dayoptions[curDay])}</>
                         <DayPlan dayurl={dayoptions[curDay].value} />
                     }
 

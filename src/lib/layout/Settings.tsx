@@ -77,7 +77,7 @@ const HOME_NAV: Array<NavItem> = [
     },
     {
         label: "support",
-        Thing: <Button as="a" href='/support.html' target="_blank" rel="noopener noreferrer">Support</Button>
+        Thing: <Button as="a" href='https://power.aayanmaheshwari.com/support.html' target="_blank" rel="noopener noreferrer">Support</Button>
     },
 
     {
