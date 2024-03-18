@@ -16,7 +16,9 @@ export default function MoodleFull(props: getClassesProps) {
 
     const [courses, setCourses] = useState([])
     const [randkey, setRandKey] = useState(0)
-    const [curCourse, setCurCourse] = useState("")
+    const [curCourse, setCurCourse] = useState(
+        new URLSearchParams(window.location.search).get("course") ? new URLSearchParams(window.location.search).get("course") : ""
+    )
     const [courseData, setCourseData] = useState({})
     const getallcourses = async () => {
         // classData.forEach(element => {
@@ -136,17 +138,33 @@ export default function MoodleFull(props: getClassesProps) {
             })
         }
     }
+    function insertUrlParam(key: string, value: string) {
+        if (history.pushState) {
+            let searchParams = new URLSearchParams(window.location.search);
+            searchParams.set(key, value);
+            let newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + searchParams.toString();
+            window.history.pushState({ path: newurl }, '', newurl);
+        }
+    }
     useEffect(() => {
         setCourseData({})
         if (curCourse !== "") {
             runGetCourse(curCourse)
+            insertUrlParam("course", curCourse)
         }
+
+
     }, [curCourse])
 
     return (
         <>
             <Select
                 placeholder="Select a course"
+                value={
+                    courses.filter((course) => {
+                        return course.value === curCourse
+                    })[0]
+                }
                 onChange={(e) => setCurCourse(e.value)}
                 options={courses}
                 isSearchable={false}
