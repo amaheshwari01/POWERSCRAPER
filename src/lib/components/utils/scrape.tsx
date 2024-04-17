@@ -98,6 +98,7 @@ async function getOauth(refreshkey: string) {
   const oauth2response = await axios.request(modifiedOauth2Options); // get tokens so then we can send them to the powershcool api
   localStorage.setItem("oauth2response", JSON.stringify(oauth2response))
   localStorage.setItem("oauth2Expirey", String(new Date().getTime() + 348000))
+  console.log(oauth2response.data)
   return oauth2response
 }
 async function scrape(refreshkey: string, setWeights: any, toast: any): Promise<any> {

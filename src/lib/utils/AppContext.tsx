@@ -19,6 +19,7 @@ interface IAppContext {
   schedule: ScheduleData[];
   setSchedule: (data: ScheduleData[]) => void;
 
+
 }
 
 // Create the context with the initial state

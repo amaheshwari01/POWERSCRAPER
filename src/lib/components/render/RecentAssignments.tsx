@@ -56,7 +56,8 @@ const RecentAssignments = () => {
                             <Box paddingLeft={5}>
                                 <Stack spacing={2}>
                                     {RecentAssignment.map((oneAssignment: AssignmentArray) => (
-                                        <Assignment key={JSON.stringify(oneAssignment)} section_guid={""} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName + " " + oneAssignment.category} />
+                                        <Assignment setCurAssignment={null}
+                                            key={JSON.stringify(oneAssignment)} section_guid={""} assignment={oneAssignment.assignment} CustomText={oneAssignment.ClassName + " " + oneAssignment.category} />
                                     ))}
                                 </Stack>
 

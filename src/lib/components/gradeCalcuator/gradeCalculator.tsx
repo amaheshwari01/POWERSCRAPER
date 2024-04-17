@@ -52,6 +52,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
             includedInFinalGrade: true,
             attributeIncomplete: false,
             attributeDropped: false,
+            attributeEdited: true
 
         }
         ]

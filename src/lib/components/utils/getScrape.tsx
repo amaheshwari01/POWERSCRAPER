@@ -76,8 +76,11 @@ export default function Scraper() {
                 });
         }
     };
-    const handleData = async (plaindata: any) => {
+    const handleData = async (fetchData: any) => {
         // console.log("plaindata", plaindata)
+        const plaindata = checkForUpdates(fetchData)
+
+
         const data = dirtyFix(plaindata);
 
         await setDefault_data(data);
@@ -120,6 +123,51 @@ export default function Scraper() {
 
 
         console.log(data);
+        // 
+    }
+    const checkForUpdates = (data: any) => {
+        let new_assignments = []
+
+        if (localStorage.getItem("data")) {
+            const lastData = JSON.parse(localStorage.getItem("data"));
+            const oldAssignments = getAssignmentArray(lastData);
+            new_assignments = getAssignmentArray(data).filter((newAssignment: any) => {
+                return !oldAssignments.some((oldAssignment: any) => {
+                    return newAssignment.guid === oldAssignment.guid &&
+                        newAssignment.dueDate === oldAssignment.dueDate &&
+                        newAssignment.pointsPossible === oldAssignment.pointsPossible &&
+                        newAssignment.pointsEarned === oldAssignment.pointsEarned
+                })
+            }).map((assignment: any) => (assignment.guid))
+
+            console.log(new_assignments)
+
+
+        }
+        else {
+            new_assignments = getAssignmentArray(data).map((assignment: any) => (assignment.guid))
+            console.log(new_assignments)
+
+        }
+
+        localStorage.setItem("new|new_assignments", JSON.stringify(new_assignments))
+        return data;
+
+    }
+    const getAssignmentArray = (data: any) => {
+        let assignments = [];
+        try {
+            const sections = data.student.sections;
+            for (let i = 0; i < sections.length; i++) {
+                if (sections[i].assignments) {
+                    assignments = [...assignments, ...sections[i].assignments];
+                }
+            }
+        }
+        catch (error) {
+            console.log(error)
+        }
+        return assignments;
     }
 
     useEffect(() => {

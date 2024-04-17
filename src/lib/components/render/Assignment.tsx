@@ -22,6 +22,7 @@ import { useEffect } from 'react';
 interface AssignmentProps {
   assignment: AssignmentType;
   section_guid: string;
+  setCurAssignment: any;
   CustomText: string;
 }
 
@@ -35,7 +36,13 @@ const Assignment = (props: AssignmentProps) => {
   const { assignment } = props;
   return (
     <Box pl={4} pb={1}>
-      <Card boxShadow="xl" variant="filled" maxW="xl">
+      <Card boxShadow="xl" variant="filled" maxW="xl"
+      // onClick={() => {
+      //   props.setCurAssignment && props.setCurAssignment(assignment);
+
+
+      // }}
+      >
         <Flex px={3} pt={3}>
 
           <VStack alignItems={"left"} spacing={0}
@@ -106,6 +113,10 @@ const Tags = (props: TagProps) => {
 
         <SingleTag title="Late" color="red" />
 
+
+      )}
+      {assignment.attributeEdited && (
+        <SingleTag title="Edited" color="pink" />
 
       )}
       {assignment.attributeDropped && (

@@ -3,7 +3,9 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Button,
   HStack,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import DropAssignmentModal from './DropAssignmentModal';
@@ -11,6 +13,7 @@ import type { AssignmentType } from 'global';
 import AppContext from '~/lib/utils/AppContext';
 import { updateData } from '../utils/HelperFunctions';
 import Assignment from './Assignment';
+import EditAssignmentModal from './EditAssignmentModal';
 
 interface CategoriesProps {
   curterm: string;
@@ -23,6 +26,17 @@ interface CategoriesProps {
 
 const Categories = (props: CategoriesProps) => {
   const { data, setData, default_data } = useContext(AppContext);
+  const [curAssignment, setCurAssignment] = useState<AssignmentType>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useEffect(() => {
+    if (curAssignment) {
+      onOpen();
+    }
+  }, [curAssignment]);
+  const closeAssignment = () => {
+    setCurAssignment(null);
+    onClose();
+  }
   const section = data.data.student.sections.find(
     (section: any) => section.guid === props.section_guid
   );
@@ -55,27 +69,31 @@ const Categories = (props: CategoriesProps) => {
   }, [current_assignments]);
 
   return (
-    <AccordionItem key={`${props.section_guid} ${props.category}`}>
-      <HStack>
-        <AccordionButton>
-          <Box as="span" flex="1" textAlign="left">
-            {props.category}
-          </Box>
-          <Box as="span" flex="1">
-            Score :{catGrade ? <>{catGrade.toFixed(3)}%</> : 'N/A'}
-          </Box>
+    <>
+      <AccordionItem key={`${props.section_guid} ${props.category}`}>
+        <HStack>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              {props.category}
+            </Box>
+            <Box as="span" flex="1">
+              Score :{catGrade ? <>{catGrade.toFixed(3)}%</> : 'N/A'}
+            </Box>
 
-        </AccordionButton>
-        <DropAssignmentModal curTerm={props.curterm} current_assignments={current_assignments} section_guid={props.section_guid} category={props.category} SetCurrentAssignments={setCurrentAssignmets} />
-      </HStack>
-      <AccordionPanel pb={4} key={`${props.section_guid} ${props.category}`}>
-        {current_assignments.map((a: any, index: number) => (
-          <div key={`${a.name} ${index}`}>
-            <Assignment CustomText="" assignment={a} section_guid={props.section_guid} />
-          </div>
-        ))}
-      </AccordionPanel>
-    </AccordionItem>
+          </AccordionButton>
+
+          <DropAssignmentModal curTerm={props.curterm} current_assignments={current_assignments} section_guid={props.section_guid} category={props.category} SetCurrentAssignments={setCurrentAssignmets} />
+        </HStack>
+        <AccordionPanel pb={4} key={`${props.section_guid} ${props.category}`}>
+          {current_assignments.map((a: any, index: number) => (
+            <div key={`${a.name} ${index}`}>
+              <Assignment setCurAssignment={setCurAssignment} CustomText={a.teacherComment ? '"' + a.teacherComment + '"' : ""} assignment={a} section_guid={props.section_guid} />
+            </div>
+          ))}
+        </AccordionPanel>
+      </AccordionItem>
+      {curAssignment && <EditAssignmentModal isOpen={isOpen} onOpen={onOpen} onClose={closeAssignment} Assignment={curAssignment} section_guid={props.section_guid} />}
+    </>
   );
 };
 export default Categories;

@@ -18,6 +18,7 @@ export interface AssignmentType {
   includedInFinalGrade: boolean;
   attributeIncomplete: boolean;
   attributeDropped: boolean;
+  attributeEdited:boolean;
 }
 export interface ScheduleData {
     start: Date;
