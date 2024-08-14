@@ -47,6 +47,7 @@ export default function MoodleFull(props: getClassesProps) {
         localStorage.setItem("bdaymoodle", JSON.stringify(bdaymoodle))
 
     }
+    // const refreshMoodle = async () => {
 
     useEffect(() => {
         // console.log(classData)

@@ -3,7 +3,7 @@ import axios from "axios"
 import { getClasses } from "../../components/moodle/scrapehelper"
 import Login from "~/lib/components/moodle/login"
 import { Select } from "chakra-react-select"
-import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useToast } from "@chakra-ui/react"
+import { Box, Button, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spacer, useDisclosure, useToast } from "@chakra-ui/react"
 import MoodleFull from "~/lib/components/moodle/full"
 import { set } from "firebase/database"
 export default function Moodle() {
@@ -47,6 +47,26 @@ export default function Moodle() {
 
 
     }
+    const refreshMoodle = () => {
+        const oldPwd = localStorage.getItem("password")
+        const oldUser = localStorage.getItem("username")
+        localStorage.removeItem("username")
+        localStorage.removeItem("password")
+        localStorage.removeItem("cookies")
+        localStorage.removeItem("classData")
+        let keystoremove = []
+        for (let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if (key.startsWith('https')) {
+                keystoremove.push(key)
+            }
+        }
+        keystoremove.forEach((key) => {
+            localStorage.removeItem(key)
+        });
+        handleSubmit(oldUser, oldPwd)
+        window.location.reload();
+    }
     useEffect(() => {
         const username = localStorage.getItem("username")
         const password = localStorage.getItem("password")
@@ -82,7 +102,17 @@ export default function Moodle() {
                             </Button>
                             {/* </AbsoluteCenter> */}
                         </Box>}</> :
-                <MoodleFull classData={classData} />
+                <>
+                    <Flex direction="column" minHeight="100vh">
+                        <Box flex="1">
+                            {/* MoodleFull component will take the available space above the button */}
+                            <MoodleFull classData={classData} />
+                        </Box>
+                        <Button onClick={refreshMoodle} mb={4} alignSelf="center">
+                            Reset Moodle
+                        </Button>
+                    </Flex>
+                </>
             }
 
 
