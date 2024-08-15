@@ -2,8 +2,9 @@
   "name": "powerscraper",
   "version": "0.1.0",
   "private": true,
-  "author": "sozonome",
+  "author": "Aayan",
   "type": "module",
+  "packageManager": "pnpm@8.6.12",
   "scripts": {
     "dev": "vite",
     "build": "pnpm type-check && vite build",
