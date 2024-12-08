@@ -10,22 +10,26 @@ import Schedule from './schedule';
 
 const FullRender = () => {
   const { data } = useContext(AppContext);
+  const curyear = data.data.student.schools[0].schedulingTerms.find((term: any) => term.abbreviation.includes("-")).abbreviation
   const terms = data.data.student.schools[0].schedulingTerms.map(
     (term: any) => term.abbreviation
-  ).filter((item: any) => item !== "23-24");
+  ).filter((item: any) => item !== curyear);
+  // console.logn(new )
   //see which term the current date is in
   const curtermindex = data.data.student.schools[0].schedulingTerms.findIndex((term: any) => {
-    if (term.abbreviation === "23-24") {
+    if (term.abbreviation === curyear) {
+      console.log("found")
       return false
     }
     const start = new Date(term.startDate).getTime()
     const end = new Date(term.endDate).getTime()
     const cur = new Date().getTime()
-    // console.log(start, end, cur, term.abbreviation)
+    console.log(start, end, cur, term.abbreviation)
     // console.log(cur >= start && cur <= end)
 
     return cur >= start && cur <= end
   }) - 1
+  // console.log(data.data.student.schools[0].schedulingTerms)
 
 
   return (
