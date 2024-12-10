@@ -17,3 +17,7 @@ pnpm dev
 ```
 Then use [Key-Finder](https://github.com/amaheshwari01/Key-Finder/) to find your refresh token and paste it into the website
 
+To build for IOS
+```bash
+pnpm run build && npx cap copy && npx cap open ios
+```

@@ -109,7 +109,7 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                     </ModalHeader>
                     <ModalCloseButton />
                     {reverse ? <ModalBody>
-                        {/* <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
+                        <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
                             {cats.map((cat) => (<option key={cat} value={cat}>{cat + " " + curWeight[cat]}</option>))
 
                             }
@@ -126,8 +126,8 @@ const GradeCalculator = (props: GradeCalculatorProps) => {
                                 </NumberInput>
                             </VStack>
                         </Center>
-                        <Text>Points Needed: {calculatedPoints ? calculatedPoints.toFixed(2) : "N/A"}</Text> */}
-                        <Text>Reverse Calculation is currently disabled due to some bugs, will be fixed as soon as possible! </Text>
+                        <Text>Points Needed: {calculatedPoints ? calculatedPoints.toFixed(2) : "N/A"}</Text>
+                        {/* <Text>Reverse Calculation is currently disabled due to some bugs, will be fixed as soon as possible! </Text> */}
                     </ModalBody> :
                         <ModalBody>
                             <Select onChange={(e) => { setSelectedCat(e.target.value) }} placeholder='Select Category'>
