@@ -36,6 +36,25 @@ export default function dirtyFix(data: any) {
                 }
             }
         }
+        if (section.name === "Calculus (H)" && section.teacherLastName === "Lee") {
+            // console.log("found section")
+            let assignment: any;
+            for (assignment in section.assignments) {
+                assignment = section.assignments[assignment];
+                if (assignment.title === "Ch2 Test" && assignment.pointsPossible !== 62.5) {
+                    assignment.pointsEarned *= 2.5;
+                    assignment.pointsPossible *= 2.5;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+                if (assignment.title === "Ch1 Test" && assignment.pointsPossible !== 46) {
+                    assignment.pointsEarned *= 2;
+                    assignment.pointsPossible *= 2;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+            }
+        }
     }
     return updatedData;
 }
