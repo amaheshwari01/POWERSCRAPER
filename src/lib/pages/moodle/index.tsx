@@ -16,6 +16,7 @@ export default function Moodle() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const handleSubmit = async (username, password) => {
+        username = username.split("@")[0]
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
         setShowButton(false)

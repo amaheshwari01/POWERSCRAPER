@@ -36,6 +36,42 @@ export default function dirtyFix(data: any) {
                 }
             }
         }
+
+        if (section.name === "AP Physics C: E&M" && section.teacherLastName === "Naumann") {
+            // console.log("found section")
+            let assignment: any;
+            for (assignment in section.assignments) {
+                assignment = section.assignments[assignment];
+                if (assignment.title === "FRQ portfolio" && assignment.pointsPossible !== 40.5) {
+                    assignment.pointsEarned *= 0.27;
+                    assignment.pointsPossible *= 0.27;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+                if (assignment.title === "Earth's magnetic field lab" && assignment.pointsPossible !== 30) {
+                    assignment.pointsEarned *= 0.75;
+                    assignment.pointsPossible *= 0.75;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+                if (assignment.title === "Unit 10 Test (Magnetism)" && assignment.pointsPossible !== 39.2) {
+                    assignment.pointsEarned *= 1.4;
+                    assignment.pointsPossible *= 1.4;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+                if (assignment.title === "Capacitance lab" && assignment.pointsPossible !== 24) {
+                    assignment.pointsEarned *= 1.5;
+                    assignment.pointsPossible *= 1.5;
+                    assignment.pointsEarned = Math.round(assignment.pointsEarned * 100) / 100
+                    assignment.pointsPossible = Math.round(assignment.pointsPossible * 100) / 100
+                }
+
+
+            }
+        }
+
+
         if (section.name === "Calculus (H)" && section.teacherLastName === "Lee") {
             // console.log("found section")
             let assignment: any;
